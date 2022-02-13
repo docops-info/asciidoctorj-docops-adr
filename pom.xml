@@ -4,7 +4,7 @@
 
     <groupId>io.docops</groupId>
     <artifactId>asciidoctorj-docops-adr</artifactId>
-    <version>2022.0-SNAPSHOT</version>
+    <version>2022.0</version>
     <packaging>jar</packaging>
 
     <name>adr</name>
