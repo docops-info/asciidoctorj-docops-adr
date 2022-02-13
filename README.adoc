@@ -1,0 +1,43 @@
+
+== Current Version: 2020.0
+
+== Maven
+----
+<dependency>
+  <groupId>io.docops</groupId>
+  <artifactId>asciidoctorj-docops-adr</artifactId>
+  <version>2022.0</version>
+</dependency>
+----
+
+== Gradle
+----
+implementation("io.docops:asciidoctorj-docops-adr:2022.0")
+----
+----
+implementation 'io.docops:asciidoctorj-docops-adr:2022.0'
+----
+
+== Source
+
+link:https://github.com/docops-info/asciidoctorj-docops-adr[]
+
+== Download
+
+link:https://search.maven.org/remotecontent?filepath=io/docops/asciidoctorj-docops-adr/2022.0/asciidoctorj-docops-adr-2022.0.jar[asciidoctorj-docops-adr-2022.0.jar] [small]#link:https://repo1.maven.org/maven2/io/docops/asciidoctorj-docops-adr/2022.0/asciidoctorj-docops-adr-2022.0.jar.asc[[gpg sig\]]#
+
+
+== Document
+
+link:https://docops.io/asciidoctorj-docops-adr/asciidoctorj-docops-adr.html[Architectural Decision Record (ADR) Extension]
+
+== History
+
+2022.0 - 2022-02-13::
+Initial release to Maven Central.  Renders base Architectural Decision Record (ADR).
+
+== docops.io
+
+We are a group of product developers that have been challenged multiple times to unravel the task of large scale, multi-audience documentation.  We are developing a series of tools and services to lower the barriers of DocOps at any scale.  Often leveraging other open source projects from other amazing teams and fantastic engineers, we are developing the best documentation experience we can.
+
+link:https://docops.io/[docops.io]

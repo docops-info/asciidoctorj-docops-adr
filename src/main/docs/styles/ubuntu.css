@@ -1,0 +1,102 @@
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+
+@import url(//fonts.googleapis.com/css?family=Ubuntu);
+@import url(//asciidoctor.org/stylesheets/asciidoctor.css); /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+
+:root{
+    --maincolor:#FFFFFF;
+    --primarycolor:#E95420;
+    --secondarycolor: #999797;
+    --tertiarycolor: #772953;
+    --sidebarbackground:#CCC;
+    --linkcolor:#b71c1c;
+    --linkcoloralternate:#f44336;
+    --white:#FFFFFF;
+    --black:#000000;
+}
+
+/* Text styles */
+body{font-family: "Ubuntu",sans-serif;}
+
+h1,h2{color:var(--primarycolor) !important;font-family:"Ubuntu",sans-serif;}
+h3,h4,h5,h6{color:var(--secondarycolor);font-family: "Ubuntu",sans-serif;}
+.title{color:(--primarycolor) !important;font-family:"Ubuntu",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Ubuntu",sans-serif ! important}
+#toc.toc2 a:link{color:white;}
+code{background-color: var(--secondarycolor) !important;color:var(--white)}
+
+
+/* Table styles */
+th{background-color: var(--tertiarycolor);color:var(--white) !important;}
+
+#toc.toc2{background-color:#2C001E;color:white;}
+#toc.toc2.a{color:white;}
+#toctitle{color:#E95420;}
+
+
+
+.highlight.pygments .lineno, table.pyhltable td:not(.code) { color: #999; padding-left: 0; padding-right: .5em; border-right: 1px solid #dddddd; }
+
+.highlight.pygments .lineno { display: inline-block; margin-right: .25em; }
+
+/** Correct font family set oddly in Safari 5 and Chrome. */
+code, kbd, pre, samp { font-family: monospace, serif; font-size: 1em; }
+code { font-family: "Consolas", "Deja Vu Sans Mono", "Bitstream Vera Sans Mono", monospace; font-weight: normal; color: #444444; }
+*:not(pre) > code { font-size: 0.95em; padding: 0; white-space: nowrap; background-color: #f2f2f2; border: 0 solid #dddddd; -webkit-border-radius: 6px; border-radius: 6px; text-shadow: none; }
+
+pre, pre > code { line-height: 1.2; color: inherit; font-family: "Consolas", "Deja Vu Sans Mono", "Bitstream Vera Sans Mono", monospace; font-weight: normal; }
+
+p a > code:hover { color: #373737; }
+.literalblock > .content pre, .listingblock > .content pre { background: #eeeeee; border-width: 1px; border-style: solid; border-color: #cccccc; -webkit-border-radius: 6px; border-radius: 6px; padding: 0.5em; word-wrap: break-word; }
+.literalblock > .content pre.nowrap, .listingblock > .content pre.nowrap { overflow-x: auto; white-space: pre; word-wrap: normal; }
+.literalblock > .content pre > code, .listingblock > .content pre > code { display: block; }
+@media only screen { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.76em; } }
+@media only screen and (min-width: 768px) { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.855em; } }
+@media only screen and (min-width: 1280px) { .literalblock > .content pre, .listingblock > .content pre { font-size: 0.95em; } }
+
+
+
+.listingblock > .content { position: relative; }
+
+.listingblock:hover code[class*=" language-"]:before { text-transform: uppercase; font-size: 0.9em; color: #999; position: absolute; top: 0.375em; right: 0.375em; }
+
+.listingblock:hover code.asciidoc:before { content: "asciidoc"; }
+.listingblock:hover code.clojure:before { content: "clojure"; }
+.listingblock:hover code.css:before { content: "css"; }
+.listingblock:hover code.groovy:before { content: "groovy"; }
+.listingblock:hover code.html:before { content: "html"; }
+.listingblock:hover code.java:before { content: "java"; }
+.listingblock:hover code.javascript:before { content: "javascript"; }
+.listingblock:hover code.python:before { content: "python"; }
+.listingblock:hover code.ruby:before { content: "ruby"; }
+.listingblock:hover code.scss:before { content: "scss"; }
+.listingblock:hover code.xml:before { content: "xml"; }
+.listingblock:hover code.yaml:before { content: "yaml"; }
+
+.listingblock.terminal pre .command:before { content: attr(data-prompt); padding-right: 0.5em; color: #999; }
+
+.listingblock.terminal pre .command:not([data-prompt]):before { content: '$'; }
+
+table.pyhltable { border: 0; margin-bottom: 0; }
+
+table.pyhltable td { vertical-align: top; padding-top: 0; padding-bottom: 0; }
+
+table.pyhltable td.code { padding-left: .75em; padding-right: 0; }
+
+.highlight.pygments .lineno, table.pyhltable td:not(.code) { color: #999; padding-left: 0; padding-right: .5em; border-right: 1px solid #dddddd; }
+
+.highlight.pygments .lineno { display: inline-block; margin-right: .25em; }
+
+table.pyhltable .linenodiv { background-color: transparent !important; padding-right: 0 !important; }
+
+
+@media all and (max-width: 600px) {
+    table {
+        width: 55vw !important;
+        font-size: 3vw;
+    }
+}
+

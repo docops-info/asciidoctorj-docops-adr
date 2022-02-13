@@ -1,0 +1,66 @@
+= DocOps.io AsciiDoctorJ Architecture Decision Record(ARD)
+Steve D Roach
+:email: sroachst@gmail.com
+:stylesdir: styles
+:stylesheet: ubuntu.css
+:toc: left
+:sectnums:
+:title-page:
+:source-highlighter: highlightjs
+:nofooter:
+:imagesdir: images
+
+== What is it?
+
+An Architectural Decision (AD) is a software design choice that addresses a functional or non-functional requirement that is architecturally significant.
+https://adr.github.io[ADR]
+
+== How to use?
+
+[source,asciidoc]
+====
+    [adr,test2,border=false] <1> <2> <3>
+    ----
+    include::123.adr[] <4>
+    ----
+====
+
+<1> adr - name of the extenstion
+<2> test2 - name of the generated file
+<3> border -> use shadowed border or not
+<4> file that contains the adr format
+
+
+=== ADR Format
+
+* Using colons as separators for the file layout.
+....
+Title:Arch decision Title <1>
+Date: November 24th, 2010 <2>
+Status: Proposed <3>
+Context: Setting the context here <4>
+Consequences: What are the consequences of the decision <5>
+....
+
+<1> Title for the record
+<2> Date for the record
+<3> Status can be 1 of (Proposed, Accepted, Superseded, Deprecated, Rejected)
+<4> Context
+<5> Consequences
+
+=== First Example
+
+- Contents of 123.adr
+
+
+....
+include::123.adr[]
+....
+
+
+=== Resulting ADR
+
+[adr,test3,border=true]
+----
+include::123.adr[]
+----
