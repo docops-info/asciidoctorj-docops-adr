@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="970" height="720"
-     viewBox="0 0 1000 750">
+<svg xmlns="http://www.w3.org/2000/svg" width="970" height="750"
+     viewBox="0 0 1000 780">
     <filter id="dropShadow" height="130%">
         <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
         <feOffset dx="5" dy="5" result="offsetblur"/>
@@ -93,6 +93,8 @@
     </text>
     <line x1="20" y1="545" x2="970" y2="545" stroke="#8B8B90" />    <text x="20" y="670">
 <tspan class="status">Participants</tspan>
-</text>
+
+        <tspan x="20" dy="30" class="content">Roach,Rose,Duffy </tspan>
+    </text>
     <line x1="20" y1="675" x2="970" y2="675" stroke="#8B8B90" />
     </svg>

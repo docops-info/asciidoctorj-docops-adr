@@ -2,7 +2,7 @@
 Steve D Roach
 :email: sroachst@gmail.com
 :stylesdir: styles
-:stylesheet: ubuntu.css
+:stylesheet: foundation.css
 :toc: left
 :sectnums:
 :title-page:
@@ -40,6 +40,7 @@ Date: November 24th, 2010 <2>
 Status: Proposed <3>
 Context: Setting the context here <4>
 Consequences: What are the consequences of the decision <5>
+Participants: Architect,Engineer <6>
 ....
 
 <1> Title for the record
@@ -47,6 +48,7 @@ Consequences: What are the consequences of the decision <5>
 <3> Status can be 1 of (Proposed, Accepted, Superseded, Deprecated, Rejected)
 <4> Context
 <5> Consequences
+<6> Participants (optional)
 
 === First Example
 
