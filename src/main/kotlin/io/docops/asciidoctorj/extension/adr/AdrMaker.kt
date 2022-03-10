@@ -32,7 +32,9 @@ class AdrMaker {
         sb.append(makeDecision(adr = adr, startY))
         startY += (adr.decision.size * 30) + 40
         sb.append(makeConsequences(adr = adr, startY))
-        startY += (adr.consequences.size * 30) + 50
+        startY += (adr.consequences.size * 30) + 40
+        sb.append(makeParticipants(adr=adr, startY))
+        startY += (adr.participants.size * 30) + 50
         return svg(sb.toString(), startY, dropShadow)
     }
 
@@ -123,6 +125,24 @@ class AdrMaker {
         text += """</text>
             <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
         """
+        return text.trimIndent()
+    }
+    private fun makeParticipants(adr: Adr, startY: Int) : String{
+        var text = ""
+        if (adr.participants.size>0) {
+         text += """
+            <text x="20" y="$startY">
+        <tspan class="status">Participants</tspan>
+        """
+        adr.participants.forEach {
+            text += """
+                <tspan x="20" dy="30" class="content">$it</tspan>
+            """
+        }
+        text += """</text>
+            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
+        """
+        }
         return text.trimIndent()
     }
     fun svg(body: String, height: Int = 550, dropShadow: Boolean): String {

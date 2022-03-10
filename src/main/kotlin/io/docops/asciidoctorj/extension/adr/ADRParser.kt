@@ -57,16 +57,20 @@ class ADRParser {
         val context = mapContext(map, config)
         val decision = mapDecision(map, config)
         val consequences = mapConsequences(map, config)
+        val participants = mapParticipants(map, config)
         return Adr(
             title = title,
             date = date,
             status = status,
             context = context,
             decision = decision,
-            consequences = consequences
+            consequences = consequences,
+            participants = participants
         )
 
     }
+
+
 
     private fun mapTitle(map: MutableMap<String, MutableList<String>>): String {
         val title = map["TITLE"]
@@ -117,6 +121,14 @@ class ADRParser {
         require(consequences != null) { "Invalid syntax consequences not found" }
         val list = mutableListOf<String>()
         consequences.forEach {
+            list.addAll(it.addLinebreaks(config.lineSize))
+        }
+        return list
+    }
+    private fun mapParticipants(map: MutableMap<String, MutableList<String>>, config: AdrParserConfig): MutableList<String> {
+        val parts = map["PARTICIPANTS"]
+        val list = mutableListOf<String>()
+        parts?.forEach {
             list.addAll(it.addLinebreaks(config.lineSize))
         }
         return list

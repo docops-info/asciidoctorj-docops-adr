@@ -24,6 +24,7 @@ data class Adr (
     var context: List<String> = emptyList(),
     var decision: List<String> = emptyList(),
     var consequences: List<String> = emptyList(),
+    var participants: List<String> = emptyList()
 )
 {
     fun statusClass(status: Status, current: String): String {
