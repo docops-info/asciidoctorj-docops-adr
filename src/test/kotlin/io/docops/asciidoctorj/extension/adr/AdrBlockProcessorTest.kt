@@ -27,11 +27,15 @@ internal class AdrBlockProcessorTest {
     @Test
     fun genDoc() {
         val attrs = Attributes.builder()
-            .sourceHighlighter("highlightjs")
+            .sourceHighlighter("coderay")
             .allowUriRead(true)
             .dataUri(true)
             .copyCss(true)
             .noFooter(true)
+            .attribute("coderay-css", "class")
+            .attribute("coderay-linenums-mode", "inline")
+            .attribute("feedback")
+            .attribute("tocbot")
             .build()
 
         val asciidoctor = Asciidoctor.Factory.create()

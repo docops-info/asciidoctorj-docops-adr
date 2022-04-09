@@ -2,7 +2,7 @@
 Steve D Roach
 :email: sroachst@gmail.com
 :stylesdir: styles
-:stylesheet: foundation.css
+:stylesheet: asciidoctor.css
 :toc: left
 :sectnums:
 :title-page:
@@ -18,12 +18,12 @@ https://adr.github.io[ADR]
 == How to use?
 
 [source,asciidoc]
-====
-    [adr,test2,border=false] <1> <2> <3>
-    ----
-    include::123.adr[] <4>
-    ----
-====
+-----
+[adr,test2,border=false] <1> <2> <3>
+----
+include::123.adr[] <4>
+----
+-----
 
 <1> adr - name of the extenstion
 <2> test2 - name of the generated file
