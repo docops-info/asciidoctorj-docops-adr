@@ -39,13 +39,14 @@ class AdrMaker {
     }
 
     private fun makeTitle(title: String): String {
+        // language=svg
         return """
      <text x="485" y="40" class="title" text-anchor="middle">$title</text>
      <line x1="20" y1="45" x2="970" y2="45" stroke="#8B8B90" />
     """.trimIndent()
     }
     private fun makeButtons(adr: Adr): String {
-
+        // language=svg
         return """
      <g>
         <rect x="90" y="55" fill="#568BBF" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Proposed")}"/>
@@ -70,6 +71,7 @@ class AdrMaker {
         """.trimIndent()
     }
     private fun makeDateAndStatus(adr: Adr): String {
+        // language=svg
         return """
     <text x="20" y="110" class="contextline">
         <tspan>Date: </tspan>
@@ -84,15 +86,18 @@ class AdrMaker {
     }
 
     private fun makeContext(adr: Adr, startY: Int ) : String {
+        // language=svg
         var text = """
              <text x="20" y="$startY">
              <tspan class="status">Context</tspan>"""
 
         adr.context.forEach {
+            // language=svg
            text += """
                <tspan x="20" dy="30" class="content">${it.trim()}</tspan>
             """
         }
+        // language=svg
         text += """</text>
             <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
         """
@@ -100,45 +105,55 @@ class AdrMaker {
     }
 
     private fun makeDecision(adr: Adr, startY: Int): String {
+        // language=svg
         var text = """
             <text x="20" y="$startY">
             <tspan class="status">Decision</tspan>
         """
+        // language=svg
         adr.decision.forEach {
             text += """<tspan x="20" dy="30" class="content">$it</tspan>"""
         }
+        // language=svg
         text += """</text>
             <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
         """
         return text.trimIndent()
     }
     private fun makeConsequences(adr: Adr, startY: Int) : String {
+        // language=svg
         var text = """
             <text x="20" y="$startY">
         <tspan class="status">Consequences</tspan>
         """
+        // language=svg
         adr.consequences.forEach {
             text += """
                 <tspan x="20" dy="30" class="content">$it</tspan>
             """
         }
+        // language=svg
         text += """</text>
             <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
         """
         return text.trimIndent()
     }
     private fun makeParticipants(adr: Adr, startY: Int) : String{
+        // language=svg
         var text = ""
-        if (adr.participants.size>0) {
+        if (adr.participants.isNotEmpty()) {
+            // language=svg
          text += """
             <text x="20" y="$startY">
         <tspan class="status">Participants</tspan>
         """
         adr.participants.forEach {
+            // language=svg
             text += """
                 <tspan x="20" dy="30" class="content">$it</tspan>
             """
         }
+        // language=svg
         text += """</text>
             <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
         """
@@ -150,6 +165,7 @@ class AdrMaker {
         if(dropShadow) {
             filter = """filter="url(#dropShadow)""""
         }
+        // language=svg
         return """
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="$height"
@@ -194,6 +210,6 @@ class AdrMaker {
     <rect id="myRect" x="10" y="0" width="970" height="97%" rx="5" ry="5"  fill="#fffefa"  class="card" $filter/>
     $body
     </svg>
-        """.trimIndent()
+    """.trimIndent()
     }
 }

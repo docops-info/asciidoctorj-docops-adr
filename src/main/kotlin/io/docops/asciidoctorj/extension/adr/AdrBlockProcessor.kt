@@ -67,6 +67,7 @@ class AdrBlockProcessor : BlockProcessor() {
     private fun errorReport(msg: String?, config: AdrParserConfig): String {
         msg?.let {
             val lines = msg.addLinebreaks(config.lineSize)
+            // language=svg
             var svg = """
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="550"
@@ -97,6 +98,7 @@ class AdrBlockProcessor : BlockProcessor() {
  <text y="60">
                 """
             lines.forEach {
+                // language=svg
                 svg += """
 <tspan x="20" dy="14" class="content">$it</tspan>
                     """
