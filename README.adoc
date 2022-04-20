@@ -7,8 +7,9 @@
 :minor: .2
 :patch:
 :build:
-//:extention:
-:extention: -SNAPSHOT
+:extention:
+//:extention: -SNAPSHOT
+
 == Maven
 
 [subs="+attributes"]
@@ -44,6 +45,9 @@ link:https://search.maven.org/remotecontent?filepath=io/docops/{artifact}/{major
 link:build/docs/adr.html[{artifact}.html
 
 == History
+
+2022.2 - 2022-04-20::
+Security and currency
 
 2022.1 - 2022-03-11::
 Added participants
