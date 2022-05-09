@@ -17,14 +17,15 @@
 package io.docops.asciidoctorj.extension.adr.model
 
 
-data class Adr (
+data class Adr(
     val title: String = "",
-    val date: String= "",
+    val date: String = "",
     var status: Status = Status.Rejected,
     var context: List<String> = emptyList(),
     var decision: List<String> = emptyList(),
     var consequences: List<String> = emptyList(),
-    var participants: List<String> = emptyList()
+    var participants: List<String> = emptyList(),
+    val urlMap: MutableMap<Int, String>
 )
 {
     fun statusClass(status: Status, current: String): String {

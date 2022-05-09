@@ -28,15 +28,17 @@ class ADRParser {
         val lines = content.lines()
         val m = mutableMapOf<String, MutableList<String>>()
         var value = mutableListOf<String>()
+        val urlMap = mutableMapOf<Int, String>()
         var currKey = ""
-        lines.forEach { line ->
+        lines.forEach { aline ->
+            val line = aline.makeUrl(urlMap)
             val key: String
             if (line.contains(":")) {
                 if (currKey.isNotEmpty()) {
                     m[currKey.uppercase()] = value
                 }
                 value = mutableListOf<String>()
-                val split = line.split(":")
+                val split = line.split(":", limit = 2)
                 key = split[0].trim()
                 currKey = key
                 value.add(split[1])
@@ -47,10 +49,14 @@ class ADRParser {
         if (!m.containsKey(currKey)) {
             m[currKey.uppercase()] = value
         }
-        return mapToAdr(m, config)
+        return mapToAdr(m, config, urlMap)
     }
 
-    private fun mapToAdr(map: MutableMap<String, MutableList<String>>, config: AdrParserConfig): Adr {
+    private fun mapToAdr(
+        map: MutableMap<String, MutableList<String>>,
+        config: AdrParserConfig,
+        urlMap: MutableMap<Int, String>
+    ): Adr {
         val title = mapTitle(map)
         val date = mapDate(map)
         val status = mapStatus(map)
@@ -65,7 +71,8 @@ class ADRParser {
             context = context,
             decision = decision,
             consequences = consequences,
-            participants = participants
+            participants = participants,
+            urlMap = urlMap
         )
 
     }
@@ -144,7 +151,6 @@ inline fun <reified T : Enum<T>> enumContains(name: String): Boolean {
 
 fun String.addLinebreaks(maxLineLength: Int): MutableList<String> {
     val list = mutableListOf<String>()
-
     val tok = StringTokenizer(this, " ")
     var output = String()
     var lineLen = 0
@@ -164,6 +170,23 @@ fun String.addLinebreaks(maxLineLength: Int): MutableList<String> {
     return list
 }
 
+fun String.makeUrl(urlMap: MutableMap<Int, String>): String{
+        var key = 0
+        val maxEntry = urlMap.maxByOrNull { it.key }
+        maxEntry?.let {
+            key = it.key
+        }
+
+    if(this.contains("[[") && this.contains("]]")) {
+        val result = this.substringAfter("[[").substringBefore("]]")
+        val sp = result.split(" ")
+        val url ="<tspan text-anchor=\"middle\"><a href=\"${sp[0]}\">&lt;${sp[1]}&gt;</a></tspan>"
+        urlMap[key+1] = url
+        return this.replace("[[$result]]", "_${key+1}_")
+    }
+    return this
+
+}
 fun main() {
     val adr = ADRParser().parse(
         // language=text
@@ -174,7 +197,7 @@ fun main() {
         Context:There is a need of having an API exposed which can be used to search structured data.
          The Data currently resides in RDBMS, it is difficult to expose micro-service directly
          querying out of RDBMS databases since the application runs out of the same environment.
-         There are options like Elastic Search and Solr where data can be replicated. These solutions provide out of the box capabilities
+         There are options like Elastic Search and [[https://solr.apache.org/ Solr]] where data can be replicated. These solutions provide out of the box capabilities
          that can be leveraged by developers without needed to build RESTful or GraphQL type APIs.
          Decision:Use Solr for data indexing. This use is because Solr has high performance throughput with large volume of data.
          Unstructured data can also be supported.
@@ -184,7 +207,10 @@ fun main() {
          Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
         """.trimIndent()
     )
-    val svg =(AdrMaker().makeAdrSvg(adr))
+    var svg =(AdrMaker().makeAdrSvg(adr))
+    adr.urlMap.forEach { (t, u) ->
+        svg = svg.replace("_${t}_", u)
+    }
     val f = File("src/test/resources/test.svg")
     f.writeBytes(svg.toByteArray())
 }

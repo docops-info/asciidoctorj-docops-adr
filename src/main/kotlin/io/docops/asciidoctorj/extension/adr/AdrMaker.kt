@@ -166,6 +166,7 @@ class AdrMaker {
             filter = """filter="url(#dropShadow)""""
         }
         // language=svg
+        //language=svg
         return """
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="$height"
@@ -182,6 +183,7 @@ class AdrMaker {
         </feMerge>
     </filter>
     <style>
+        @namespace svg url(http://www.w3.org/2000/svg);
         .title {
             font: bold 36px "Noto Sans",sans-serif;
             fill: #28293D;
@@ -205,6 +207,19 @@ class AdrMaker {
         }
         .unselected {
             opacity: 0.4;
+        }
+        svg|a:link, svg|a:visited {
+            cursor: pointer;
+        }
+
+        svg|a text,
+        text svg|a {
+            fill: blue; /* Even for text, SVG uses fill over color */
+            text-decoration: underline;
+        }
+
+        svg|a:hover, svg|a:active {
+            outline: dotted 1px blue;
         }
     </style>
     <rect id="myRect" x="10" y="0" width="970" height="97%" rx="5" ry="5"  fill="#fffefa"  class="card" $filter/>

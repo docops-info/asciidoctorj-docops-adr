@@ -37,7 +37,11 @@ class AdrBlockProcessor : BlockProcessor() {
         val imgSrc = try {
             val adr = parser.parse(content = content, config = config)
             val adrMaker = AdrMaker()
-            adrMaker.makeAdrSvg(adr, border.toBoolean())
+            var srcStr = adrMaker.makeAdrSvg(adr, border.toBoolean())
+            adr.urlMap.forEach { (t, u) ->
+                srcStr = srcStr.replace("_${t}_", u)
+            }
+            srcStr
         } catch (e: Exception) {
             errorReport(e.message, config = config)
         }
@@ -68,7 +72,7 @@ class AdrBlockProcessor : BlockProcessor() {
         msg?.let {
             val lines = msg.addLinebreaks(config.lineSize)
             // language=svg
-            var svg = """
+            var svg = """ 
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="550"
  viewBox="0 0 1000 550">
