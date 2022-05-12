@@ -1,5 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="720"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 1000 750">
     <filter id="dropShadow" height="130%">
         <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
@@ -89,7 +90,7 @@
 
    <tspan x="20" dy="30" class="content">querying out of RDBMS databases since the application runs out of the same environment.</tspan>
 
-   <tspan x="20" dy="30" class="content">There are options like Elastic Search and <tspan text-anchor="middle"><a href="https://solr.apache.org/">Solr</a></tspan> where data can be replicated. These solutions provide out of the box capabilities</tspan>
+   <tspan x="20" dy="30" class="content">There are options like Elastic Search and <tspan text-anchor="middle"><a xlink:href="https://solr.apache.org/" target="_blank">Solr</a></tspan> where data can be replicated. These solutions provide out of the box capabilities</tspan>
 
    <tspan x="20" dy="30" class="content">that can be leveraged by developers without needed to build RESTful or GraphQL type APIs.</tspan>
 </text>
@@ -99,7 +100,7 @@
     <line x1="20" y1="415" x2="970" y2="415" stroke="#8B8B90" />    <text x="20" y="540">
 <tspan class="status">Consequences</tspan>
 
-        <tspan x="20" dy="30" class="content">Data Needs to be replicated across the solr cloud instances. </tspan>
+        <tspan x="20" dy="30" class="content">Data in <tspan text-anchor="middle"><a xlink:href="https://solr.apache.org/" target="_blank">Solr</a></tspan> Needs to be replicated across the solr cloud instances. </tspan>
     
         <tspan x="20" dy="30" class="content">This Solr cloud needs maintenance. </tspan>
     

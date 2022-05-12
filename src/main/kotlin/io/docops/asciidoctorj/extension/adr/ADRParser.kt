@@ -202,7 +202,7 @@ fun main() {
          Decision:Use Solr for data indexing. This use is because Solr has high performance throughput with large volume of data.
          Unstructured data can also be supported.
          If this decision does not meet the need then additional PoC will be created.
-         Consequences:Data Needs to be replicated across the solr cloud instances.
+         Consequences:Data in [[https://solr.apache.org/ Solr]] Needs to be replicated across the solr cloud instances.
          This Solr cloud needs maintenance.
          Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
         """.trimIndent()
