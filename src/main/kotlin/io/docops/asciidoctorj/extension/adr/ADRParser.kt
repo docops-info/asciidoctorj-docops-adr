@@ -180,7 +180,7 @@ fun String.makeUrl(urlMap: MutableMap<Int, String>): String{
     if(this.contains("[[") && this.contains("]]")) {
         val result = this.substringAfter("[[").substringBefore("]]")
         val sp = result.split(" ")
-        val url ="<tspan text-anchor=\"middle\"><a href=\"${sp[0]}\">${sp[1]}</a></tspan>"
+        val url ="<tspan text-anchor=\"middle\"><a xlink:href=\"${sp[0]}\" target=\"_blank\">${sp[1]}</a></tspan>"
         urlMap[key+1] = url
         return this.replace("[[$result]]", "_${key+1}_")
     }

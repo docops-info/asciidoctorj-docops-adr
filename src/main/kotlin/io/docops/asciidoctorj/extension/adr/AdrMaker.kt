@@ -166,10 +166,10 @@ class AdrMaker {
             filter = """filter="url(#dropShadow)""""
         }
         // language=svg
-        //language=svg
         return """
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="$height"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
      viewBox="0 0 1000 ${height+30}">
     <filter id="dropShadow" height="130%">
         <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
