@@ -180,13 +180,21 @@ fun String.makeUrl(urlMap: MutableMap<Int, String>): String{
     if(this.contains("[[") && this.contains("]]")) {
         val result = this.substringAfter("[[").substringBefore("]]")
         val sp = result.split(" ")
-        val url ="<tspan text-anchor=\"middle\"><a xlink:href=\"${sp[0]}\" target=\"_blank\">${sp[1]}</a></tspan>"
+        val str = StringBuilder()
+        for(i in 1..sp.size-1) {
+            str.append(sp[i])
+            if(i<sp.size-1) {
+                str.append(" ")
+            }
+        }
+        val url ="<tspan text-anchor=\"middle\"><a href=\"${sp[0]}\" xlink:href=\"${sp[0]}\" target=\"_blank\">${str}</a></tspan>"
         urlMap[key+1] = url
         return this.replace("[[$result]]", "_${key+1}_")
     }
     return this
 
 }
+
 fun main() {
     val adr = ADRParser().parse(
         // language=text
@@ -197,7 +205,7 @@ fun main() {
         Context:There is a need of having an API exposed which can be used to search structured data.
          The Data currently resides in RDBMS, it is difficult to expose micro-service directly
          querying out of RDBMS databases since the application runs out of the same environment.
-         There are options like Elastic Search and [[https://solr.apache.org/ Solr]] where data can be replicated. These solutions provide out of the box capabilities
+         There are options like Elastic Search and [[https://solr.apache.org/ Solr Rocks]] where data can be replicated. These solutions provide out of the box capabilities
          that can be leveraged by developers without needed to build RESTful or GraphQL type APIs.
          Decision:Use Solr for data indexing. This use is because Solr has high performance throughput with large volume of data.
          Unstructured data can also be supported.
