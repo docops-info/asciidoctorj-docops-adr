@@ -7,8 +7,8 @@
 :minor: .5
 :patch:
 :build:
-//:extension:
-:extension: -SNAPSHOT
+:extension:
+//:extension: -SNAPSHOT
 
 == Maven
 
@@ -45,6 +45,9 @@ link:https://search.maven.org/remotecontent?filepath=io/docops/{artifact}/{major
 link:build/docs/adr.html[{artifact}.html
 
 == History
+
+2022.5 - 2022-05-20::
+Link label supports spaces
 
 2022.4 - 2022-05-16::
 Not a bug fix - "link improvement"
