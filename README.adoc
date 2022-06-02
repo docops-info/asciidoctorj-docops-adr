@@ -7,8 +7,8 @@
 :minor: .6
 :patch:
 :build:
-//:extension:
-:extension: -SNAPSHOT
+:extension:
+//:extension: -SNAPSHOT
 
 == Maven
 
@@ -45,6 +45,9 @@ link:https://search.maven.org/remotecontent?filepath=io/docops/{artifact}/{major
 link:build/docs/adr.html[{artifact}.html
 
 == History
+
+2022.6 - 2022-06-02::
+Multiple links per line
 
 2022.5 - 2022-05-20::
 Link label supports spaces
