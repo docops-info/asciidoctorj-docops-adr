@@ -90,9 +90,9 @@
 
    <tspan x="20" dy="30" class="content">querying out of RDBMS databases since the application runs out of the same environment.</tspan>
 
-   <tspan x="20" dy="30" class="content">There are options like Elastic Search and <tspan text-anchor="middle"><a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" target="_blank">Solr Rocks</a></tspan> where data can be replicated. These solutions provide out of the box capabilities</tspan>
+   <tspan x="20" dy="30" class="content">There are options like Elastic Search and <tspan><a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" target="_blank">Solr Rocks</a></tspan> where data can be replicated. These solutions provide out of the box capabilities</tspan>
 
-   <tspan x="20" dy="30" class="content">that can be leveraged by developers without needed to build RESTful or GraphQL type APIs.</tspan>
+   <tspan x="20" dy="30" class="content">that can be leveraged by developers without needed to build <tspan><a href="https://en.wikipedia.org/wiki/Representational_state_transfer" xlink:href="https://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank">RESTful</a></tspan> or <tspan><a href="https://graphql.org/" xlink:href="https://graphql.org/" target="_blank">GraphQL</a></tspan> type APIs.</tspan>
 </text>
 <line x1="20" y1="225" x2="970" y2="225" stroke="#8B8B90" />    <text x="20" y="410">
     <tspan class="status">Decision</tspan>
@@ -100,7 +100,7 @@
     <line x1="20" y1="415" x2="970" y2="415" stroke="#8B8B90" />    <text x="20" y="540">
 <tspan class="status">Consequences</tspan>
 
-        <tspan x="20" dy="30" class="content">Data in <tspan text-anchor="middle"><a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" target="_blank">Solr</a></tspan> Needs to be replicated across the solr cloud instances. </tspan>
+        <tspan x="20" dy="30" class="content"><tspan><a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" target="_blank">Data</a></tspan> in <tspan><a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" target="_blank">Solr</a></tspan> Needs to be replicated across the solr cloud instances. </tspan>
     
         <tspan x="20" dy="30" class="content">This Solr cloud needs maintenance. </tspan>
     
