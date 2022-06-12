@@ -23,5 +23,6 @@ class AdrRegistry  : ExtensionRegistry {
     override fun register(asciidoctor: Asciidoctor) {
         val registry = asciidoctor.javaExtensionRegistry()
         registry.block(AdrBlockProcessor::class.java)
+        registry.block(AdrSummaryBlockProcessor::class.java)
     }
 }

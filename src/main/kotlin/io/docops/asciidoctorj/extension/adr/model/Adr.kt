@@ -35,6 +35,12 @@ data class Adr(
             return "unselected"
         }
     }
+    fun participantAsStr(): String {
+        if(participants.isEmpty()) {
+            return ""
+        }
+        return  participants.joinToString(",")
+    }
 }
 enum class Status{
     Proposed, Accepted, Superseded, Deprecated, Rejected
