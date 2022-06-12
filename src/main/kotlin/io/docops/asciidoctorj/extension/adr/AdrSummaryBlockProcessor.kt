@@ -7,7 +7,11 @@ import org.asciidoctor.extension.Contexts
 import org.asciidoctor.extension.Name
 import org.asciidoctor.extension.Reader
 import java.io.File
-import java.util.StringJoiner
+import java.net.URI
+import java.net.http.HttpClient
+import java.net.http.HttpRequest
+import java.net.http.HttpResponse
+import java.time.Duration
 
 @Name("adrsummary")
 @Contexts(Contexts.LISTING)
@@ -17,9 +21,13 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         val content = reader.readLines()
         val lines = startTable()
         content.forEach { item ->
-            val f = File(reader.dir, item)
-            if(f.exists()) {
-                lines.addAll(adrFromFile(f))
+            if(item.startsWith("http")) {
+                lines.addAll(adrFromUrl(item))
+            } else {
+                val f = File(reader.dir, item)
+                if (f.exists()) {
+                    lines.addAll(adrFromFile(f))
+                }
             }
         }
         lines.addAll(closeTable())
@@ -47,4 +55,22 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         return lines
     }
 
+    private fun adrFromUrl(url: String): MutableList<String> {
+        val client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
+            .connectTimeout(Duration.ofSeconds(20))
+            .build()
+        val request = HttpRequest.newBuilder()
+            .uri(URI.create(url))
+            .timeout(Duration.ofMinutes(1))
+            .build()
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+        val lines = mutableListOf<String>()
+        if(200 == response.statusCode()) {
+            val adr = ADRParser().parse(response.body(), AdrParserConfig())
+            lines.add("a|${adr.title} |${adr.status} |${adr.participantAsStr()} |${adr.date}")
+        } else {
+            lines.add("4+|$url does not exist.")
+        }
+        return lines
+    }
 }

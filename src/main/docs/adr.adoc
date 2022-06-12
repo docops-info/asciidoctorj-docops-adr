@@ -70,4 +70,6 @@ include::123.adr[]
 [adrsummary]
 ----
 123.adr
+http://127.0.0.1:8000/src/main/docs/456.adr
+http://127.0.0.1:8000/src/main/docs/123.adr
 ----
