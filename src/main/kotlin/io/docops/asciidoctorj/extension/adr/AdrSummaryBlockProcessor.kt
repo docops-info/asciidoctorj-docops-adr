@@ -21,7 +21,7 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         val content = reader.readLines()
         val lines = startTable()
         content.forEach { item ->
-            if(item.startsWith("http")) {
+            if (item.startsWith("http")) {
                 lines.addAll(adrFromUrl(item))
             } else {
                 val f = File(reader.dir, item)
@@ -49,6 +49,7 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         lines.add("|Title |Status |Participants |Date")
         return lines
     }
+
     private fun closeTable(): MutableList<String> {
         val lines = mutableListOf<String>()
         lines.add("|===")
@@ -63,14 +64,20 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
             .uri(URI.create(url))
             .timeout(Duration.ofMinutes(1))
             .build()
-        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
         val lines = mutableListOf<String>()
-        if(200 == response.statusCode()) {
-            val adr = ADRParser().parse(response.body(), AdrParserConfig())
-            lines.add("a|${adr.title} |${adr.status} |${adr.participantAsStr()} |${adr.date}")
-        } else {
-            lines.add("4+|$url does not exist.")
+
+        try {
+            val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+            if (200 == response.statusCode()) {
+                val adr = ADRParser().parse(response.body(), AdrParserConfig())
+                lines.add("a|${adr.title} |${adr.status} |${adr.participantAsStr()} |${adr.date}")
+            } else {
+                lines.add("4+|$url does not exist.")
+            }
+        } catch (e: Exception) {
+            lines.add("4+|server for $url does not exist. ${e.message}")
         }
+
         return lines
     }
 }
