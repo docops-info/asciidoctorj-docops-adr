@@ -67,6 +67,8 @@ include::123.adr[]
 include::123.adr[]
 ----
 
+== ADR Summary Example
+
 [adrsummary]
 ----
 123.adr
