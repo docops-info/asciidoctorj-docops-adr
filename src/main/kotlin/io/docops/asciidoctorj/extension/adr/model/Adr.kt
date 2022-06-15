@@ -43,5 +43,13 @@ data class Adr(
     }
 }
 enum class Status{
-    Proposed, Accepted, Superseded, Deprecated, Rejected
+    Proposed, Accepted, Superseded, Deprecated, Rejected;
+
+    fun color(status: Status) = when(status) {
+        Proposed -> "#568BBF"
+        Accepted -> "#53A551"
+        Superseded -> "#F5C344"
+        Deprecated -> "#F5C344"
+        Rejected -> "#CB444A"
+    }
 }

@@ -100,7 +100,7 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         return """
                     <div id="mod$now">
                         <input id='button$now' type='checkbox'>
-                        <label for='button$now'>${adr.status}</label>
+                        <label for='button$now' style='color: ${adr.status.color(adr.status)}; font-weight: bold;'>${adr.status}</label>
                         <div class='modal'>
                             <div class='adrcontent'>$imageStr</div>
                         </div>

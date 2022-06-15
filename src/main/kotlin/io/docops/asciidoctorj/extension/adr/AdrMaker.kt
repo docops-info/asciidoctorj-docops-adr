@@ -17,6 +17,7 @@
 package io.docops.asciidoctorj.extension.adr
 
 import io.docops.asciidoctorj.extension.adr.model.Adr
+import io.docops.asciidoctorj.extension.adr.model.Status
 
 
 class AdrMaker {
@@ -49,23 +50,23 @@ class AdrMaker {
         // language=svg
         return """
      <g>
-        <rect x="90" y="55" fill="#568BBF" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Proposed")}"/>
+        <rect x="90" y="55" fill="${adr.status.color(Status.Proposed)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Proposed")}"/>
         <text x="165" y="75" text-anchor="middle" class="subtitle">Proposed</text>
     </g>
     <g>
-        <rect x="250" y="55" fill="#53A551" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Accepted")}"/>
+        <rect x="250" y="55" fill="${adr.status.color(Status.Accepted)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Accepted")}"/>
         <text x="325" y="75" text-anchor="middle" class="subtitle">Accepted</text>
     </g>
     <g>
-        <rect x="410" y="55" fill="#F5C344" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Superseded")}"/>
+        <rect x="410" y="55" fill="${adr.status.color(Status.Superseded)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Superseded")}"/>
         <text x="485" y="75" text-anchor="middle" class="subtitle">Superseded</text>
     </g>
     <g>
-        <rect x="570" y="55" fill="#F5C344" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Deprecated")}"/>
+        <rect x="570" y="55" fill="${adr.status.color(Status.Deprecated)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Deprecated")}"/>
         <text x="645" y="75" text-anchor="middle" class="subtitle">Deprecated</text>
     </g>
     <g>
-        <rect x="730" y="55" fill="#CB444A" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Rejected")}"/>
+        <rect x="730" y="55" fill="${adr.status.color(Status.Rejected)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Rejected")}"/>
         <text x="805" y="75" text-anchor="middle" class="subtitle">Rejected</text>
     </g>
         """.trimIndent()
