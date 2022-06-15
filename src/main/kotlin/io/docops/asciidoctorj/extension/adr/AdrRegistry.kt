@@ -24,5 +24,6 @@ class AdrRegistry  : ExtensionRegistry {
         val registry = asciidoctor.javaExtensionRegistry()
         registry.block(AdrBlockProcessor::class.java)
         registry.block(AdrSummaryBlockProcessor::class.java)
+        registry.docinfoProcessor(AdrDocinfoProcessor::class.java)
     }
 }
