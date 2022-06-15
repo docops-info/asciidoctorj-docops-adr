@@ -9,6 +9,7 @@ Steve D Roach
 :source-highlighter: highlightjs
 :nofooter:
 :imagesdir: images
+:data-uri:
 
 == What is it?
 

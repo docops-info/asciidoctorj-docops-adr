@@ -24,16 +24,15 @@ import org.junit.jupiter.api.Test
 import java.io.File
 
 internal class AdrBlockProcessorTest {
-    @Test
-    fun genDoc() {
+    fun genDoc(isHtml: Boolean = true) {
         val attrs = Attributes.builder()
-            .sourceHighlighter("coderay")
+            //.sourceHighlighter("coderay")
             .allowUriRead(true)
             .dataUri(true)
             .copyCss(true)
             .noFooter(true)
-            .attribute("coderay-css", "class")
-            .attribute("coderay-linenums-mode", "inline")
+            //.attribute("coderay-css", "class")
+            //.attribute("coderay-linenums-mode", "inline")
             .attribute("feedback")
             .attribute("tocbot")
             .build()
@@ -43,20 +42,44 @@ internal class AdrBlockProcessorTest {
         val src = File("src/main/docs/adr.adoc")
         val build = File("build/docs/")
         build.mkdirs()
-        val target = File(build, "adr.html")
+        var ext = "html"
+        if(!isHtml) {
+            ext = "pdf"
+        }
+        val target = File(build, "adr.$ext")
         if (target.exists()) {
             target.delete()
         }
-        val options = Options.builder()
-            .backend("html5")
-            .toDir(build)
-            .attributes(attrs)
-            .safe(SafeMode.UNSAFE)
-            .build()
-        asciidoctor.convertFile(src, options)
+        if(isHtml) {
+            val options = Options.builder()
+                .backend("html5")
+                .toDir(build)
+                .attributes(attrs)
+                .safe(SafeMode.UNSAFE)
+                .build()
+            asciidoctor.convertFile(src, options)
+        } else {
+            val options = Options.builder()
+                .backend("pdf")
+                .toDir(build)
+                .attributes(attrs)
+                .safe(SafeMode.UNSAFE)
+                .build()
+            asciidoctor.convertFile(src, options)
+        }
 
         assert(target.exists())
         //val images = File(src.parent, "images")
         //images.deleteRecursively()
+    }
+
+    @Test
+    fun genHtml() {
+        genDoc(true)
+    }
+
+    @Test
+    fun genPdf() {
+        genDoc(false)
     }
 }
