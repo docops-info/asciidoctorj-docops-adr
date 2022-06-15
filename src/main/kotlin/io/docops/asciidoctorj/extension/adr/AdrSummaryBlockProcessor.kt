@@ -97,7 +97,6 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         val imageStr = """
         <object type="image/svg+xml" data="data:image/svg+xml;base64,$str"></object>
         """.trimIndent()
-        //val imageStr = """<img src="data:image/svg+xml;base64,$str"></img>"""
         return """
                     <div id="mod$now">
                         <input id='button$now' type='checkbox'>
