@@ -19,6 +19,7 @@ package io.docops.asciidoctorj.extension.adr
 
 import io.docops.asciidoctorj.extension.adr.model.Adr
 import io.docops.asciidoctorj.extension.adr.model.Status
+import io.docops.asciidoctorj.extension.adr.model.escapeXml
 import java.io.File
 import java.util.*
 
@@ -81,7 +82,7 @@ class ADRParser {
     private fun mapTitle(map: MutableMap<String, MutableList<String>>): String {
         val title = map["TITLE"]
         require(title != null) { "Invalid syntax title not found" }
-        return title[0].trim()
+        return title[0].trim().escapeXml()
     }
 
     private fun mapDate(map: MutableMap<String, MutableList<String>>): String {
@@ -166,7 +167,7 @@ fun String.addLinebreaks(maxLineLength: Int): MutableList<String> {
     while (tok.hasMoreTokens()) {
         val word = tok.nextToken()
         if (lineLen + word.length > maxLineLength) {
-            list.add(output)
+            list.add(output.escapeXml())
             output = String()
             lineLen = 0
         }
@@ -174,7 +175,7 @@ fun String.addLinebreaks(maxLineLength: Int): MutableList<String> {
         lineLen += word.length
     }
     if (list.size == 0 || lineLen > 0) {
-        list.add(output)
+        list.add(output.escapeXml())
     }
     return list
 }
@@ -217,19 +218,19 @@ fun main() {
     val adr = ADRParser().parse(
         // language=text
         """
-        Title:Use Solr for Structured Data Search
+        Title:Use Solr for Structured & Search
         Date: November 24th, 2010
         Status:Rejected
         Context:There is a need of having an API exposed which can be used to search structured data.
          The Data currently resides in RDBMS, it is difficult to expose micro-service directly
          querying out of RDBMS databases since the application runs out of the same environment.
-         There are options like Elastic Search and [[https://solr.apache.org/ Solr Rocks]] where data can be replicated. These solutions provide out of the box capabilities
+         There are options like Elastic Search & [[https://solr.apache.org/ Solr Rocks]] where data can be replicated. These solutions provide out of the box capabilities
          that can be leveraged by developers without needed to build [[https://en.wikipedia.org/wiki/Representational_state_transfer RESTful]] or [[https://graphql.org/ GraphQL]] type APIs.
-         Decision:Use Solr for data indexing. This use is because Solr has high performance throughput with large volume of data.
+         Decision: Use Solr for data > indexing. This use is because Solr has high performance throughput with large volume of data.
          Unstructured data can also be supported.
          If this decision does not meet the need then additional PoC will be created.
          Consequences: [[https://solr.apache.org/ Data]] in [[https://solr.apache.org/ Solr]] Needs to be replicated across the solr cloud instances.
-         This Solr cloud needs maintenance.
+         This Solr cloud needs maintenance & shard management.
          Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
         """.trimIndent()
     )

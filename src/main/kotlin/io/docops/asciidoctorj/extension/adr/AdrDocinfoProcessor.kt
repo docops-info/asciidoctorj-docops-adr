@@ -8,6 +8,7 @@ import org.asciidoctor.extension.LocationType
 @Location(LocationType.HEADER)
 class AdrDocinfoProcessor: DocinfoProcessor() {
     override fun process(document: Document): String {
+        //language=html
         return """
             <style>
             .modal {
@@ -35,8 +36,6 @@ class AdrDocinfoProcessor: DocinfoProcessor() {
             width: 100%;
         }
 
-
-
         input {
             cursor: pointer;
             height: 0;
@@ -56,6 +55,7 @@ class AdrDocinfoProcessor: DocinfoProcessor() {
             z-index: 1;
             -webkit-appearance: none;
             width: 40px;
+            color: #ea0606;
         }
         input:checked::after, input:checked:before {
             border-top: 1px solid #FFF;
