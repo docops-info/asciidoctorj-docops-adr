@@ -208,7 +208,7 @@ fun String.makeUrl(urlMap: MutableMap<Int, String>): String {
             urlMap[count] = k
             newStr = newStr.replace("[[${v}]]", "_${count++}_")
         }
-        return newStr
+        return newStr.escapeXml()
     }
     return this
 
