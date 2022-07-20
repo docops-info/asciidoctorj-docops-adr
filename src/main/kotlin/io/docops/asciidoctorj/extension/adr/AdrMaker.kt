@@ -176,7 +176,7 @@ class AdrMaker {
         <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
         <feOffset dx="5" dy="5" result="offsetblur"/>
         <feComponentTransfer>
-            <feFuncA type="linear" slope="0.9"/>
+            <feFuncA type="linear" slope="0.1"/>
         </feComponentTransfer>
         <feMerge>
             <feMergeNode/>
