@@ -43,7 +43,7 @@ class AdrMaker {
         // language=svg
         return """
      <text x="485" y="40" class="title" text-anchor="middle">$title</text>
-     <line x1="20" y1="45" x2="970" y2="45" stroke="#8B8B90" />
+     <line x1="20" y1="45" x2="970" y2="45" stroke="#d2ddec" />
     """.trimIndent()
     }
     private fun makeButtons(adr: Adr): String {
@@ -82,7 +82,7 @@ class AdrMaker {
         <tspan class="status">Status </tspan>
         <tspan x="20" dy="30" class="content">${adr.status}</tspan>
     </text>
-    <line x1="20" y1="145" x2="970" y2="145" stroke="#8B8B90" />
+    <line x1="20" y1="145" x2="970" y2="145" stroke="#d2ddec" />
         """.trimIndent()
     }
 
@@ -100,7 +100,7 @@ class AdrMaker {
         }
         // language=svg
         text += """</text>
-            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
+            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#d2ddec" />
         """
         return text.trimIndent()
     }
@@ -117,7 +117,7 @@ class AdrMaker {
         }
         // language=svg
         text += """</text>
-            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
+            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#d2ddec" />
         """
         return text.trimIndent()
     }
@@ -135,7 +135,7 @@ class AdrMaker {
         }
         // language=svg
         text += """</text>
-            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
+            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#d2ddec" />
         """
         return text.trimIndent()
     }
@@ -156,7 +156,7 @@ class AdrMaker {
         }
         // language=svg
         text += """</text>
-            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#8B8B90" />
+            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#d2ddec" />
         """
         }
         return text.trimIndent()
@@ -184,7 +184,6 @@ class AdrMaker {
         </feMerge>
     </filter>
     <style>
-        @namespace svg url(http://www.w3.org/2000/svg);
         .title {
             font: bold 36px "Noto Sans",sans-serif;
             fill: #28293D;
@@ -209,21 +208,21 @@ class AdrMaker {
         .unselected {
             opacity: 0.4;
         }
-        svg|a:link, svg|a:visited {
+        adrlink:link, adrlink:visited {
             cursor: pointer;
         }
 
-        svg|a text,
-        text svg|a {
+
+        .adrlink {
             fill: blue; /* Even for text, SVG uses fill over color */
             text-decoration: underline;
         }
 
-        svg|a:hover, svg|a:active {
+        .adrlink:hover, .adrlink:active {
             outline: dotted 1px blue;
         }
     </style>
-    <rect id="myRect" x="10" y="0" width="970" height="97%" rx="5" ry="5"  fill="#fffefa"  class="card" $filter/>
+    <rect id="myRect" x="10" y="0" width="970" height="97%" rx="5" ry="5"  fill="#ffffff" stroke="#d2ddec" class="card" $filter/>
     $body
     </svg>
     """.trimIndent()

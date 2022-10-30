@@ -200,7 +200,7 @@ fun String.makeUrl(urlMap: MutableMap<Int, String>): String {
                     str.append(" ")
                 }
             }
-            val url = "<tspan><a href=\"${sp[0]}\" xlink:href=\"${sp[0]}\" target=\"_blank\">${str}</a></tspan>"
+            val url = "<tspan><a href=\"${sp[0]}\" xlink:href=\"${sp[0]}\" class=\"adrlink\" target=\"_blank\">${str}</a></tspan>"
             m[url] = it.value
         }
         var count = key + 1
@@ -234,7 +234,7 @@ fun main() {
          Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
         """.trimIndent()
     )
-    var svg = (AdrMaker().makeAdrSvg(adr))
+    var svg = (AdrMaker().makeAdrSvg(adr, false))
     adr.urlMap.forEach { (t, u) ->
         svg = svg.replace("_${t}_", u)
     }

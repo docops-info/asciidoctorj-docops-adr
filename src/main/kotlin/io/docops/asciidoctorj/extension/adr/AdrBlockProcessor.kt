@@ -76,17 +76,6 @@ class AdrBlockProcessor : BlockProcessor() {
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="550"
  viewBox="0 0 1000 550">
-<filter id="dropShadow" height="130%">
-    <feGaussianBlur in="SourceAlpha" stdDeviation="6"/>
-    <feOffset dx="5" dy="5" result="offsetblur"/>
-    <feComponentTransfer>
-        <feFuncA type="linear" slope="0.9"/>
-    </feComponentTransfer>
-    <feMerge>
-        <feMergeNode/>
-        <feMergeNode in="SourceGraphic"/>
-    </feMerge>
-</filter>
 <style>
     .title {
         font: bold 36px "Noto Sans",sans-serif;
@@ -96,9 +85,9 @@ class AdrBlockProcessor : BlockProcessor() {
         font: bold 14px "Noto Sans",sans-serif;
     }
 </style>
-<rect id="myRect" x="10" y="0" width="970" height="100%" rx="5" ry="5"  fill="#fffefa"  class="card" filter="url(#dropShadow)"/>
+<rect id="myRect" x="10" y="0" width="970" height="100%" rx="5" ry="5" class="card" stroke="#d2ddec" fill="#ffffff"/>
 <text x="485" y="40" class="title" text-anchor="middle" >ADR Parse Failure</text>
-<line x1="10" y1="45" x2="970" y2="45" stroke="#F0F1F4" />
+<line x1="10" y1="45" x2="970" y2="45" stroke="#d2ddec" />
  <text y="60">
                 """
             lines.forEach {
