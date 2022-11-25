@@ -31,9 +31,10 @@ class AdrBlockProcessor : BlockProcessor() {
     override fun process(parent: StructuralNode, reader: Reader, attributes: MutableMap<String, Any>): Any? {
         val filename = attributes.getOrDefault("2", "${System.currentTimeMillis()}_unk") as String
         val border = attributes.getOrDefault("border", "false") as String
+        val newWin = attributes.getOrDefault("newWin", defaultValue = "false") as String
         val content = reader.read()
         val parser = ADRParser()
-        val config = AdrParserConfig()
+        val config = AdrParserConfig(newWin = newWin.toBoolean())
         val imgSrc = try {
             val adr = parser.parse(content = content, config = config)
             val adrMaker = AdrMaker()

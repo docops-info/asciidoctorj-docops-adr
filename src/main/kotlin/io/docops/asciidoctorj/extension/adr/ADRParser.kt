@@ -32,7 +32,7 @@ class ADRParser {
         val urlMap = mutableMapOf<Int, String>()
         var currKey = ""
         lines.forEach { aline ->
-            val line = aline.makeUrl(urlMap)
+            val line = aline.makeUrl(urlMap, config)
             val key: String
             if (line.contains(":")) {
                 if (currKey.isNotEmpty()) {
@@ -180,11 +180,15 @@ fun String.addLinebreaks(maxLineLength: Int): MutableList<String> {
     return list
 }
 
-fun String.makeUrl(urlMap: MutableMap<Int, String>): String {
+fun String.makeUrl(urlMap: MutableMap<Int, String>, config: AdrParserConfig): String {
     var key = 0
     val maxEntry = urlMap.maxByOrNull { it.key }
     maxEntry?.let {
         key = it.key
+    }
+    var newWin = "_top"
+    if(config.newWin) {
+        newWin = "_blank"
     }
     var newStr = this
     if (this.contains("[[") && this.contains("]]")) {
@@ -200,7 +204,7 @@ fun String.makeUrl(urlMap: MutableMap<Int, String>): String {
                     str.append(" ")
                 }
             }
-            val url = "<tspan><a href=\"${sp[0]}\" xlink:href=\"${sp[0]}\" class=\"adrlink\" target=\"_blank\">${str}</a></tspan>"
+            val url = "<tspan><a href=\"${sp[0]}\" xlink:href=\"${sp[0]}\" class=\"adrlink\" target=\"$newWin\">${str}</a></tspan>"
             m[url] = it.value
         }
         var count = key + 1
@@ -228,11 +232,12 @@ fun main() {
          that can be leveraged by developers without needed to build [[https://en.wikipedia.org/wiki/Representational_state_transfer RESTful]] or [[https://graphql.org/ GraphQL]] type APIs.
          Decision: Use Solr for data > indexing. This use is because Solr has high performance throughput with large volume of data.
          Unstructured data can also be supported.
-         If this decision does not meet the need then additional PoC will be created.
+         If this decision does not [[relative meet]] the need then additional PoC will be created.
          Consequences: [[https://solr.apache.org/ Data]] in [[https://solr.apache.org/ Solr]] Needs to be replicated across the solr cloud instances.
          This Solr cloud needs maintenance & shard management.
          Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
-        """.trimIndent()
+        """.trimIndent(),
+        AdrParserConfig(newWin = false)
     )
     var svg = (AdrMaker().makeAdrSvg(adr, false))
     adr.urlMap.forEach { (t, u) ->
