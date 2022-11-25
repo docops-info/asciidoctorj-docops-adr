@@ -4,11 +4,11 @@
 :group: io.docops
 :artifact: asciidoctorj-docops-adr
 :major: 2022
-:minor: .10
+:minor: .11
 :patch:
 :build:
-:extension:
-// :extension: -SNAPSHOT
+// :extension:
+:extension: -SNAPSHOT
 
 == Maven
 
