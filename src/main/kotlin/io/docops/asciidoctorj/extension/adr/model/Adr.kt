@@ -53,8 +53,8 @@ enum class Status {
         return "#444444"
     }
     fun color(status: Status) = when(status) {
-        Proposed -> "#568BBF"
-        Accepted -> "#53A551"
+        Proposed -> "#2986cc"
+        Accepted -> "#38761d"
         Superseded -> "#F5C344"
         Deprecated -> "#F5C344"
         Rejected -> "#CB444A"

@@ -50,23 +50,23 @@ class AdrMaker {
         // language=svg
         return """
      <g>
-        <rect x="90" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Proposed)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Proposed)}"/>
+        <rect x="90" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Proposed)}" width="150" height="30" rx="5" ry="5" />
         <text x="165" y="75" text-anchor="middle" class="subtitle">Proposed</text>
     </g>
     <g>
-        <rect x="250" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Accepted)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Accepted)}"/>
+        <rect x="250" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Accepted)}" width="150" height="30" rx="5" ry="5" />
         <text x="325" y="75" text-anchor="middle" class="subtitle">Accepted</text>
     </g>
     <g>
-        <rect x="410" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Superseded)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Superseded)}"/>
+        <rect x="410" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Superseded)}" width="150" height="30" rx="5" ry="5" />
         <text x="485" y="75" text-anchor="middle" class="subtitle">Superseded</text>
     </g>
     <g>
-        <rect x="570" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Deprecated)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Deprecated)}"/>
+        <rect x="570" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Deprecated)}" width="150" height="30" rx="5" ry="5" />
         <text x="645" y="75" text-anchor="middle" class="subtitle">Deprecated</text>
     </g>
     <g>
-        <rect x="730" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Rejected)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Rejected)}"/>
+        <rect x="730" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Rejected)}" width="150" height="30" rx="5" ry="5" />
         <text x="805" y="75" text-anchor="middle" class="subtitle">Rejected</text>
     </g>
         """.trimIndent()

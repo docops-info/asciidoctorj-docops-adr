@@ -55,23 +55,23 @@
     <rect id="myRect" x="10" y="0" width="970" height="97%" rx="5" ry="5"  fill="#ffffff" stroke="#16537e" class="card" filter="url(#dropShadow)"/>
     <text x="485" y="40" class="title" text-anchor="middle">Use Solr for Structured Data Search</text>
 <line x1="20" y1="45" x2="970" y2="45" stroke="#16537e" /> <g>
-    <rect x="90" y="55" fill="#568BBF" width="150" height="30" rx="5" ry="5" class="selected"/>
+    <rect x="90" y="55" fill="#2986cc" width="150" height="30" rx="5" ry="5" />
     <text x="165" y="75" text-anchor="middle" class="subtitle">Proposed</text>
 </g>
 <g>
-    <rect x="250" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" class="unselected"/>
+    <rect x="250" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" />
     <text x="325" y="75" text-anchor="middle" class="subtitle">Accepted</text>
 </g>
 <g>
-    <rect x="410" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" class="unselected"/>
+    <rect x="410" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" />
     <text x="485" y="75" text-anchor="middle" class="subtitle">Superseded</text>
 </g>
 <g>
-    <rect x="570" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" class="unselected"/>
+    <rect x="570" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" />
     <text x="645" y="75" text-anchor="middle" class="subtitle">Deprecated</text>
 </g>
 <g>
-    <rect x="730" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" class="unselected"/>
+    <rect x="730" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" />
     <text x="805" y="75" text-anchor="middle" class="subtitle">Rejected</text>
 </g><text x="20" y="110" class="contextline">
     <tspan>Date: </tspan>
