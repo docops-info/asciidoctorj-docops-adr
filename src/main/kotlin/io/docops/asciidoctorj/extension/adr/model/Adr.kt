@@ -26,25 +26,32 @@ data class Adr(
     var consequences: List<String> = emptyList(),
     var participants: List<String> = emptyList(),
     val urlMap: MutableMap<Int, String>
-)
-{
-    fun statusClass(status: Status, current: String): String {
-        if(status == Status.valueOf(current)) {
-            return "selected"
+) {
+    fun statusClass(status: Status, current: Status): String {
+        return if (status == current) {
+            "selected"
         } else {
-            return "unselected"
+            "unselected"
         }
     }
+
     fun participantAsStr(): String {
-        if(participants.isEmpty()) {
+        if (participants.isEmpty()) {
             return ""
         }
-        return  participants.joinToString(",")
+        return participants.joinToString(",")
     }
 }
-enum class Status{
+
+enum class Status {
     Proposed, Accepted, Superseded, Deprecated, Rejected;
 
+    fun determineStatusColor(status: Status, current: Status): String {
+        if(status == current) {
+            return color(status)
+        }
+        return "#444444"
+    }
     fun color(status: Status) = when(status) {
         Proposed -> "#568BBF"
         Accepted -> "#53A551"

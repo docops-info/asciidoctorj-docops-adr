@@ -224,7 +224,7 @@ fun main() {
         """
         Title:Use Solr for Structured & Search
         Date: November 24th, 2010
-        Status:Rejected
+        Status:Accepted
         Context:There is a need of having an API exposed which can be used to search structured data.
          The Data currently resides in RDBMS, it is difficult to expose micro-service directly
          querying out of RDBMS databases since the application runs out of the same environment.

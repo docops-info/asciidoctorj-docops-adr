@@ -52,26 +52,26 @@
             outline: dotted 1px blue;
         }
     </style>
-    <rect id="myRect" x="10" y="0" width="970" height="97%" rx="5" ry="5"  fill="#ffffff" stroke="#d2ddec" class="card" />
+    <rect id="myRect" x="10" y="0" width="970" height="97%" rx="5" ry="5"  fill="#ffffff" stroke="#16537e" class="card" />
     <text x="485" y="40" class="title" text-anchor="middle">Use Solr for Structured &amp; Search</text>
-<line x1="20" y1="45" x2="970" y2="45" stroke="#d2ddec" /> <g>
-    <rect x="90" y="55" fill="#568BBF" width="150" height="30" rx="5" ry="5" class="unselected"/>
+<line x1="20" y1="45" x2="970" y2="45" stroke="#16537e" /> <g>
+    <rect x="90" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" class="unselected"/>
     <text x="165" y="75" text-anchor="middle" class="subtitle">Proposed</text>
 </g>
 <g>
-    <rect x="250" y="55" fill="#53A551" width="150" height="30" rx="5" ry="5" class="unselected"/>
+    <rect x="250" y="55" fill="#53A551" width="150" height="30" rx="5" ry="5" class="selected"/>
     <text x="325" y="75" text-anchor="middle" class="subtitle">Accepted</text>
 </g>
 <g>
-    <rect x="410" y="55" fill="#F5C344" width="150" height="30" rx="5" ry="5" class="unselected"/>
+    <rect x="410" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" class="unselected"/>
     <text x="485" y="75" text-anchor="middle" class="subtitle">Superseded</text>
 </g>
 <g>
-    <rect x="570" y="55" fill="#F5C344" width="150" height="30" rx="5" ry="5" class="unselected"/>
+    <rect x="570" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" class="unselected"/>
     <text x="645" y="75" text-anchor="middle" class="subtitle">Deprecated</text>
 </g>
 <g>
-    <rect x="730" y="55" fill="#CB444A" width="150" height="30" rx="5" ry="5" class="selected"/>
+    <rect x="730" y="55" fill="#444444" width="150" height="30" rx="5" ry="5" class="unselected"/>
     <text x="805" y="75" text-anchor="middle" class="subtitle">Rejected</text>
 </g><text x="20" y="110" class="contextline">
     <tspan>Date: </tspan>
@@ -79,9 +79,9 @@
 </text>
 <text x="20" y="140">
     <tspan class="status">Status </tspan>
-    <tspan x="20" dy="30" class="content">Rejected</tspan>
+    <tspan x="20" dy="30" class="content">Accepted</tspan>
 </text>
-<line x1="20" y1="145" x2="970" y2="145" stroke="#d2ddec" /> <text x="20" y="220">
+<line x1="20" y1="145" x2="970" y2="145" stroke="#16537e" /> <text x="20" y="220">
  <tspan class="status">Context</tspan>
    <tspan x="20" dy="30" class="content">There is a need of having an API exposed which can be used to search structured data.</tspan>
 
@@ -93,10 +93,10 @@
 
    <tspan x="20" dy="30" class="content">that can be leveraged by developers without needed to build <tspan><a href="https://en.wikipedia.org/wiki/Representational_state_transfer" xlink:href="https://en.wikipedia.org/wiki/Representational_state_transfer" class="adrlink" target="_top">RESTful</a></tspan> or <tspan><a href="https://graphql.org/" xlink:href="https://graphql.org/" class="adrlink" target="_top">GraphQL</a></tspan> type APIs.</tspan>
 </text>
-<line x1="20" y1="225" x2="970" y2="225" stroke="#d2ddec" />    <text x="20" y="410">
+<line x1="20" y1="225" x2="970" y2="225" stroke="#16537e" />    <text x="20" y="410">
     <tspan class="status">Decision</tspan>
 <tspan x="20" dy="30" class="content">Use Solr for data &gt; indexing. This use is because Solr has high performance throughput with large volume of data. </tspan><tspan x="20" dy="30" class="content">Unstructured data can also be supported. </tspan><tspan x="20" dy="30" class="content">If this decision does not <tspan><a href="relative" xlink:href="relative" class="adrlink" target="_top">meet</a></tspan> the need then additional PoC will be created. </tspan></text>
-    <line x1="20" y1="415" x2="970" y2="415" stroke="#d2ddec" />    <text x="20" y="540">
+    <line x1="20" y1="415" x2="970" y2="415" stroke="#16537e" />    <text x="20" y="540">
 <tspan class="status">Consequences</tspan>
 
         <tspan x="20" dy="30" class="content"><tspan><a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" class="adrlink" target="_top">Data</a></tspan> in <tspan><a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" class="adrlink" target="_top">Solr</a></tspan> Needs to be replicated across the solr cloud instances. </tspan>
@@ -105,5 +105,5 @@
     
         <tspan x="20" dy="30" class="content">Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment. </tspan>
     </text>
-    <line x1="20" y1="545" x2="970" y2="545" stroke="#d2ddec" />
+    <line x1="20" y1="545" x2="970" y2="545" stroke="#16537e" />
     </svg>

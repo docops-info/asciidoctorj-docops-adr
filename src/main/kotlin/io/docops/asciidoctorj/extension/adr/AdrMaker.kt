@@ -43,30 +43,30 @@ class AdrMaker {
         // language=svg
         return """
      <text x="485" y="40" class="title" text-anchor="middle">$title</text>
-     <line x1="20" y1="45" x2="970" y2="45" stroke="#d2ddec" />
+     <line x1="20" y1="45" x2="970" y2="45" stroke="#16537e" />
     """.trimIndent()
     }
     private fun makeButtons(adr: Adr): String {
         // language=svg
         return """
      <g>
-        <rect x="90" y="55" fill="${adr.status.color(Status.Proposed)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Proposed")}"/>
+        <rect x="90" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Proposed)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Proposed)}"/>
         <text x="165" y="75" text-anchor="middle" class="subtitle">Proposed</text>
     </g>
     <g>
-        <rect x="250" y="55" fill="${adr.status.color(Status.Accepted)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Accepted")}"/>
+        <rect x="250" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Accepted)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Accepted)}"/>
         <text x="325" y="75" text-anchor="middle" class="subtitle">Accepted</text>
     </g>
     <g>
-        <rect x="410" y="55" fill="${adr.status.color(Status.Superseded)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Superseded")}"/>
+        <rect x="410" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Superseded)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Superseded)}"/>
         <text x="485" y="75" text-anchor="middle" class="subtitle">Superseded</text>
     </g>
     <g>
-        <rect x="570" y="55" fill="${adr.status.color(Status.Deprecated)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Deprecated")}"/>
+        <rect x="570" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Deprecated)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Deprecated)}"/>
         <text x="645" y="75" text-anchor="middle" class="subtitle">Deprecated</text>
     </g>
     <g>
-        <rect x="730" y="55" fill="${adr.status.color(Status.Rejected)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,"Rejected")}"/>
+        <rect x="730" y="55" fill="${adr.status.determineStatusColor(adr.status, Status.Rejected)}" width="150" height="30" rx="5" ry="5" class="${adr.statusClass(adr.status,Status.Rejected)}"/>
         <text x="805" y="75" text-anchor="middle" class="subtitle">Rejected</text>
     </g>
         """.trimIndent()
@@ -82,7 +82,7 @@ class AdrMaker {
         <tspan class="status">Status </tspan>
         <tspan x="20" dy="30" class="content">${adr.status}</tspan>
     </text>
-    <line x1="20" y1="145" x2="970" y2="145" stroke="#d2ddec" />
+    <line x1="20" y1="145" x2="970" y2="145" stroke="#16537e" />
         """.trimIndent()
     }
 
@@ -100,7 +100,7 @@ class AdrMaker {
         }
         // language=svg
         text += """</text>
-            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#d2ddec" />
+            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#16537e" />
         """
         return text.trimIndent()
     }
@@ -117,7 +117,7 @@ class AdrMaker {
         }
         // language=svg
         text += """</text>
-            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#d2ddec" />
+            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#16537e" />
         """
         return text.trimIndent()
     }
@@ -135,7 +135,7 @@ class AdrMaker {
         }
         // language=svg
         text += """</text>
-            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#d2ddec" />
+            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#16537e" />
         """
         return text.trimIndent()
     }
@@ -156,7 +156,7 @@ class AdrMaker {
         }
         // language=svg
         text += """</text>
-            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#d2ddec" />
+            <line x1="20" y1="${startY+5}" x2="970" y2="${startY+5}" stroke="#16537e" />
         """
         }
         return text.trimIndent()
@@ -222,7 +222,7 @@ class AdrMaker {
             outline: dotted 1px blue;
         }
     </style>
-    <rect id="myRect" x="10" y="0" width="970" height="97%" rx="5" ry="5"  fill="#ffffff" stroke="#d2ddec" class="card" $filter/>
+    <rect id="myRect" x="10" y="0" width="970" height="97%" rx="5" ry="5"  fill="#ffffff" stroke="#16537e" class="card" $filter/>
     $body
     </svg>
     """.trimIndent()

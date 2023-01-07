@@ -63,11 +63,16 @@ include::123.adr[]
 
 === Resulting ADR
 
-[adr,test3,border=true]
+[adr,test3,border=true, newWin=true]
 ----
 include::123.adr[]
 ----
 
+==== New Window Test
+[adr,test4,border=true, newWin=false]
+----
+include::123.adr[]
+----
 == ADR Summary Example
 
 [adrsummary]
