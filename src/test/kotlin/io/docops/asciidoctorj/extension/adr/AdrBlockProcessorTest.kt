@@ -40,7 +40,7 @@ internal class AdrBlockProcessorTest {
         val asciidoctor = Asciidoctor.Factory.create()
 
         val src = File("src/main/docs/adr.adoc")
-        val build = File("build/docs/")
+        val build = File("docs/")
         build.mkdirs()
         var ext = "html"
         if(!isHtml) {

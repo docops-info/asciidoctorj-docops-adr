@@ -3,12 +3,12 @@
 :data-uri:
 :group: io.docops
 :artifact: asciidoctorj-docops-adr
-:major: 2022
-:minor: .11
+:major: 2023
+:minor: .00
 :patch:
 :build:
-// :extension:
-:extension: -SNAPSHOT
+:extension:
+// :extension: -SNAPSHOT
 
 == Maven
 
@@ -46,38 +46,47 @@ link:build/docs/adr.html[{artifact}.html
 
 == History
 
+2023.00 - 2023-01-07::
+* Hygiene and currency
+
+.2022 Version History
+[%collapsible]
+====
+
 2022.10 - 2022-11-25::
-target window control for links
+* Target window control for links
 
 2022.9 - 2022-10-30::
-Style Updates
+* Style Updates
 
 2022.8 - 2022-06-16::
-ADR Summary improvements
+* ADR Summary improvements
 
 2022.7 - 2022-06-13::
-Initial ADR summary table
+* Initial ADR summary table
 
 2022.6 - 2022-06-02::
-Multiple links per line
+* Multiple links per line
 
 2022.5 - 2022-05-20::
-Link label supports spaces
+* Link label supports spaces
 
 2022.4 - 2022-05-16::
-Not a bug fix - "link improvement"
+* Not a bug fix - "link improvement"
 
 2022.3 - 2022-05-09::
-Added link support
+* Added link support
 
 2022.2 - 2022-04-20::
-Security and currency
+* Security and currency
 
 2022.1 - 2022-03-11::
-Added participants
+* Added participants
 
 2022.0 - 2022-02-13::
-Initial release to Maven Central.
+* Initial release to Maven Central.
+
+====
 
 == DocOps
 
