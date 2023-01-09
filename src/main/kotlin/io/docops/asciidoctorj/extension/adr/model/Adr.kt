@@ -56,7 +56,7 @@ enum class Status {
         Proposed -> "#2986cc"
         Accepted -> "#38761d"
         Superseded -> "#F5C344"
-        Deprecated -> "#F5C344"
+        Deprecated -> "#EA9999"
         Rejected -> "#CB444A"
     }
 }
