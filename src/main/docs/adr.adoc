@@ -74,6 +74,19 @@ include::123.adr[]
 ----
 include::456.adr[]
 ----
+
+.Source for Non New Window
+
+[source,asciidoc]
+-----
+[adr,test4,border=true, newWin=false]
+----
+include::456.adr[] <1>
+----
+-----
+
+<1> Included adr file
+
 == ADR Summary Example
 
 [adrsummary]
@@ -82,3 +95,23 @@ include::456.adr[]
 http://127.0.0.1:8000/src/main/docs/456.adr
 http://127.0.0.1:8000/src/main/docs/123.adr
 ----
+
+=== ADR Summary Source
+
+[WARNING]
+====
+Only adr files can be processes. Recommend using adr files and include as you can version control this file.
+====
+
+[source,asciidoc]
+-----
+[adrsummary]
+----
+123.adr <1>
+http://127.0.0.1:8000/src/main/docs/456.adr <2>
+http://127.0.0.1:8000/src/main/docs/123.adr
+----
+-----
+
+<1> Relative path to current document
+<2> Full URL to adr

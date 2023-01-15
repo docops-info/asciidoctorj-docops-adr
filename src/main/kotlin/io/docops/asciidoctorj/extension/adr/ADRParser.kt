@@ -236,6 +236,7 @@ fun main() {
          Consequences: [[https://solr.apache.org/ Data]] in [[https://solr.apache.org/ Solr]] Needs to be replicated across the solr cloud instances.
          This Solr cloud needs maintenance & shard management.
          Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
+         Participants: Steve,Ian
         """.trimIndent(),
         AdrParserConfig(newWin = false)
     )
