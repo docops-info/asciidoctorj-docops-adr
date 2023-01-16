@@ -4,7 +4,7 @@
 
     <groupId>io.docops</groupId>
     <artifactId>asciidoctorj-docops-adr</artifactId>
-    <version>2023.01</version>
+    <version>2023.02</version>
     <packaging>jar</packaging>
 
     <name>adr</name>
@@ -70,7 +70,7 @@
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
         <kotlin.version>1.8.0</kotlin.version>
-        <junit.version>5.9.0</junit.version>
+        <junit.version>5.9.2</junit.version>
         <mojo.version>1.6.0</mojo.version>
         <maven-shared-utils.version>3.3.4</maven-shared-utils.version>
         <maven-plugin.version>3.0.0-M6</maven-plugin.version>
@@ -247,7 +247,7 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.9.0</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
