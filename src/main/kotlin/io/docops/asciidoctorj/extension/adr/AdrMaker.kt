@@ -17,10 +17,12 @@
 package io.docops.asciidoctorj.extension.adr
 
 import io.docops.asciidoctorj.extension.adr.model.Adr
+import io.docops.asciidoctorj.extension.adr.model.Status
 
 
 class AdrMaker {
 
+    private val xIndent = 32
     fun makeAdrSvg(adr: Adr, dropShadow: Boolean = true) : String {
         val sb = StringBuilder()
         sb.append(makeTitle(title = adr.title))
@@ -38,7 +40,7 @@ class AdrMaker {
         sb.append(makeParticipants(adr=adr, startY))
         startY += (adr.participants.size * 30) + 20
 
-        return svg(sb.toString(), startY, dropShadow)
+        return svg(sb.toString(), startY, dropShadow,adr)
     }
 
     private fun makeTitle(title: String): String {
@@ -49,11 +51,11 @@ class AdrMaker {
     private fun makeDateAndStatus(adr: Adr): String {
         // language=svg
         return """
-    <text x="20" y="80" class="contextline">
+    <text x="$xIndent" y="80" class="contextline">
         <tspan class="status">Date: </tspan>
     <tspan class="content"> ${adr.date}</tspan>
     </text>
-    <text x="20" y="110">
+    <text x="$xIndent" y="110">
         <tspan class="status">Status: </tspan>
         <tspan fill="${adr.status.color(adr.status)}" font-weight="bold" font-size="14px" font-family="'Noto Sans', sans-serif">${adr.status}</tspan>
     </text>
@@ -63,7 +65,7 @@ class AdrMaker {
     private fun makeContext(adr: Adr, startY: Int ) : String {
         // language=svg
         var text = """
-             <text x="20" y="$startY">
+             <text x="$xIndent" y="$startY">
              <tspan class="status">Context: </tspan>"""
 
         adr.context.forEachIndexed { index, s ->
@@ -71,7 +73,7 @@ class AdrMaker {
             if(index==0) {
                 text += """<tspan class="content"> ${s}</tspan>"""
             }else{
-           text += """<tspan x="20" dy="30" class="content"> ${s}</tspan>"""
+           text += """<tspan x="$xIndent" dy="30" class="content"> ${s}</tspan>"""
             }
         }
         text += """</text>"""
@@ -81,7 +83,7 @@ class AdrMaker {
     private fun makeDecision(adr: Adr, startY: Int): String {
         // language=svg
         var text = """
-            <text x="20" y="$startY">
+            <text x="$xIndent" y="$startY">
             <tspan class="status">Decision: </tspan>
         """
         // language=svg
@@ -89,7 +91,7 @@ class AdrMaker {
             if(index==0) {
                 text += """<tspan class="content"> $s</tspan>"""
             } else{
-                text += """<tspan x="20" dy="30" class="content">$s</tspan>"""
+                text += """<tspan x="$xIndent" dy="30" class="content">$s</tspan>"""
             }
         }
         text += "</text>"
@@ -98,7 +100,7 @@ class AdrMaker {
     private fun makeConsequences(adr: Adr, startY: Int) : String {
         // language=svg
         var text = """
-            <text x="20" y="$startY">
+            <text x="$xIndent" y="$startY">
         <tspan class="status">Consequences: </tspan>
         """
         // language=svg
@@ -106,7 +108,7 @@ class AdrMaker {
             if(index == 0) {
                 text += """<tspan class="content">$s</tspan>"""
             } else {
-                text += """<tspan x="20" dy="30" class="content">$s</tspan>"""
+                text += """<tspan x="$xIndent" dy="30" class="content">$s</tspan>"""
             }
         }
         text += """</text>"""
@@ -118,7 +120,7 @@ class AdrMaker {
         if (adr.participants.isNotEmpty()) {
             // language=svg
          text += """
-            <text x="20" y="$startY">
+            <text x="$xIndent" y="$startY">
         <tspan class="status">Participants: </tspan>
         """
         adr.participants.forEachIndexed { index, s ->
@@ -126,20 +128,35 @@ class AdrMaker {
                 text += """<tspan class="content">$s</tspan>"""
             }else {
                 // language=svg
-                text += """<tspan x="20" dy="30" class="content"> $s</tspan>"""
+                text += """<tspan x="$xIndent" dy="30" class="content"> $s</tspan>"""
             }
         }
         text += """</text>"""
         }
         return text.trimIndent()
     }
-    fun svg(body: String, height: Int = 550, dropShadow: Boolean): String {
+    fun svg(body: String, height: Int = 550, dropShadow: Boolean, adr: Adr): String {
+        val startY = 100
+        val statusHeight = 80
         // language=svg
         return """
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="$height"
-    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 ${height+30}"
+    xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1050 ${height+30}"
      >
+    <defs>
+         <filter id="dropShadow" height="112%">
+             <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+             <feOffset dx="5" dy="3" result="offsetblur"/>
+             <feComponentTransfer>
+                 <feFuncA type="linear" slope="0.1"/>
+             </feComponentTransfer>
+             <feMerge>
+                 <feMergeNode/>
+                 <feMergeNode in="SourceGraphic"/>
+             </feMerge>
+         </filter>
+     </defs>
     
     <style>
         #adrTitle {
@@ -166,7 +183,7 @@ class AdrMaker {
         .unselected {
             opacity: 0.4;
         }
-        adrlink:link, adrlink:visited {
+        #adrlink:link, #adrlink:visited {
             cursor: pointer;
         }
 
@@ -182,8 +199,24 @@ class AdrMaker {
         #adrRect {
             fill: #ffffff;
         }
+        .adrText {
+            writing-mode: tb;
+            font: bold 12px "Noto Sans",sans-serif;
+            fill: #fffef7;
+        }
     </style>
-    <rect id="adrRect" x="10" y="10" width="970" height="97%" rx="5" ry="5"   stroke="#16537e"/>
+    <rect id="adrRect" x="21" y="20" width="970" height="97%" rx="5" ry="5" stroke="#16537e" filter="url(#dropShadow)"/>
+    <rect id="Proposed" x="0" y="$startY" width="20" height="80" fill="${adr.status.determineStatusColor(adr.status, Status.Proposed)}" filter="url(#dropShadow)"/>
+    <rect id="Accepted" x="0" y="${startY+statusHeight}" width="20" height="80" fill="${adr.status.determineStatusColor(adr.status, Status.Accepted)}" filter="url(#dropShadow)"/>
+    <rect id="Superceded" x="0" y="${startY+statusHeight*2}" width="20" height="80" fill="${adr.status.determineStatusColor(adr.status, Status.Superseded)}" filter="url(#dropShadow)"/>
+    <rect id="Deprecated" x="0" y="${startY+statusHeight*3}" width="20" height="80" fill="${adr.status.determineStatusColor(adr.status, Status.Deprecated)}" filter="url(#dropShadow)"/>
+    <rect id="Rejected" x="0" y="${startY+statusHeight*4}" width="20" height="80" fill="${adr.status.determineStatusColor(adr.status, Status.Rejected)}" filter="url(#dropShadow)"/>
+
+    <text x="10" y="${startY + 10}" class="adrText"  >Proposed</text>
+    <text x="10" y="${startY+statusHeight + 10}" class="adrText" >Accepted</text>
+    <text x="10" y="${startY+statusHeight*2 +5}" class="adrText">Superseded</text>
+    <text x="10" y="${startY+statusHeight*3 + 5}" class="adrText">Deprecated</text>
+    <text x="10" y="${startY+statusHeight*4 + 10}" class="adrText">Rejected</text>
     $body
     </svg>
     """.trimIndent()

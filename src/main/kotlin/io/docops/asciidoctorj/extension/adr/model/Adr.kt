@@ -46,11 +46,11 @@ data class Adr(
 enum class Status {
     Proposed, Accepted, Superseded, Deprecated, Rejected;
 
-    fun determineStatusColor(status: Status, current: Status): String {
+    public fun determineStatusColor(status: Status, current: Status): String {
         if(status == current) {
             return color(status)
         }
-        return "#444444"
+        return "#aaaaaa"
     }
     fun color(status: Status) = when(status) {
         Proposed -> "#2986cc"

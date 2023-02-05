@@ -228,8 +228,7 @@ fun main() {
         Context:There is a need of having an API exposed which can be used to search structured data.
          The Data currently resides in RDBMS, it is difficult to expose micro-service directly
          querying out of RDBMS databases since the application runs out of the same environment.
-         There are options like Elastic Search & [[https://solr.apache.org/ Solr Rocks]] where data can be replicated. These solutions provide out of the box capabilities
-         that can be leveraged by developers without needed to build [[https://en.wikipedia.org/wiki/Representational_state_transfer RESTful]] or [[https://graphql.org/ GraphQL]] type APIs.
+         There are options like Elastic Search & [[https://solr.apache.org/ Solr Rocks]] where data can be replicated. These solutions provide out of the box capabilities that can be leveraged by developers without needed to build [[https://en.wikipedia.org/wiki/Representational_state_transfer RESTful]] or [[https://graphql.org/ GraphQL]] type APIs.
          Decision: Use Solr for data > indexing. This use is because Solr has high performance throughput with large volume of data.
          Unstructured data can also be supported.
          If this decision does not [[relative meet]] the need then additional PoC will be created.

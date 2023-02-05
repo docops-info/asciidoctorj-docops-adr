@@ -26,9 +26,9 @@ include::123.adr[] <4>
 ----
 -----
 
-<1> adr - name of the extenstion
-<2> test2 - name of the generated file
-<3> border -> use shadowed border or not
+<1> adr—name of the extension
+<2> test2—name of the generated file
+<3> border-use shadowed border or not
 <4> file that contains the adr format
 
 
@@ -85,6 +85,24 @@ include::456.adr[] <1>
 ----
 -----
 
+.Superseded
+[adr,test6]
+----
+include::012.adr[]
+----
+
+.Deprecated
+[adr,test7]
+----
+include::345.adr[]
+----
+
+.Rejected
+[adr,test8,border=true, newWin=true]
+----
+include::789.adr[]
+----
+
 <1> Included adr file
 
 == ADR Summary Example
@@ -92,6 +110,10 @@ include::456.adr[] <1>
 [adrsummary]
 ----
 123.adr
+456.adr
+789.adr
+012.adr
+345.adr
 http://127.0.0.1:8000/src/main/docs/456.adr
 http://127.0.0.1:8000/src/main/docs/123.adr
 ----

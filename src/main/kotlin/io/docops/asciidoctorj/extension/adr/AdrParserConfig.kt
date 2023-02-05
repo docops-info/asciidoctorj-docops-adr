@@ -17,6 +17,6 @@
 package io.docops.asciidoctorj.extension.adr
 
 data class AdrParserConfig (
-    val lineSize: Int = 180,
+    val lineSize: Int = 110,
     val newWin : Boolean = false
 )
