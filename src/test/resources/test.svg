@@ -2,8 +2,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="550"
     xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1050 580"
      >
-     <defs>
-
+    <defs>
          <filter id="dropShadow" height="112%">
              <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
              <feOffset dx="5" dy="3" result="offsetblur"/>

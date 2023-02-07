@@ -63,7 +63,7 @@
             fill: #fffef7;
         }
     </style>
-    <rect id="adrRect" x="21" y="20" width="970" height="97%" rx="5" ry="5" stroke="#16537e" filter="url(#dropShadow)"/>
+    <rect id="adrRect" x="21" y="20" width="970" height="97%" rx="5" ry="5" stroke="#16537e" />
     <rect id="Proposed" x="0" y="100" width="20" height="80" fill="#aaaaaa" filter="url(#dropShadow)"/>
     <rect id="Accepted" x="0" y="180" width="20" height="80" fill="#38761d" filter="url(#dropShadow)"/>
     <rect id="Superceded" x="0" y="260" width="20" height="80" fill="#aaaaaa" filter="url(#dropShadow)"/>

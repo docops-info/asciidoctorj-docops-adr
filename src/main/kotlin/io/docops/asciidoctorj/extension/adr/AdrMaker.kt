@@ -135,9 +135,14 @@ class AdrMaker {
         }
         return text.trimIndent()
     }
-    fun svg(body: String, height: Int = 550, dropShadow: Boolean, adr: Adr): String {
+    fun svg(body: String, iHeight: Int = 550, dropShadow: Boolean = true, adr: Adr): String {
         val startY = 100
         val statusHeight = 80
+        val height = maxOf(iHeight, 500)
+        var filter = ""
+        if(dropShadow) {
+            filter = """filter="url(#dropShadow)""""
+        }
         // language=svg
         return """
 <?xml version="1.0" standalone="no"?>
@@ -205,7 +210,7 @@ class AdrMaker {
             fill: #fffef7;
         }
     </style>
-    <rect id="adrRect" x="21" y="20" width="970" height="97%" rx="5" ry="5" stroke="#16537e" filter="url(#dropShadow)"/>
+    <rect id="adrRect" x="21" y="20" width="970" height="97%" rx="5" ry="5" stroke="#16537e" $filter/>
     <rect id="Proposed" x="0" y="$startY" width="20" height="80" fill="${adr.status.determineStatusColor(adr.status, Status.Proposed)}" filter="url(#dropShadow)"/>
     <rect id="Accepted" x="0" y="${startY+statusHeight}" width="20" height="80" fill="${adr.status.determineStatusColor(adr.status, Status.Accepted)}" filter="url(#dropShadow)"/>
     <rect id="Superceded" x="0" y="${startY+statusHeight*2}" width="20" height="80" fill="${adr.status.determineStatusColor(adr.status, Status.Superseded)}" filter="url(#dropShadow)"/>

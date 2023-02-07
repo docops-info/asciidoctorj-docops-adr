@@ -70,7 +70,7 @@ include::123.adr[]
 
 ==== New Window Test
 
-[adr,test4,border=true, newWin=false]
+[adr,test4,border=false, newWin=false]
 ----
 include::456.adr[]
 ----
@@ -86,13 +86,13 @@ include::456.adr[] <1>
 -----
 
 .Superseded
-[adr,test6]
+[adr,test6,border=true]
 ----
 include::012.adr[]
 ----
 
 .Deprecated
-[adr,test7]
+[adr,test7,border=false]
 ----
 include::345.adr[]
 ----
