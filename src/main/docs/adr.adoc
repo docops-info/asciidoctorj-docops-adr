@@ -10,6 +10,8 @@ Steve D Roach
 :nofooter:
 :imagesdir: images
 :data-uri:
+:title-page-background-image: images/coverpage.svg
+
 
 == What is it?
 
