@@ -123,19 +123,31 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
 
     private fun makeButton(status: Status) : String {
         val svg =  """
-            <svg xmlns="http://www.w3.org/2000/svg" width="150" height="30">
-                <style>
-                    .subtitle {
-                        font: bold 18px "Noto Sans",sans-serif;
-                        fill: white;
-                    }
-                    .unselected {
-                        opacity: 0.4;
-                    }
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="300" height="100">
+                <defs id="defs4">
+                    <linearGradient id="linearGradient3159">
+                        <stop id="stop3163" style="stop-color:#000000;stop-opacity:0" offset="0"/>
+                        <stop id="stop3161" style="stop-color:#000000;stop-opacity:0.5" offset="1"/>
+                    </linearGradient>
+                    <linearGradient id="linearGradient3030">
+                        <stop id="stop3032" style="stop-color:#ffffff;stop-opacity:1" offset="0"/>
+                        <stop id="stop3034" style="stop-color:#ffffff;stop-opacity:0" offset="1"/>
+                    </linearGradient>
+                    <linearGradient x1="120" y1="10" x2="120" y2="50" id="linearGradient3113" xlink:href="#linearGradient3030" gradientUnits="userSpaceOnUse"/>
+                    <radialGradient cx="120" cy="170" r="100" fx="120" fy="170" id="radialGradient3165" xlink:href="#linearGradient3159" gradientUnits="userSpaceOnUse" gradientTransform="matrix(0,-0.72727275,2,0,-220,170)"/>
+                </defs>
+                <style type="text/css">
+                    rect[id="ButtonBase"] { fill: red; }
+                    svg[aria-pressed="true"] rect[id="ButtonBase"] { fill: green; }
+                    g[id="layer1"]:hover {cursor: pointer}
+                    g[id="layer1"]:hover rect[id="ButtonGlow"] {opacity: 0; }
                 </style>
-                <g>
-                    <rect x="0" y="0" fill="${status.color(status)}" width="150" height="30" rx="5" ry="5"/>
-                    <text x="80" y="20" text-anchor="middle" class="subtitle">${status}</text>
+                <g id="layer1">
+                    <rect width="280" height="80" ry="40" x="10" y="10" id="ButtonBase" style="fill:${status.color(status)};stroke:none"/>
+                    <rect width="280" height="80" ry="40" x="10" y="10" id="ButtonGlow" style="fill:url(#radialGradient3165);stroke:none"/>
+                    <text x="150" y="66" id="text3194" text-anchor="middle" style="font-size:40px;fill:#000000;stroke:none;font-family:DejaVu Sans"><tspan x="150" y="66" text-anchor="middle" id="tspan3196">${status}</tspan></text>
+                    <text x="150" y="64.5" id="text3198"  text-anchor="middle" style="font-size:40px;fill:#ffffff;stroke:none;font-family:DejaVu Sans"><tspan x="150" text-anchor="middle" y="64.5" id="tspan3200">${status}</tspan></text>
+                    <path d="m 50,15 200,0 c 11.08,0 22.51667,10.914 20,20 C 208.16563,41.622482 201.08,40 190,40 L 50,40 C 38.92,40 31.834332,41.622512 30,35 27.483323,25.914 38.92,15 50,15 z" id="ButtonHighlight" style="fill:url(#linearGradient3113)"/>
                 </g>
             </svg>
         """.trimIndent()
