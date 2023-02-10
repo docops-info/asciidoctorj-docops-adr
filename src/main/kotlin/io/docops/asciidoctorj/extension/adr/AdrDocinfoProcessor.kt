@@ -12,7 +12,7 @@ class AdrDocinfoProcessor: DocinfoProcessor() {
         return """
             <style>
             .modal {
-            background: dodgerblue;
+            background: rgb(181,189,200);
             height: 1px;
             overflow: hidden;
             position: fixed;
