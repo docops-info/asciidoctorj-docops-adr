@@ -34,11 +34,14 @@ class AdrBlockProcessor : BlockProcessor() {
         val newWin = attributes.getOrDefault("newWin", defaultValue = "false") as String
         val content = reader.read()
         val parser = ADRParser()
-        val config = AdrParserConfig(newWin = newWin.toBoolean())
+        val backend = parent.document.getAttribute("backend") as String
+        val isPdf = "pdf" == backend
+        val config = AdrParserConfig(newWin = newWin.toBoolean(), isPdf = isPdf)
+
         val imgSrc = try {
             val adr = parser.parse(content = content, config = config)
             val adrMaker = AdrMaker()
-            var srcStr = adrMaker.makeAdrSvg(adr, border.toBoolean())
+            var srcStr = adrMaker.makeAdrSvg(adr, border.toBoolean(),config)
             adr.urlMap.forEach { (t, u) ->
                 srcStr = srcStr.replace("_${t}_", u)
             }

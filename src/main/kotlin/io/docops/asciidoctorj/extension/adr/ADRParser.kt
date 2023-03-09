@@ -239,7 +239,7 @@ fun main() {
         """.trimIndent(),
         AdrParserConfig(newWin = false)
     )
-    var svg = (AdrMaker().makeAdrSvg(adr, false))
+    var svg = (AdrMaker().makeAdrSvg(adr, false, AdrParserConfig(newWin = false)))
     adr.urlMap.forEach { (t, u) ->
         svg = svg.replace("_${t}_", u)
     }

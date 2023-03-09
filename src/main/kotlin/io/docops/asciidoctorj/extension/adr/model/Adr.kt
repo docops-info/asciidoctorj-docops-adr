@@ -46,11 +46,23 @@ data class Adr(
 enum class Status {
     Proposed, Accepted, Superseded, Deprecated, Rejected;
 
-    public fun determineStatusColor(status: Status, current: Status): String {
+    fun determineStatusColor(status: Status, current: Status): String {
         if(status == current) {
             return color(status)
         }
         return "#aaaaaa"
+    }
+    fun outlineSelectedStatus(status: Status, current: Status): String {
+        if(status == current) {
+            return "shape"
+        }
+        return ""
+    }
+    fun insetShadow(status: Status, current: Status) : String {
+        if(status == current) {
+            return ""
+        }
+        return "url(#inset-shadow)"
     }
     fun color(status: Status) = when(status) {
         Proposed -> "#2986cc"
@@ -58,6 +70,15 @@ enum class Status {
         Superseded -> "#F5C344"
         Deprecated -> "#EA9999"
         Rejected -> "#CB444A"
+    }
+    fun supersededColor(status: Status, current: Status) : String = when {
+        status == current && status == Superseded -> {
+            "yellowToBlack"
+        }
+        status == current && status == Deprecated -> {
+            "yellowToBlack"
+        }
+        else -> ""
     }
 }
 
