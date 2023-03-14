@@ -16,6 +16,7 @@
 
 package io.docops.asciidoctorj.extension.adr
 
+import org.asciidoctor.ast.Block
 import org.asciidoctor.ast.ContentModel
 import org.asciidoctor.ast.StructuralNode
 import org.asciidoctor.extension.BlockProcessor
@@ -23,6 +24,7 @@ import org.asciidoctor.extension.Contexts
 import org.asciidoctor.extension.Name
 import org.asciidoctor.extension.Reader
 import java.io.File
+import java.util.*
 
 @Name("adr")
 @Contexts(Contexts.LISTING)
@@ -37,7 +39,7 @@ class AdrBlockProcessor : BlockProcessor() {
         val backend = parent.document.getAttribute("backend") as String
         val isPdf = "pdf" == backend
         val config = AdrParserConfig(newWin = newWin.toBoolean(), isPdf = isPdf)
-
+        val idea = parent.document.getAttribute("env", "") as String
         val imgSrc = try {
             val adr = parser.parse(content = content, config = config)
             val adrMaker = AdrMaker()
@@ -49,29 +51,34 @@ class AdrBlockProcessor : BlockProcessor() {
         } catch (e: Exception) {
             errorReport(e.message, config = config)
         }
-        val imgDir = parent.document.getAttribute("imagesdir")
-        var target = "images/${filename}.svg"
-        if (imgDir != null) {
-            target = "${filename}.svg"
-        }
-        val svg = File("${reader.dir}/images/${filename}.svg")
-        val p = svg.parentFile
-        if(!p.exists()) {
-            p.mkdirs()
-        }
-        svg.writeBytes(imgSrc.toByteArray())
-        val blockAttrs = mutableMapOf<String, Any>(
-            "role" to "docops.io.adr",
-            "target" to target,
-            "alt" to "IMG not available",
-            "title" to "Figure. $filename",
-            "interactive-option" to "",
-            "format" to "svg"
 
-        )
-        return createBlock(parent, "image", ArrayList(), blockAttrs, HashMap())
+        val svgBlock: Block = if ("html5".equals(backend, true) || "idea" == idea) {
+            // language=html
+            createBlock(parent, "pass", imgSrc)
+        }
+        else {
+            val dataSrc = "data:image/svg+xml;base64,${Base64.getEncoder().encodeToString(imgSrc.toByteArray())}"
+            produceBlock(dataSrc, filename = filename, parent = parent)
+        }
+        val argAttributes: MutableMap<String, Any> = HashMap()
+        argAttributes["content_model"] = ":raw"
+        val block: Block = createBlock(parent, "open", "", argAttributes, HashMap<Any, Any>())
+        block.blocks.add(svgBlock)
+        return block
     }
 
+    private fun produceBlock(dataSrc: String, filename: String, parent: StructuralNode): Block {
+
+        val svgMap = mutableMapOf<String, Any>(
+            "role" to "docops.io.panels",
+            "target" to dataSrc,
+            "alt" to "IMG not available",
+            "title" to "Figure. $filename",
+            "opts" to "interactive",
+            "format" to "svg"
+        )
+        return this.createBlock(parent, "image", ArrayList(), svgMap, HashMap())
+    }
     private fun errorReport(msg: String?, config: AdrParserConfig): String {
         msg?.let {
             val lines = msg.addLinebreaks(config.lineSize)
