@@ -42,7 +42,7 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
     private fun adrFromFile(f: File, backend: String): MutableList<String> {
         val lines = mutableListOf<String>()
 
-        val adr = ADRParser().parse(f.readText(), AdrParserConfig())
+        val adr = ADRParser().parse(f.readText(), AdrParserConfig(lineSize = 75, increaseWidthBy = 10))
         val div = if("pdf" == backend) {
             "${adr.status}"
         } else {
@@ -99,7 +99,7 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         return lines
     }
     private fun buildDiv(adr: Adr): String {
-        var svg = AdrMaker().makeAdrSvg(adr, config = AdrParserConfig(newWin = false))
+        var svg = AdrMakerNext().makeAdrSvg(adr, config = AdrParserConfig(newWin = false, lineSize = 75))
         adr.urlMap.forEach { (t, u) ->
             svg = svg.replace("_${t}_", u)
         }
@@ -107,14 +107,14 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         val now = System.currentTimeMillis()
         //language=html
         val imageStr = """
-        <object type="image/svg+xml" height="1600" width="900" data="data:image/svg+xml;base64,$str"></object>
+        <object type="image/svg+xml" height="900" width="580" data="data:image/svg+xml;base64,$str"></object>
         """.trimIndent()
         return """
             <div id="mod$now">
                 <input id='button$now' type='checkbox'>
                 <label for='button$now' style='cursor: pointer; color: ${adr.status.color(adr.status)}; font-weight: bold;'>${makeButton((adr.status))}</label>
                 <div class='modal'>
-                    <div class='adrcontent'>$imageStr</div>
+                    <div class='adrcontent'><img src='data:image/svg+xml;base64,$str' width='580'></div>
                 </div>
             </div>
         """.trimIndent()

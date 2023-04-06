@@ -21,6 +21,7 @@ import org.asciidoctor.Attributes
 import org.asciidoctor.Options
 import org.asciidoctor.SafeMode
 import org.junit.jupiter.api.Test
+import java.awt.Color
 import java.io.File
 
 internal class AdrBlockProcessorTest {
@@ -81,5 +82,23 @@ internal class AdrBlockProcessorTest {
     @Test
     fun genPdf() {
         genDoc(false)
+    }
+
+    @Test
+    fun getColor() {
+        val clr = gradientFromColor("#CB444A")
+        println(clr)
+    }
+    private fun gradientFromColor(color: String): Map<String, String> {
+        val decoded = Color.decode(color)
+        val tinted1 = tint(decoded, 0.5)
+        val tinted2 = tint(decoded, 0.25)
+        return mapOf("color1" to tinted1, "color2" to tinted2, "color3" to color)
+    }
+    private fun tint(color: Color, factor: Double): String {
+        val rs = color.red + (factor * (255 - color.red))
+        val gs = color.green + (factor * (255 - color.green))
+        val bs = color.blue + (factor * (255 - color.blue))
+        return  "#${rs.toInt().toString(16)}${gs.toInt().toString(16)}${bs.toInt().toString(16)}"
     }
 }

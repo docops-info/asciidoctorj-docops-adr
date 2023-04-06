@@ -65,14 +65,14 @@ include::123.adr[]
 
 === Resulting ADR
 
-[adr,test3,border=true, newWin=true]
+[adr,test3,width="60%", newWin=true]
 ----
 include::123.adr[]
 ----
 
 ==== New Window Test
 
-[adr,test4,border=false, newWin=false]
+[adr,test4,border=false, width="60%",newWin=false]
 ----
 include::456.adr[]
 ----
@@ -81,26 +81,26 @@ include::456.adr[]
 
 [source,asciidoc]
 -----
-[adr,test4,border=true, newWin=false]
+[adr,test4,border=true, width="70%",role="center", newWin=false, boxWidthIncrease="20"]
 ----
 include::456.adr[] <1>
 ----
 -----
 
 .Superseded
-[adr,test6,border=true]
+[adr,test6,border=true,width="60%",boxWidthIncrease="20"]
 ----
 include::012.adr[]
 ----
 
 .Deprecated
-[adr,test7,border=false]
+[adr,test7,border=false,width="60%",]
 ----
 include::345.adr[]
 ----
 
 .Rejected
-[adr,test8,border=true, newWin=true]
+[adr,test8,border=true, newWin=true,width="60%"]
 ----
 include::789.adr[]
 ----

@@ -19,5 +19,6 @@ package io.docops.asciidoctorj.extension.adr
 data class AdrParserConfig (
     val lineSize: Int = 110,
     val newWin : Boolean = false,
-    val isPdf: Boolean = false
+    val isPdf: Boolean = false,
+    val increaseWidthBy: Int = 0
 )

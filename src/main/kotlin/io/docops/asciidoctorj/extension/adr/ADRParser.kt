@@ -224,7 +224,7 @@ fun main() {
         """
         Title:Use Solr for Structured & Search
         Date: November 24th, 2010
-        Status:Accepted
+        Status: Proposed
         Context:There is a need of having an API exposed which can be used to search structured data.
          The Data currently resides in RDBMS, it is difficult to expose micro-service directly
          querying out of RDBMS databases since the application runs out of the same environment.
@@ -237,9 +237,9 @@ fun main() {
          Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
          Participants: Steve,Ian
         """.trimIndent(),
-        AdrParserConfig(newWin = false)
+        AdrParserConfig(newWin = false, lineSize = 75)
     )
-    var svg = (AdrMaker().makeAdrSvg(adr, false, AdrParserConfig(newWin = false)))
+    var svg = (AdrMakerNext().makeAdrSvg(adr, false, AdrParserConfig(newWin = false)))
     adr.urlMap.forEach { (t, u) ->
         svg = svg.replace("_${t}_", u)
     }
