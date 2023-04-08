@@ -28,7 +28,7 @@ class AdrMakerNext {
     fun title(title: String, width: Int): String {
         return  """
     <text x="${width/2}" y="30" text-anchor="middle" fill="#000" opacity="0.25" style="font-weight: bold; font-size: 16px;">$title</text>
-    <text x="${width/2}" y="27.75" text-anchor="middle" style="font-weight: bold; font-size: 16px;">$title</text>
+    <text x="${(width/2) - 1}" y="29" text-anchor="middle" style="font-weight: bold; font-size: 16px;">$title</text>
         """.trimIndent()
     }
 
@@ -128,10 +128,8 @@ class AdrMakerNext {
             outline: dotted 1px blue;
         }
     </style>
-   
-   <path d="${generateRectPathData(width.toFloat(), height.toFloat(), 22.0F, 22.0F,0.0F,0.0F)}" fill="#ffffff"  stroke="url(#${adr.status}-gradient)"/>
-
-    <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#dropshadow)" />
+   <path d="${generateRectPathData(width.toFloat(), height.toFloat(), 22.0F, 22.0F,22.0F,22.0F)}" fill="#ffffff"  stroke="url(#${adr.status}-gradient)"/>
+   <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#dropshadow)" />
    
     $body
 </svg>
