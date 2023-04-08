@@ -107,9 +107,12 @@ class ADRParser {
         require(context != null) { "Invalid syntax context not found" }
 
         val list = mutableListOf<String>()
+        val sb = StringBuilder()
+
         context.forEach {
-            list.addAll(it.addLinebreaks(config.lineSize))
+            sb.append(" ${it.trim()}")
         }
+        list.addAll(sb.toString().addLinebreaks(config.lineSize))
         return list
     }
 
@@ -120,9 +123,11 @@ class ADRParser {
         val decision = map["DECISION"]
         require(decision != null) { "Invalid syntax decision not found" }
         val list = mutableListOf<String>()
+        val sb = StringBuilder()
         decision.forEach {
-            list.addAll(it.addLinebreaks(config.lineSize))
+            sb.append(" ${it.trim()}")
         }
+        list.addAll(sb.toString().addLinebreaks(config.lineSize))
         return list
     }
 
@@ -133,9 +138,11 @@ class ADRParser {
         val consequences = map["CONSEQUENCES"]
         require(consequences != null) { "Invalid syntax consequences not found" }
         val list = mutableListOf<String>()
+        val sb = StringBuilder()
         consequences.forEach {
-            list.addAll(it.addLinebreaks(config.lineSize))
+            sb.append(" ${it.trim()}")
         }
+        list.addAll(sb.toString().addLinebreaks(config.lineSize))
         return list
     }
 
@@ -218,28 +225,41 @@ fun String.makeUrl(urlMap: MutableMap<Int, String>, config: AdrParserConfig): St
 
 }
 
+fun generateRectPathData(width: Float, height: Float, topLetRound:Float, topRightRound:Float, bottomRightRound:Float, bottomLeftRound:Float): String {
+    return """M 0 $topLetRound 
+ A $topLetRound $topLetRound 0 0 1 $topLetRound 0
+ L ${(width - topRightRound)} 0
+ A $topRightRound $topRightRound 0 0 1 $width $topRightRound
+ L $width ${(height - bottomRightRound)}
+ A $bottomRightRound $bottomRightRound 0 0 1 ${(width - bottomRightRound)} $height
+ L $bottomLeftRound $height
+ A $bottomLeftRound $bottomLeftRound 0 0 1 0 ${(height - bottomLeftRound)}
+ Z"""
+}
 fun main() {
     val adr = ADRParser().parse(
         // language=text
         """
-        Title:Use Solr for Structured & Search
-        Date: November 24th, 2010
-        Status: Proposed
-        Context:There is a need of having an API exposed which can be used to search structured data.
-         The Data currently resides in RDBMS, it is difficult to expose micro-service directly
-         querying out of RDBMS databases since the application runs out of the same environment.
-         There are options like Elastic Search & [[https://solr.apache.org/ Solr Rocks]] where data can be replicated. These solutions provide out of the box capabilities that can be leveraged by developers without needed to build [[https://en.wikipedia.org/wiki/Representational_state_transfer RESTful]] or [[https://graphql.org/ GraphQL]] type APIs.
-         Decision: Use Solr for data > indexing. This use is because Solr has high performance throughput with large volume of data.
-         Unstructured data can also be supported.
-         If this decision does not [[relative meet]] the need then additional PoC will be created.
-         Consequences: [[https://solr.apache.org/ Data]] in [[https://solr.apache.org/ Solr]] Needs to be replicated across the solr cloud instances.
-         This Solr cloud needs maintenance & shard management.
-         Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
-         Participants: Steve,Ian
+        Title:Use Solr for Structured Data Search
+Date: November 24th, 2010
+Status: Superseded
+Context:  Solr and Elasticsearch are both open source search engines. Both can be used to search
+large amounts of data quickly and accurately. While Solr uses a SQL-like query language, Elasticsearch has a full-text search engine and is designed for distributed search and analytics. Elasticsearch also allows for faster indexing and more advanced search replicas. Both technologies have strengths and weaknesses and are often used in
+combination for enterprise-level search. There is a need of having an API exposed which can be used to search structured 
+data. The Data currently resides in RDBMS, it is difficult to expose micro-service directly querying out of RDBMS databases since the application runs out of the same environment.
+There are options like [[https://www.elastic.co ElasticSearch]] and Solr where data can be replicated. These solutions provide out of the box capabilities
+that can be leveraged by developers without needed to build RESTful or GraphQL type APIs.
+Decision:Use [[https://solr.apache.org/ Solr]] for data indexing. This use is because Solr has high performance throughput with large volume of data.
+Unstructured data can also be supported.
+If this decision does not meet the need then additional PoC will be created.
+Consequences:Data Needs to be replicated across the solr cloud instances.
+This Solr cloud needs maintenance.
+Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
+Participants:Roach,Rose,Duffy
         """.trimIndent(),
-        AdrParserConfig(newWin = false, lineSize = 75)
+        AdrParserConfig(newWin = false, lineSize = 90, increaseWidthBy = 50)
     )
-    var svg = (AdrMakerNext().makeAdrSvg(adr, false, AdrParserConfig(newWin = false)))
+    var svg = (AdrMakerNext().makeAdrSvg(adr, false, AdrParserConfig(newWin = false, lineSize = 90, increaseWidthBy = 50)))
     adr.urlMap.forEach { (t, u) ->
         svg = svg.replace("_${t}_", u)
     }

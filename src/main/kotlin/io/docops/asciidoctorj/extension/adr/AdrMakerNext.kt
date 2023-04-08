@@ -6,8 +6,10 @@ class AdrMakerNext {
     private val xIndent = 66
 
     fun makeAdrSvg(adr: Adr, dropShadow: Boolean = true, config: AdrParserConfig) : String {
+        val width = 550 + config.increaseWidthBy
         val sb = StringBuilder()
-        sb.append(title(adr.title))
+
+        sb.append(title(adr.title, width))
         sb.append(status(adr, config))
         sb.append("""<text x="14" y="85" style="font-weight: normal; font-size: 11px;">""")
         sb.append(context(adr,config))
@@ -15,20 +17,28 @@ class AdrMakerNext {
         sb.append(consequences(adr,config))
         sb.append(participants(adr,config))
         sb.append("""</text>""")
-        return svg(sb.toString(), adr = adr, config=config)
+        var iHeight = 550
+        val count = adr.lineCount() - 15
+        if(count>0) {
+            iHeight += (count * 15)
+        }
+        return svg(sb.toString(), iWidth = width,  iHeight = iHeight, adr = adr, config=config)
     }
 
-    fun title(title: String): String {
-        return """<text x="250" y="30" text-anchor="middle" style="font-weight: bold; font-size: 16px;" >$title</text>"""
+    fun title(title: String, width: Int): String {
+        return  """
+    <text x="${width/2}" y="30" text-anchor="middle" fill="#000" opacity="0.25" style="font-weight: bold; font-size: 16px;">$title</text>
+    <text x="${width/2}" y="27.75" text-anchor="middle" style="font-weight: bold; font-size: 16px;">$title</text>
+        """.trimIndent()
     }
 
     fun status(adr: Adr, adrParserConfig: AdrParserConfig): String {
         //language=svg
         return """
-            <text x="20" y="55" style="font-weight: bold; font-size: 12px;" fill="#ffffff">Status:</text>
-            <text x="77" y="55" style="font-weight: normal; font-size: 12px;" fill="#ffffff">${adr.status}</text>
-            <text x="200" y="55" style="font-weight: bold; font-size: 12px;" fill="#ffffff">Date:</text>
-            <text x="245" y="55"  style="font-size: 12px;" fill="#ffffff">${adr.date}</text>
+            <text x="20" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Status:</text>
+            <text x="77" y="55" style="font-weight: normal; font-size: 12px;" fill="#000000">${adr.status}</text>
+            <text x="200" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Date:</text>
+            <text x="245" y="55"  style="font-size: 12px;" fill="#000000">${adr.date}</text>
         """
     }
 
@@ -60,9 +70,9 @@ class AdrMakerNext {
         }
         return sb
     }
-    fun svg(body: String, iHeight: Int = 550, adr: Adr, config: AdrParserConfig): String {
+    fun svg(body: String, iHeight: Int = 550, iWidth: Int, adr: Adr, config: AdrParserConfig): String {
         val height = maxOf(iHeight, 500)
-        val width = 550 + config.increaseWidthBy
+        val width = iWidth + config.increaseWidthBy
         //language=svg
         return """
 <?xml version="1.0" standalone="no"?>
@@ -118,12 +128,10 @@ class AdrMakerNext {
             outline: dotted 1px blue;
         }
     </style>
-    <rect ry="14" x="0" y="2" width="97%" height="10.8%" fill="url(#${adr.status}-gradient)" style="border-radius: 20px; background-color: red;"/>
+   
+   <path d="${generateRectPathData(width.toFloat(), height.toFloat(), 22.0F, 22.0F,0.0F,0.0F)}" fill="#ffffff"  stroke="url(#${adr.status}-gradient)"/>
 
-    <rect ry="14" x="0" y="57" width="97%" height="87.2%" fill="#ffffff" style="border-radius: 20px; background-color: red;"/>
-
-    <rect ry="14" x="0" y="2" width="97%" height="65" fill="url(#${adr.status}-gradient)" style="border-radius: 20px; background-color: red;"/>
-    <rect rx="20" ry="20" width="97%" height="97%" style="filter:url(#dropshadow)" fill="none" stroke="${adr.status.color(adr.status)}" stroke-width="3" />
+    <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#dropshadow)" />
    
     $body
 </svg>

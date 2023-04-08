@@ -41,6 +41,9 @@ data class Adr(
         }
         return participants.joinToString(",")
     }
+    fun lineCount() : Int{
+        return context.size + decision.size + consequences.size + participants.size
+    }
 }
 
 enum class Status {
@@ -80,6 +83,7 @@ enum class Status {
         }
         else -> ""
     }
+
 }
 
 fun String.escapeXml(): String {

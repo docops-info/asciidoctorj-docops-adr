@@ -1,9 +1,10 @@
 Title:Use Solr for Structured Data Search
 Date: November 24th, 2010
-Status: Accepted
-Context: There is a need of having an API exposed which can be used to search structured data.
-The Data currently resides in RDBMS, it is difficult to expose micro-service directly
-querying out of RDBMS databases since the application runs out of the same environment.
+Status: Deprecated
+Context:  Solr and Elasticsearch are both open source search engines. Both can be used to search
+large amounts of data quickly and accurately. While Solr uses a SQL-like query language, Elasticsearch has a full-text search engine and is designed for distributed search and analytics. Elasticsearch also allows for faster indexing and more advanced search replicas. Both technologies have strengths and weaknesses and are often used in
+combination for enterprise-level search. There is a need of having an API exposed which can be used to search structured
+data. The Data currently resides in RDBMS, it is difficult to expose micro-service directly querying out of RDBMS databases since the application runs out of the same environment.
 There are options like [[https://www.elastic.co ElasticSearch]] and Solr where data can be replicated. These solutions provide out of the box capabilities
 that can be leveraged by developers without needed to build RESTful or GraphQL type APIs.
 Decision:Use [[https://solr.apache.org/ Solr]] for data indexing. This use is because Solr has high performance throughput with large volume of data.

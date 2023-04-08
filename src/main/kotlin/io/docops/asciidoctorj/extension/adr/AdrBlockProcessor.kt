@@ -62,8 +62,8 @@ class AdrBlockProcessor : BlockProcessor() {
         val newWin = attributes.getOrDefault("newWin", defaultValue = "false") as String
         val content = reader.read()
         var width = attributes.getOrDefault("width", "") as String
-        val boxWidthIncrease = attributes.getOrDefault("boxWidthIncrease", "0") as String
-        val lineSize = attributes.getOrDefault("lineSize", "75") as String
+        val boxWidthIncrease = attributes.getOrDefault("boxWidthIncrease", "50") as String
+        val lineSize = attributes.getOrDefault("lineSize", "90") as String
         val role = attributes.getOrDefault("role", "center")
         val backend = parent.document.getAttribute("backend") as String
         val isPdf = "pdf" == backend
