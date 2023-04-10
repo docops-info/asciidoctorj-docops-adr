@@ -110,9 +110,16 @@ class ADRParser {
         val sb = StringBuilder()
 
         context.forEach {
-            sb.append(" ${it.trim()}")
+            if(it.trim().isEmpty() || it.isBlank()) {
+                sb.append("_nbsp;_")
+            }
+            else {sb.append(" ${it.trim()}")}
         }
-        list.addAll(sb.toString().addLinebreaks(config.lineSize))
+        val parts = sb.split("_nbsp;_")
+        parts.forEach{
+            list.addAll(it.addLinebreaks(config.lineSize))
+            list.add("")
+        }
         return list
     }
 
@@ -125,9 +132,16 @@ class ADRParser {
         val list = mutableListOf<String>()
         val sb = StringBuilder()
         decision.forEach {
-            sb.append(" ${it.trim()}")
+            if(it.trim().isEmpty() || it.isBlank()) {
+                sb.append("_nbsp;_")
+            }
+            else {sb.append(" ${it.trim()}")}
         }
-        list.addAll(sb.toString().addLinebreaks(config.lineSize))
+        val parts = sb.split("_nbsp;_")
+        parts.forEach{
+            list.addAll(it.addLinebreaks(config.lineSize))
+            list.add("")
+        }
         return list
     }
 
@@ -140,9 +154,16 @@ class ADRParser {
         val list = mutableListOf<String>()
         val sb = StringBuilder()
         consequences.forEach {
-            sb.append(" ${it.trim()}")
+            if(it.trim().isEmpty() || it.isBlank()) {
+                sb.append("_nbsp;_")
+            }
+            else {sb.append(" ${it.trim()}")}
         }
-        list.addAll(sb.toString().addLinebreaks(config.lineSize))
+        val parts = sb.split("_nbsp;_")
+        parts.forEach{
+            list.addAll(it.addLinebreaks(config.lineSize))
+            list.add("")
+        }
         return list
     }
 
@@ -173,6 +194,10 @@ fun String.addLinebreaks(maxLineLength: Int): MutableList<String> {
     var lineLen = 0
     while (tok.hasMoreTokens()) {
         val word = tok.nextToken()
+
+        if(word.contains("nbps;")){
+            println(word)
+        }
         if (lineLen + word.length > maxLineLength) {
             list.add(output.escapeXml())
             output = String()
@@ -197,6 +222,7 @@ fun String.makeUrl(urlMap: MutableMap<Int, String>, config: AdrParserConfig): St
     if(config.newWin) {
         newWin = "_blank"
     }
+
     var newStr = this
     if (this.contains("[[") && this.contains("]]")) {
         val regex = "(?<=\\[\\[)(.*?)(?=]])".toRegex()
@@ -263,6 +289,7 @@ Participants:Roach,Rose,Duffy
     adr.urlMap.forEach { (t, u) ->
         svg = svg.replace("_${t}_", u)
     }
+    svg = svg.replace("_nbsp;_","<tspan x=\"14\" dy=\"20\">&#160;</tspan>")
     val f = File("src/test/resources/test.svg")
     f.writeBytes(svg.toByteArray())
 }

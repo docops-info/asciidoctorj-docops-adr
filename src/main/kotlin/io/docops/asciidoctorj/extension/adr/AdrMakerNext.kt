@@ -45,21 +45,33 @@ class AdrMakerNext {
     fun context(adr: Adr, config: AdrParserConfig): StringBuilder {
         val sb = StringBuilder("""<tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Context</tspan>""")
         adr.context.forEach {  s ->
-            sb.append("""<tspan x="14" dy="20">$s</tspan>""")
+            if(s.isEmpty()) {
+                sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
+            } else {
+                sb.append("""<tspan x="14" dy="20">$s</tspan>""")
+            }
         }
         return sb
     }
     fun decision(adr: Adr, config: AdrParserConfig): StringBuilder {
         val sb = StringBuilder("""<tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Decision</tspan>""")
         adr.decision.forEach {  s ->
-            sb.append("""<tspan x="14" dy="20">$s</tspan>""")
+            if(s.isEmpty()) {
+                sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
+            } else {
+                sb.append("""<tspan x="14" dy="20">$s</tspan>""")
+            }
         }
         return sb
     }
     fun consequences(adr: Adr, config: AdrParserConfig): StringBuilder {
         val sb = StringBuilder("""<tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Consequences</tspan>""")
         adr.consequences.forEach {  s ->
-            sb.append("""<tspan x="14" dy="20">$s</tspan>""")
+            if(s.isEmpty()) {
+                sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
+            } else {
+                sb.append("""<tspan x="14" dy="20">$s</tspan>""")
+            }
         }
         return sb
     }
@@ -77,8 +89,8 @@ class AdrMakerNext {
         return """
 <?xml version="1.0" standalone="no"?>
 <svg id="adr" xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 $width $height"
-     clip="rect(0, 5, 8, 2)">
+     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 ${width+5} $height"
+     >
     <defs>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="1" y2="1">
             <stop offset="0%" stop-color="#94c2e5"/>
