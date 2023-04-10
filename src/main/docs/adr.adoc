@@ -1,4 +1,4 @@
-= DocOps.io AsciiDoctorJ Architecture Decision Record(ARD)
+= DocOps.io AsciiDoctorJ Architecture Decision Record(ADR)
 Steve D Roach
 :email: sroachst@gmail.com
 :stylesdir: styles
