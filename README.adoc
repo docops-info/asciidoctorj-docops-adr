@@ -4,7 +4,7 @@
 :group: io.docops
 :artifact: asciidoctorj-docops-adr
 :major: 2023
-:minor: .08
+:minor: .09
 :patch:
 :build:
 :extension:
@@ -45,6 +45,9 @@ link:https://search.maven.org/remotecontent?filepath=io/docops/{artifact}/{major
 link:build/docs/adr.html[{artifact}.html
 
 == History
+
+2023.09 - 2023-04-13::
+* Better text line handling
 
 2023.08 - 2023-04-08::
 * removed drop shadow from title
