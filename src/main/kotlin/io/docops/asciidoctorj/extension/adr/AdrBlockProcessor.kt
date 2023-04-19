@@ -26,10 +26,12 @@ import org.asciidoctor.extension.Reader
 import org.asciidoctor.log.LogRecord
 import org.asciidoctor.log.Severity
 import java.io.ByteArrayOutputStream
+import java.math.BigDecimal
 import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
+import java.text.DecimalFormat
 import java.time.Duration
 import java.util.*
 import java.util.zip.GZIPOutputStream
@@ -78,23 +80,30 @@ class AdrBlockProcessor : BlockProcessor() {
                 log(LogRecord(Severity.ERROR, parent.sourceLocation, e.message))
                 ""
             }
+            var widthNum = 970
             if (width.isNotEmpty()) {
-                width = "width=\"$width\""
+                val pct = BigDecimal(width.substring(0, width.length -1))
+
+                val fact = pct.divide(BigDecimal(100))
+                widthNum = fact.multiply(BigDecimal(widthNum)).intValueExact()
             }
             val url = "$server/api/adr?type=${isPdf}&data=$payload&increaseWidth=$boxWidthIncrease&file=xyz.svg"
-            if (localDebug) {
-                println("getting image from url $url")
-            }
-            val linesArray = mutableListOf<String>()
+
+            val image = getContentFromServer(url,parent, this, debug = localDebug)
+            val dataUri = "data:image/svg+xml;base64," + Base64.getEncoder()
+                .encodeToString(image.toByteArray())
+            //val linesArray = mutableListOf<String>()
             // language=asciidoc
-            linesArray.add("""[cols="1a",role="$role",$width,frame="none"]""")
+            /*linesArray.add("""[cols="1",role="$role",$width,frame="none"]""")
             linesArray.add("|===")
             linesArray.add("")
-            linesArray.add("|image::$url[opts=inline,format=svg]")
+            linesArray.add("|<img src=\"$dataUri\">")
             linesArray.add("")
-            linesArray.add("|===")
+            linesArray.add("|===")*/
             val svgBlock = createBlock(parent, "open", "", HashMap(), HashMap<Any, Any>())
-            parseContent(svgBlock, linesArray)
+            //parseContent(svgBlock, linesArray)
+            val imageBlock = produceBlock(dataUri, filename,parent,widthNum.toString(), role)
+            svgBlock.blocks.add(imageBlock)
             return svgBlock
         }
 
@@ -175,6 +184,26 @@ fun serverPresent(server: String, parent: StructuralNode, pb: BlockProcessor, de
     }
 }
 
+fun getContentFromServer(url: String, parent: StructuralNode, pb: BlockProcessor, debug: Boolean = false): String {
+    if (debug) {
+        println("getting image from url $url")
+    }
+    val client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
+        .connectTimeout(Duration.ofSeconds(20))
+        .build()
+    val request = HttpRequest.newBuilder()
+        .uri(URI.create(url))
+        .timeout(Duration.ofMinutes(1))
+        .build()
+    return try {
+        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
+        response.body()
+    } catch (e: Exception) {
+        pb.log(LogRecord(Severity.ERROR, parent.sourceLocation, e.message))
+        e.printStackTrace()
+        ""
+    }
+}
 fun compressString(body: String): String {
     val baos = ByteArrayOutputStream()
     val zos = GZIPOutputStream(baos)
