@@ -67,13 +67,18 @@ class AdrBlockProcessor : BlockProcessor() {
         val boxWidthIncrease = attributes.getOrDefault("boxWidthIncrease", "50") as String
         val lineSize = attributes.getOrDefault("lineSize", "90") as String
         val role = attributes.getOrDefault("role", "center")
+        val alternate = attributes.getOrDefault("alternate", "true") as String
         val backend = parent.document.getAttribute("backend") as String
         val isPdf = "pdf" == backend
-        val config = AdrParserConfig(newWin = newWin.toBoolean(), isPdf = isPdf, lineSize = lineSize.toInt(), increaseWidthBy = boxWidthIncrease.toInt())
+        val config = AdrParserConfig(
+            newWin = newWin.toBoolean(),
+            isPdf = isPdf,
+            lineSize = lineSize.toInt(),
+            increaseWidthBy = boxWidthIncrease.toInt()
+        )
         val idea = parent.document.getAttribute("env", "") as String
 
-        if (serverPresent(server, parent, this, localDebug)){
-
+        if (serverPresent(server, parent, this, localDebug)) {
             val payload: String = try {
                 compressString(content)
             } catch (e: Exception) {
@@ -82,29 +87,33 @@ class AdrBlockProcessor : BlockProcessor() {
             }
             var widthNum = 970
             if (width.isNotEmpty()) {
-                val pct = BigDecimal(width.substring(0, width.length -1))
-
+                val pct = BigDecimal(width.substring(0, width.length - 1))
                 val fact = pct.divide(BigDecimal(100))
                 widthNum = fact.multiply(BigDecimal(widthNum)).intValueExact()
             }
             val url = "$server/api/adr?type=${isPdf}&data=$payload&increaseWidth=$boxWidthIncrease&file=xyz.svg"
-
-            val image = getContentFromServer(url,parent, this, debug = localDebug)
-            val dataUri = "data:image/svg+xml;base64," + Base64.getEncoder()
-                .encodeToString(image.toByteArray())
-            //val linesArray = mutableListOf<String>()
-            // language=asciidoc
-            /*linesArray.add("""[cols="1",role="$role",$width,frame="none"]""")
-            linesArray.add("|===")
-            linesArray.add("")
-            linesArray.add("|<img src=\"$dataUri\">")
-            linesArray.add("")
-            linesArray.add("|===")*/
             val svgBlock = createBlock(parent, "open", "", HashMap(), HashMap<Any, Any>())
-            //parseContent(svgBlock, linesArray)
-            val imageBlock = produceBlock(dataUri, filename,parent,widthNum.toString(), role)
-            svgBlock.blocks.add(imageBlock)
+            if (alternate.toBoolean()) {
+                val linesArray = mutableListOf<String>()
+                // language=asciidoc
+                linesArray.add("""[cols="1",role="$role",$width,frame="none"]""")
+                linesArray.add("|===")
+                linesArray.add("")
+                linesArray.add("a|image::$url[format=svg,width=\"$widthNum\",role=\"$role\",opts=\"inline\",align=\"$role\"]")
+                linesArray.add("")
+                linesArray.add("|===")
+                parseContent(svgBlock, linesArray)
+            } else {
+                val image = getContentFromServer(url, parent, this, debug = localDebug)
+                val dataUri = "data:image/svg+xml;base64," + Base64.getEncoder()
+                    .encodeToString(image.toByteArray())
+                val imageBlock = produceBlock(dataUri, filename, parent, widthNum.toString(), role)
+                svgBlock.blocks.add(imageBlock)
+            }
+
             return svgBlock
+
+
         }
 
 
@@ -112,7 +121,13 @@ class AdrBlockProcessor : BlockProcessor() {
         return null
     }
 
-    private fun produceBlock(dataSrc: String, filename: String, parent: StructuralNode, width: String, role: Any): Block {
+    private fun produceBlock(
+        dataSrc: String,
+        filename: String,
+        parent: StructuralNode,
+        width: String,
+        role: Any
+    ): Block {
 
         val svgMap = mutableMapOf<String, Any>(
             "role" to "center",
@@ -204,6 +219,7 @@ fun getContentFromServer(url: String, parent: StructuralNode, pb: BlockProcessor
         ""
     }
 }
+
 fun compressString(body: String): String {
     val baos = ByteArrayOutputStream()
     val zos = GZIPOutputStream(baos)

@@ -64,8 +64,8 @@
     </issueManagement>
 
     <properties>
-        <asciidoctorj.version>2.5.7</asciidoctorj.version>
-        <asciidoctorj-pdf.version>2.3.4</asciidoctorj-pdf.version>
+        <asciidoctorj.version>2.5.8</asciidoctorj.version>
+        <asciidoctorj-pdf.version>2.3.7</asciidoctorj-pdf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.code.style>official</kotlin.code.style>
         <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
