@@ -67,7 +67,7 @@ class AdrBlockProcessor : BlockProcessor() {
         val boxWidthIncrease = attributes.getOrDefault("boxWidthIncrease", "50") as String
         val lineSize = attributes.getOrDefault("lineSize", "90") as String
         val role = attributes.getOrDefault("role", "center")
-        val alternate = attributes.getOrDefault("alternate", "true") as String
+        val table = attributes.getOrDefault("table", "false") as String
         val backend = parent.document.getAttribute("backend") as String
         val isPdf = "pdf" == backend
         val config = AdrParserConfig(
@@ -93,7 +93,7 @@ class AdrBlockProcessor : BlockProcessor() {
             }
             val url = "$server/api/adr?type=${isPdf}&data=$payload&increaseWidth=$boxWidthIncrease&file=xyz.svg"
             val svgBlock = createBlock(parent, "open", "", HashMap(), HashMap<Any, Any>())
-            if (alternate.toBoolean()) {
+            if (table.toBoolean()) {
                 val linesArray = mutableListOf<String>()
                 // language=asciidoc
                 linesArray.add("""[cols="1",role="$role",$width,frame="none"]""")
