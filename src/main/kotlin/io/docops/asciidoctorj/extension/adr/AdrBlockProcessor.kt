@@ -31,11 +31,9 @@ import java.net.URI
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
-import java.text.DecimalFormat
 import java.time.Duration
 import java.util.*
 import java.util.zip.GZIPOutputStream
-import kotlin.collections.HashMap
 
 @Name("adr")
 @Contexts(Contexts.LISTING)
@@ -66,7 +64,7 @@ class AdrBlockProcessor : BlockProcessor() {
         var width = attributes.getOrDefault("width", "") as String
         val boxWidthIncrease = attributes.getOrDefault("boxWidthIncrease", "50") as String
         val lineSize = attributes.getOrDefault("lineSize", "90") as String
-        val role = attributes.getOrDefault("role", "center")
+        val role = attributes.getOrDefault("role", "center") as String
         val table = attributes.getOrDefault("table", "false") as String
         val backend = parent.document.getAttribute("backend") as String
         val isPdf = "pdf" == backend
@@ -103,30 +101,36 @@ class AdrBlockProcessor : BlockProcessor() {
                 linesArray.add("")
                 linesArray.add("|===")
                 parseContent(svgBlock, linesArray)
-            } else {
+            } else if(isPdf) {
                 val image = getContentFromServer(url, parent, this, debug = localDebug)
-                val dataUri = "data:image/svg+xml;base64," + Base64.getEncoder()
-                    .encodeToString(image.toByteArray())
+                val dataUri = "data:image/svg+xml;base64," + Base64.getEncoder().encodeToString(image.toByteArray())
                 val imageBlock = produceBlock(dataUri, filename, parent, widthNum.toString(), role)
                 svgBlock.blocks.add(imageBlock)
+            } else {
+                val image = getContentFromServer(url, parent, this, debug = localDebug)
+                val align = mutableMapOf<String, String>(
+                    "right" to "margin-left: auto; margin-right: 0;",
+                    "left" to "",
+                    "center" to "margin: auto;"
+                )
+                val center = align[role.lowercase()]
+                val imageContent: String = """
+                    <div class="openblock">
+                    <div class="content" style="width: $width;padding: 10px;$center">
+                    $image
+                    </div>
+                    </div>
+                   """
+                return createBlock(parent, "pass", imageContent)
             }
 
             return svgBlock
-
-
         }
-
-
-
         return null
     }
 
     private fun produceBlock(
-        dataSrc: String,
-        filename: String,
-        parent: StructuralNode,
-        width: String,
-        role: Any
+        dataSrc: String, filename: String, parent: StructuralNode, width: String, role: Any
     ): Block {
 
         val svgMap = mutableMapOf<String, Any>(
@@ -182,13 +186,9 @@ fun serverPresent(server: String, parent: StructuralNode, pb: BlockProcessor, de
     if (debug) {
         println("Checking if server is present ${server}/api/ping")
     }
-    val client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
-        .connectTimeout(Duration.ofSeconds(20))
-        .build()
-    val request = HttpRequest.newBuilder()
-        .uri(URI.create("$server/api/ping"))
-        .timeout(Duration.ofMinutes(1))
-        .build()
+    val client =
+        HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(20)).build()
+    val request = HttpRequest.newBuilder().uri(URI.create("$server/api/ping")).timeout(Duration.ofMinutes(1)).build()
     return try {
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
         (200 == response.statusCode())
@@ -203,13 +203,9 @@ fun getContentFromServer(url: String, parent: StructuralNode, pb: BlockProcessor
     if (debug) {
         println("getting image from url $url")
     }
-    val client = HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1)
-        .connectTimeout(Duration.ofSeconds(20))
-        .build()
-    val request = HttpRequest.newBuilder()
-        .uri(URI.create(url))
-        .timeout(Duration.ofMinutes(1))
-        .build()
+    val client =
+        HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(20)).build()
+    val request = HttpRequest.newBuilder().uri(URI.create(url)).timeout(Duration.ofMinutes(1)).build()
     return try {
         val response = client.send(request, HttpResponse.BodyHandlers.ofString())
         response.body()

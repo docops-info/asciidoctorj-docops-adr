@@ -4,6 +4,28 @@
 html {
     font-family: sans-serif;
     -webkit-text-size-adjust: 100%;
+    --caution-color: #802392;
+    --color-white: #fff;
+    --caution-on-color: var(--color-white);
+    --rem-base: 18;
+    --color-smoke-10: #fefefe;
+    --color-smoke-30: #fafafa;
+    --color-smoke-50: #f5f5f5;
+    --color-smoke-70: #f0f0f0;
+    --color-smoke-90: #e1e1e1;
+    --color-brand-primary: #e40046;
+    --body-font-weight-bold: 500;
+    --panel-background: var(--color-smoke-30);
+    --admonition-background: var(--panel-background);
+    --admonition-label-font-weight: var(--body-font-weight-bold);
+    --important-color: var(--color-brand-primary);
+    --important-on-color: var(--color-white);
+    --note-color: #2d7dd2;
+    --note-on-color: var(--color-white);
+    --tip-color: #43b929;
+    --tip-on-color: var(--color-white);
+    --warning-color: #f70;
+    --warning-on-color: var(--color-white);
 }
 
 a {
@@ -263,33 +285,6 @@ textarea {
 select {
     width: 100%;
 }
-
-/*.subheader,
-.admonitionblock td.content > .title,
-.audioblock > .title,
-.exampleblock > .title,
-.imageblock > .title,
-.listingblock > .title,
-.literalblock > .title,
-.stemblock > .title,
-.openblock > .title,
-.paragraph > .title,
-.quoteblock > .title,
-table.tableblock > .title,
-.verseblock > .title,
-.videoblock > .title,
-.dlist > .title,
-.olist > .title,
-.ulist > .title,
-.qlist > .title,
-.hdlist > .title {
-    line-height: 1.45;
-    color: #7a2518;
-    font-weight: 400;
-    margin-top: 0;
-    margin-bottom: 0.25em;
-}*/
-
 .subheader,
 #content #toctitle,
 .admonitionblock td.content > .title,
@@ -1229,38 +1224,86 @@ table.tableblock.fit-content > caption.title {
     color: rgba(0, 0, 0, 0.85);
 }
 
+
+
+.admonitionblock {
+    margin: 1.4rem 0 0;
+}
+
+.admonitionblock p,
+.admonitionblock td.content {
+    font-size: calc(16 / var(--rem-base) * 1rem);
+}
+
+.admonitionblock td.content > :not(.title):first-child,
+.admonitionblock td.content > .title + * {
+    margin-top: 0;
+}
+
+.admonitionblock pre {
+    font-size: calc(15 / var(--rem-base) * 1rem);
+}
+
 .admonitionblock > table {
-    border-collapse: separate;
-    border: 0;
-    background: none;
+    table-layout: fixed;
+    position: relative;
     width: 100%;
 }
 
-.admonitionblock > table td.icon {
-    text-align: center;
-    width: 80px;
-}
-
-.admonitionblock > table td.icon img {
-    max-width: none;
-}
-
-.admonitionblock > table td.icon .title {
-    font-weight: bold;
-    font-family: "Open Sans", "DejaVu Sans", sans-serif;
-    text-transform: uppercase;
-}
-
-.admonitionblock > table td.content {
-    padding-left: 1.125em;
-    padding-right: 1.25em;
-    border-left: 1px solid #dddddf;
-    color: rgba(0, 0, 0, 0.6);
+.admonitionblock td.content {
+    padding: 1rem 1rem 0.75rem;
+    background: var(--admonition-background);
+    width: 100%;
     word-wrap: anywhere;
 }
 
-.admonitionblock > table td.content > :last-child > :last-child {
-    margin-bottom: 0;
+.admonitionblock .icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: calc(15 / var(--rem-base) * 1rem);
+    padding: 0.2rem 0.5rem;
+    height: 1.25rem;
+    line-height: 1;
+    font-weight: var(--admonition-label-font-weight);
+    text-transform: uppercase;
+    border-radius: 0.45rem;
+    transform: translate(-0.5rem, -50%);
+}
+
+.admonitionblock.caution .icon {
+    background-color: var(--caution-color);
+    color: var(--caution-on-color);
+}
+
+.admonitionblock.important .icon {
+    background-color: var(--important-color);
+    color: var(--important-on-color);
+}
+
+.admonitionblock.note .icon {
+    background-color: var(--note-color);
+    color: var(--note-on-color);
+}
+
+.admonitionblock.tip .icon {
+    background-color: var(--tip-color);
+    color: var(--tip-on-color);
+}
+
+.admonitionblock.warning .icon {
+    background-color: var(--warning-color);
+    color: var(--warning-on-color);
+}
+
+.admonitionblock .icon i {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+}
+
+.admonitionblock .icon i::after {
+    content: attr(title);
 }
 
 .exampleblock > .content {
@@ -2161,12 +2204,7 @@ a span.icon > .fa {
     cursor: inherit;
 }
 
-.admonitionblock td.icon [class^="icon-"]:before { font-size: 2.5em; text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); cursor: default; }
-.admonitionblock td.icon .icon-note:before { content: "\f05a"; color: #b1005d; color: #850046; }
-.admonitionblock td.icon .icon-tip:before { content: "\f0eb"; text-shadow: 1px 1px 2px rgba(155, 155, 0, 0.8); color: #111; }
-.admonitionblock td.icon .icon-warning:before { content: "\f071"; color: #bf6900; }
-.admonitionblock td.icon .icon-caution:before { content: "\f06d"; color: #bf3400; }
-.admonitionblock td.icon .icon-important:before { content: "\f06a"; color: #bf0000; }
+
 
 
 .conum[data-value] {

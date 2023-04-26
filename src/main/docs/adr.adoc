@@ -87,20 +87,22 @@ include::456.adr[] <1>
 ----
 -----
 
-.Superseded
-[adr,test6,border=true,width="60%",boxWidthIncrease="20"]
+
+.Proposed
+[adr,test6,border=true,width="60%",boxWidthIncrease="20",role="right"]
 ----
 include::012.adr[]
 ----
 
-.Deprecated
+
+.Superseded
 [adr,test7,border=false,width="70%",alternate="true"]
 ----
 include::345.adr[]
 ----
 
 .Rejected
-[adr,test8,border=true, newWin=true,width="80%"]
+[adr,test8,border=true, newWin=true,width="60%", role=left]
 ----
 include::789.adr[]
 ----

@@ -34,7 +34,9 @@ internal class AdrBlockProcessorTest {
             .noFooter(true)
             //.attribute("coderay-css", "class")
             //.attribute("coderay-linenums-mode", "inline")
-            .attribute("feedback")
+            //.attribute("feedback")
+            .attribute("local-debug", "true")
+            .attribute("panel-webserver", "http://localhost:8010/extension")
             .attribute("tocbot")
             .build()
 

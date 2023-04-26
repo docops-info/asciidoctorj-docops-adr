@@ -27,23 +27,22 @@ class AdrMakerNext {
 
     fun title(title: String, width: Int): String {
         return  """
-    <text x="${width/2}" y="30" text-anchor="middle" fill="#000" opacity="0.25" style="font-weight: bold; font-size: 16px;">$title</text>
-    <text x="${(width/2) - 1}" y="29" text-anchor="middle" style="font-weight: bold; font-size: 16px;">$title</text>
-        """.trimIndent()
+    <text x="${width/2}" y="30" text-anchor="middle" fill="#000"  class="glass"  style="font-weight: bold; font-size: 16px;">$title</text>
+         """.trimIndent()
     }
 
     fun status(adr: Adr, adrParserConfig: AdrParserConfig): String {
         //language=svg
         return """
-            <text x="20" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Status:</text>
-            <text x="77" y="55" style="font-weight: normal; font-size: 12px;" fill="#000000">${adr.status}</text>
-            <text x="200" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Date:</text>
+            <text x="20" y="55"  class="glass"  style="font-size: 12px;" fill="#000000">Status:</text>
+            <text x="77" y="55"  style="font-weight: normal; font-size: 12px;" fill="#000000">${adr.status}</text>
+            <text x="200" y="55"  class="glass"  style="font-size: 12px;" fill="#000000">Date:</text>
             <text x="245" y="55"  style="font-size: 12px;" fill="#000000">${adr.date}</text>
         """
     }
 
     fun context(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Context</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20"  class="glass" style="font-size: 12px;"  text-decoration="underline">Context</tspan>""")
         adr.context.forEach {  s ->
             if(s.isEmpty()) {
                 sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
@@ -54,7 +53,7 @@ class AdrMakerNext {
         return sb
     }
     fun decision(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Decision</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20" class="glass" style="font-size: 12px;"  text-decoration="underline">Decision</tspan>""")
         adr.decision.forEach {  s ->
             if(s.isEmpty()) {
                 sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
@@ -65,7 +64,7 @@ class AdrMakerNext {
         return sb
     }
     fun consequences(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Consequences</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20" class="glass" style="font-size: 12px;"  text-decoration="underline">Consequences</tspan>""")
         adr.consequences.forEach {  s ->
             if(s.isEmpty()) {
                 sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
@@ -76,7 +75,7 @@ class AdrMakerNext {
         return sb
     }
     fun participants(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Participants</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20" class="glass" style="font-size: 12px;"  text-decoration="underline">Participants</tspan>""")
         adr.participants.forEach {  s ->
             sb.append("""<tspan x="14" dy="20">$s</tspan>""")
         }
@@ -139,6 +138,8 @@ class AdrMakerNext {
         .adrlink:hover, .adrlink:active {
             outline: dotted 1px blue;
         }
+        
+        ${glassStyle()}
     </style>
    <path d="${generateRectPathData(width.toFloat(), height.toFloat(), 22.0F, 22.0F,22.0F,22.0F)}" fill="#ffffff"  stroke="url(#${adr.status}-gradient)"/>
    <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#dropshadow)" />
@@ -147,4 +148,59 @@ class AdrMakerNext {
 </svg>
         """.trimIndent()
     }
+
+    fun glassStyle() = """
+        .glass {
+            overflow: hidden;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+            background-image: radial-gradient(circle at center, rgba(0, 167, 225, 0.25), rgba(0, 110, 149, 0.5));
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 2px rgba(0, 0, 0, 0.3), inset 0 -6px 6px -3px rgba(0, 129, 174, 0.2);
+            position: relative;
+        }
+
+        .glass:after {
+            content: "";
+            background: rgba(0, 167, 225, 0.2);
+            display: block;
+            position: absolute;
+            z-index: 0;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            backdrop-filter: blur(3px) saturate(400%);
+            -webkit-backdrop-filter: blur(3px) saturate(400%);
+        }
+
+        .glass:before {
+            content: "";
+            display: block;
+            position: absolute;
+            width: calc(100% - 4px);
+            height: 35px;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+            top: 2px;
+            left: 2px;
+            border-radius: 30px 30px 200px 200px;
+            opacity: 0.7;
+        }
+
+        .glass:hover {
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+        }
+
+        .glass:hover:before {
+            opacity: 1;
+        }
+
+        .glass:active {
+            text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.75), inset 0 0 0 2px rgba(0, 0, 0, 0.3), inset 0 -6px 6px -3px rgba(0, 129, 174, 0.2);
+        }
+
+        .glass:active:before {
+            height: 25px;
+        }
+    """.trimIndent()
 }
