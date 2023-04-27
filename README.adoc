@@ -4,7 +4,7 @@
 :group: io.docops
 :artifact: asciidoctorj-docops-adr
 :major: 2023
-:minor: .11
+:minor: .12
 :patch:
 :build:
 :extension:
@@ -45,6 +45,9 @@ link:https://search.maven.org/remotecontent?filepath=io/docops/{artifact}/{major
 link:build/docs/adr.html[{artifact}.html
 
 == History
+
+2023.12 - 2023-04-27::
+* bug fixes
 
 2023.11 - 2023-04-25::
 * improved content mapping
