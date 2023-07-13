@@ -38,6 +38,9 @@ class AdrMakerNext {
             <text x="77" y="55"  style="font-weight: normal; font-size: 12px;" fill="#000000">${adr.status}</text>
             <text x="200" y="55"  class="glass"  style="font-size: 12px;" fill="#000000">Date:</text>
             <text x="245" y="55"  style="font-size: 12px;" fill="#000000">${adr.date}</text>
+            <rect id="buttontop" x="5" y="4" width="640" height="35" ry="18" rx="18" fill="url(#topshineGrad)" filter="url(#topshineBlur)"/>
+            <rect id="buttonbottom" x="5" y="50" width="640" height="10" fill="#ffffff" ry="18" rx="18" fill-opacity="0.3" filter="url(#bottomshine)"/>
+
         """
     }
 
@@ -91,30 +94,30 @@ class AdrMakerNext {
      xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 ${width+5} $height"
      >
     <defs>
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="1" y2="1">
-            <stop offset="0%" stop-color="#94c2e5"/>
-            <stop offset="50%" stop-color="#5ea4d8"/>
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="0%" y2="100%">
             <stop offset="100%" stop-color="#2986cc"/>
+            <stop offset="50%" stop-color="#5ea4d8"/>
+            <stop offset="0%" stop-color="#94c2e5"/>
         </linearGradient>
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Accepted-gradient" x2="1" y2="1">
-            <stop offset="0%" stop-color="#9bba8e"/>
-            <stop offset="50%" stop-color="#699855"/>
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Accepted-gradient" x2="0%" y2="100%">
             <stop offset="100%" stop-color="#38761d"/>
+            <stop offset="50%" stop-color="#699855"/>
+            <stop offset="0%" stop-color="#9bba8e"/>
         </linearGradient>
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Superseded-gradient" x2="1" y2="1">
-            <stop offset="0%" stop-color="#fae1a1"/>
-            <stop offset="50%" stop-color="#f7d272"/>
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Superseded-gradient" x2="0%" y2="100%">
             <stop offset="100%" stop-color="#F5C344"/>
+            <stop offset="50%" stop-color="#f7d272"/>
+            <stop offset="0%" stop-color="#fae1a1"/>
         </linearGradient>        
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Deprecated-gradient" x2="1" y2="1">
-            <stop offset="0%" stop-color="#f4cccc"/>
-            <stop offset="50%" stop-color="#efb2b2"/>
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Deprecated-gradient" x2="0%" y2="100%">
             <stop offset="100%" stop-color="#EA9999"/>
+            <stop offset="50%" stop-color="#efb2b2"/>
+            <stop offset="0%" stop-color="#f4cccc"/>
         </linearGradient>        
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Rejected-gradient" x2="1" y2="1">
-            <stop offset="0%" stop-color="#e5a1a4"/>
-            <stop offset="50%" stop-color="#d87277"/>
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Rejected-gradient" x2="0%" y2="100%">
             <stop offset="100%" stop-color="#CB444A"/>
+            <stop offset="50%" stop-color="#d87277"/>
+            <stop offset="0%" stop-color="#e5a1a4"/>
         </linearGradient>
         <filter id="dropshadow" height="130%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
@@ -127,22 +130,63 @@ class AdrMakerNext {
                 <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
             </feMerge>
         </filter>
-
+<filter xmlns="http://www.w3.org/2000/svg" id="MyFilter">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+            <feOffset in="blur" dx="4" dy="4" result="offsetBlur"/>
+            <feSpecularLighting in="blur" surfaceScale="5" specularConstant="1" specularExponent="10"
+                                lighting-color="white" result="specOut">
+                <fePointLight x="-5000" y="-10000" z="20000"/>
+            </feSpecularLighting>
+            <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"/>
+            <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"
+                         result="litPaint"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="litPaint"/>
+            </feMerge>
+        </filter>
+        <filter id="buttonBlur">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+            <feOffset in="blur" dy="2" result="offsetBlur"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <linearGradient id="overlayGrad" gradientUnits="userSpaceOnUse" x1="95" y1="-20" x2="95" y2="70">
+            <stop offset="0" stop-color="#000000" stop-opacity="0.5"/>
+            <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="topshineBlur">
+            <feGaussianBlur stdDeviation="0.93"/>
+        </filter>
+        <linearGradient id="topshineGrad" gradientUnits="userSpaceOnUse" x1="95" y1="0" x2="95" y2="40">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="bottomshine">
+            <feGaussianBlur stdDeviation="0.95"/>
+        </filter>
+        <filter id="Bevel2" filterUnits="objectBoundingBox" x="-10%" y="-10%" width="150%" height="150%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.5" result="blur"/>
+            <feSpecularLighting in="blur" surfaceScale="5" specularConstant="0.5" specularExponent="10" result="specOut"
+                                lighting-color="white">
+                <fePointLight x="-5000" y="-10000" z="0000"/>
+            </feSpecularLighting>
+            <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut2"/>
+            <feComposite in="SourceGraphic" in2="specOut2" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"
+                         result="litPaint"/>
+        </filter>
     </defs>
     <style>
-    .adrlink {
-            fill: blue; /* Even for text, SVG uses fill over color */
-            text-decoration: underline;
-        }
-
-        .adrlink:hover, .adrlink:active {
-            outline: dotted 1px blue;
-        }
+    .adrlink { fill: blue; text-decoration: underline; }
+    .adrlink:hover, .adrlink:active { outline: dotted 1px blue; }
         
-        ${glassStyle()}
+    ${glassStyle()}
     </style>
    <path d="${generateRectPathData(width.toFloat(), height.toFloat(), 22.0F, 22.0F,22.0F,22.0F)}" fill="#ffffff"  stroke="url(#${adr.status}-gradient)"/>
    <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#dropshadow)" />
+   <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#buttonBlur)" />
    
     $body
 </svg>
