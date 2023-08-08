@@ -1,32 +1,35 @@
 <?xml version="1.0" standalone="no"?>
 <svg id="adr" xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 659 568"
-     >
+     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial"
+     viewBox="0 0 659 600" width="659" height="568"
+>
     <defs>
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="1" y2="1">
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#94c2e5"/>
             <stop offset="50%" stop-color="#5ea4d8"/>
             <stop offset="100%" stop-color="#2986cc"/>
         </linearGradient>
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Accepted-gradient" x2="1" y2="1">
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Accepted-gradient" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#9bba8e"/>
             <stop offset="50%" stop-color="#699855"/>
             <stop offset="100%" stop-color="#38761d"/>
         </linearGradient>
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Superseded-gradient" x2="1" y2="1">
-            <stop offset="0%" stop-color="#fae1a1"/>
-            <stop offset="50%" stop-color="#f7d272"/>
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Superseded-gradient"
+                        x2="0%" y2="100%" >
             <stop offset="100%" stop-color="#F5C344"/>
-        </linearGradient>        
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Deprecated-gradient" x2="1" y2="1">
+            <stop offset="50%" stop-color="#f7d272"/>
+
+            <stop offset="0%" stop-color="#fae1a1"/>
+        </linearGradient>
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Deprecated-gradient" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#f4cccc"/>
             <stop offset="50%" stop-color="#efb2b2"/>
             <stop offset="100%" stop-color="#EA9999"/>
-        </linearGradient>        
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Rejected-gradient" x2="1" y2="1">
-            <stop offset="0%" stop-color="#e5a1a4"/>
-            <stop offset="50%" stop-color="#d87277"/>
+        </linearGradient>
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Rejected-gradient" x2="0%" y2="100%">
             <stop offset="100%" stop-color="#CB444A"/>
+            <stop offset="50%" stop-color="#d87277"/>
+            <stop offset="0%" stop-color="#e5a1a4"/>
         </linearGradient>
         <filter id="dropshadow" height="130%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
@@ -39,10 +42,56 @@
                 <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
             </feMerge>
         </filter>
-
+        <filter xmlns="http://www.w3.org/2000/svg" id="MyFilter">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
+            <feOffset in="blur" dx="4" dy="4" result="offsetBlur"/>
+            <feSpecularLighting in="blur" surfaceScale="5" specularConstant="1" specularExponent="10"
+                                lighting-color="white" result="specOut">
+                <fePointLight x="-5000" y="-10000" z="20000"/>
+            </feSpecularLighting>
+            <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut"/>
+            <feComposite in="SourceGraphic" in2="specOut" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"
+                         result="litPaint"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="litPaint"/>
+            </feMerge>
+        </filter>
+        <filter id="buttonBlur">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="2" result="blur"/>
+            <feOffset in="blur" dy="2" result="offsetBlur"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <linearGradient id="overlayGrad" gradientUnits="userSpaceOnUse" x1="95" y1="-20" x2="95" y2="70">
+            <stop offset="0" stop-color="#000000" stop-opacity="0.5"/>
+            <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="topshineBlur">
+            <feGaussianBlur stdDeviation="0.93"/>
+        </filter>
+        <linearGradient id="topshineGrad" gradientUnits="userSpaceOnUse" x1="95" y1="0" x2="95" y2="40">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="1"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+        </linearGradient>
+        <filter id="bottomshine">
+            <feGaussianBlur stdDeviation="0.95"/>
+        </filter>
+        <filter id="Bevel2" filterUnits="objectBoundingBox" x="-10%" y="-10%" width="150%" height="150%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="0.5" result="blur"/>
+            <feSpecularLighting in="blur" surfaceScale="5" specularConstant="0.5" specularExponent="10" result="specOut"
+                                lighting-color="white">
+                <fePointLight x="-5000" y="-10000" z="0000"/>
+            </feSpecularLighting>
+            <feComposite in="specOut" in2="SourceAlpha" operator="in" result="specOut2"/>
+            <feComposite in="SourceGraphic" in2="specOut2" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"
+                         result="litPaint"/>
+        </filter>
     </defs>
     <style>
-    .adrlink {
+        .adrlink {
             fill: blue; /* Even for text, SVG uses fill over color */
             text-decoration: underline;
         }
@@ -51,7 +100,7 @@
             outline: dotted 1px blue;
         }
     </style>
-   <path d="M 0 22.0 
+    <path d="M 0 22.0
  A 22.0 22.0 0 0 1 22.0 0
  L 628.0 0
  A 22.0 22.0 0 0 1 650.0 22.0
@@ -59,8 +108,8 @@
  A 22.0 22.0 0 0 1 628.0 565.0
  L 22.0 565.0
  A 22.0 22.0 0 0 1 0 543.0
- Z" fill="#ffffff"  stroke="url(#Superseded-gradient)"/>
-   <path d="M 0 22.0 
+ Z" fill="#ffffff" stroke="url(#Superseded-gradient)"/>
+    <path d="M 0 22.0
  A 22.0 22.0 0 0 1 22.0 0
  L 628.0 0
  A 22.0 22.0 0 0 1 650.0 22.0
@@ -68,13 +117,79 @@
  A 0.0 0.0 0 0 1 650.0 70.0
  L 0.0 70.0
  A 0.0 0.0 0 0 1 0 70.0
- Z" fill="url(#Superseded-gradient)" filter="url(#dropshadow)" />
-   
-    <text x="300" y="30" text-anchor="middle" fill="#000" opacity="0.25" style="font-weight: bold; font-size: 16px;">Use Solr for Structured Data Search</text>
-<text x="299" y="29" text-anchor="middle" style="font-weight: bold; font-size: 16px;">Use Solr for Structured Data Search</text>
-            <text x="20" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Status:</text>
-            <text x="77" y="55" style="font-weight: normal; font-size: 12px;" fill="#000000">Superseded</text>
-            <text x="200" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Date:</text>
-            <text x="245" y="55"  style="font-size: 12px;" fill="#000000">November 24th, 2010</text>
-        <text x="14" y="85" style="font-weight: normal; font-size: 11px;"><tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Context</tspan><tspan x="14" dy="20">Solr and Elasticsearch are both open source search engines. Both can be used to search large amounts of data </tspan><tspan x="14" dy="20">quickly and accurately. While Solr uses a SQL-like query language, Elasticsearch has a full-text search </tspan><tspan x="14" dy="20">engine and is designed for distributed search and analytics. Elasticsearch also allows for faster </tspan><tspan x="14" dy="20">indexing and more advanced search replicas. Both technologies have strengths and weaknesses and are </tspan><tspan x="14" dy="20">often used in combination for enterprise-level search. There is a need of having an API exposed which can be </tspan><tspan x="14" dy="20">used to search structured data. The Data currently resides in RDBMS, it is difficult to expose </tspan><tspan x="14" dy="20">micro-service directly querying out of RDBMS databases since the application runs out of the same </tspan><tspan x="14" dy="20">environment. There are options like <tspan><a href="https://www.elastic.co" xlink:href="https://www.elastic.co" class="adrlink" target="_top">ElasticSearch</a></tspan> and Solr where data can be replicated. These solutions provide out </tspan><tspan x="14" dy="20">of the box capabilities that can be leveraged by developers without needed to build RESTful or GraphQL type </tspan><tspan x="14" dy="20">APIs. </tspan><tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Decision</tspan><tspan x="14" dy="20">Use <tspan><a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" class="adrlink" target="_top">Solr</a></tspan> for data indexing. This use is because Solr has high performance throughput with large volume of </tspan><tspan x="14" dy="20">data. Unstructured data can also be supported. If this decision does not meet the need then additional PoC </tspan><tspan x="14" dy="20">will be created. </tspan><tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Consequences</tspan><tspan x="14" dy="20">Data Needs to be replicated across the solr cloud instances. This Solr cloud needs maintenance. Near </tspan><tspan x="14" dy="20">realtime data replication is required Additional Cost of maintaining the Solr Cloud environment. </tspan><tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;"  text-decoration="underline">Participants</tspan><tspan x="14" dy="20">Roach,Rose,Duffy </tspan></text>
+ Z" fill="url(#Superseded-gradient)"  filter="url(#buttonBlur)"/>
+
+    <text x="300" y="30" text-anchor="middle" fill="#000" opacity="0.25" style="font-weight: bold; font-size: 16px;">Use
+        Solr for Structured Data Search
+    </text>
+    <text x="299" y="29" text-anchor="middle" style="font-weight: bold; font-size: 16px;">Use Solr for Structured Data
+        Search
+    </text>
+    <text x="20" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Status:</text>
+    <text x="77" y="55" style="font-weight: normal; font-size: 12px;" fill="#000000">Superseded</text>
+    <text x="200" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Date:</text>
+    <text x="245" y="55" style="font-size: 12px;" fill="#000000">November 24th, 2010</text>
+    <rect id="buttontop" x="5" y="4" width="640" height="35" ry="18" rx="18" fill="url(#topshineGrad)" filter="url(#topshineBlur)"/>
+    <rect id="buttonbottom" x="5" y="50" width="640" height="10" fill="#ffffff" ry="18" rx="18" fill-opacity="0.3" filter="url(#bottomshine)"/>
+
+    <text x="14" y="85" style="font-weight: normal; font-size: 11px;">
+        <tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;" text-decoration="underline">Context</tspan>
+        <tspan x="14" dy="20">Solr and Elasticsearch are both open source search engines. Both can be used to search
+            large amounts of data
+        </tspan>
+        <tspan x="14" dy="20">quickly and accurately. While Solr uses a SQL-like query language, Elasticsearch has a
+            full-text search
+        </tspan>
+        <tspan x="14" dy="20">engine and is designed for distributed search and analytics. Elasticsearch also allows for
+            faster
+        </tspan>
+        <tspan x="14" dy="20">indexing and more advanced search replicas. Both technologies have strengths and
+            weaknesses and are
+        </tspan>
+        <tspan x="14" dy="20">often used in combination for enterprise-level search. There is a need of having an API
+            exposed which can be
+        </tspan>
+        <tspan x="14" dy="20">used to search structured data. The Data currently resides in RDBMS, it is difficult to
+            expose
+        </tspan>
+        <tspan x="14" dy="20">micro-service directly querying out of RDBMS databases since the application runs out of
+            the same
+        </tspan>
+        <tspan x="14" dy="20">environment. There are options like
+            <tspan>
+                <a href="https://www.elastic.co" xlink:href="https://www.elastic.co" class="adrlink" target="_top">
+                    ElasticSearch
+                </a>
+            </tspan>
+            and Solr where data can be replicated. These solutions provide out
+        </tspan>
+        <tspan x="14" dy="20">of the box capabilities that can be leveraged by developers without needed to build
+            RESTful or GraphQL type
+        </tspan>
+        <tspan x="14" dy="20">APIs.</tspan>
+        <tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;" text-decoration="underline">Decision</tspan>
+        <tspan x="14" dy="20">Use
+            <tspan>
+                <a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" class="adrlink" target="_top">
+                    Solr
+                </a>
+            </tspan>
+            for data indexing. This use is because Solr has high performance throughput with large volume of
+        </tspan>
+        <tspan x="14" dy="20">data. Unstructured data can also be supported. If this decision does not meet the need
+            then additional PoC
+        </tspan>
+        <tspan x="14" dy="20">will be created.</tspan>
+        <tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;" text-decoration="underline">Consequences
+        </tspan>
+        <tspan x="14" dy="20">Data Needs to be replicated across the solr cloud instances. This Solr cloud needs
+            maintenance. Near
+        </tspan>
+        <tspan x="14" dy="20">realtime data replication is required Additional Cost of maintaining the Solr Cloud
+            environment.
+        </tspan>
+        <tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;" text-decoration="underline">Participants
+        </tspan>
+        <tspan x="14" dy="20">Roach,Rose,Duffy</tspan>
+    </text>
 </svg>

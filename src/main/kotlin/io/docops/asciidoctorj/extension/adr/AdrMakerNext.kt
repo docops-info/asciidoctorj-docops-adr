@@ -27,7 +27,7 @@ class AdrMakerNext {
 
     fun title(title: String, width: Int): String {
         return  """
-    <text x="${width/2}" y="30" text-anchor="middle" fill="#000"  class="glass"  style="font-weight: bold; font-size: 16px;">$title</text>
+    <text x="${width/2}" y="30" text-anchor="middle" fill="#fcfcfc"  class="glass"  style="font-weight: bold; font-size: 16px;">$title</text>
          """.trimIndent()
     }
 
@@ -35,12 +35,9 @@ class AdrMakerNext {
         //language=svg
         return """
             <text x="20" y="55"  class="glass"  style="font-size: 12px;" fill="#000000">Status:</text>
-            <text x="77" y="55"  style="font-weight: normal; font-size: 12px;" fill="#000000">${adr.status}</text>
+            <text x="77" y="55"  style="font-weight: normal; font-size: 12px;" fill="#fcfcfc">${adr.status}</text>
             <text x="200" y="55"  class="glass"  style="font-size: 12px;" fill="#000000">Date:</text>
-            <text x="245" y="55"  style="font-size: 12px;" fill="#000000">${adr.date}</text>
-            <rect id="buttontop" x="5" y="4" width="640" height="35" ry="18" rx="18" fill="url(#topshineGrad)" filter="url(#topshineBlur)"/>
-            <rect id="buttonbottom" x="5" y="50" width="640" height="10" fill="#ffffff" ry="18" rx="18" fill-opacity="0.3" filter="url(#bottomshine)"/>
-
+            <text x="245" y="55"  style="font-size: 12px;" fill="#fcfcfc">${adr.date}</text>
         """
     }
 
@@ -86,12 +83,12 @@ class AdrMakerNext {
     }
     fun svg(body: String, iHeight: Int = 550, iWidth: Int, adr: Adr, config: AdrParserConfig): String {
         val height = maxOf(iHeight, 500)
-        val width = iWidth + config.increaseWidthBy
+        val width = (iWidth + config.increaseWidthBy)
         //language=svg
         return """
 <?xml version="1.0" standalone="no"?>
-<svg id="adr" xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 ${width+5} $height"
+<svg id="adr" xmlns="http://www.w3.org/2000/svg" width='${(width+35)* config.scale}' height='${(height + 45)*config.scale}'
+     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 ${(width+10)* config.scale} ${height* config.scale}"
      >
     <defs>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="0%" y2="100%">
@@ -184,11 +181,13 @@ class AdrMakerNext {
         
     ${glassStyle()}
     </style>
-   <path d="${generateRectPathData(width.toFloat(), height.toFloat(), 22.0F, 22.0F,22.0F,22.0F)}" fill="#ffffff"  stroke="url(#${adr.status}-gradient)"/>
+    <g transform='translate(5,5),scale(${config.scale})'>
+   <path d="${generateRectPathData(width.toFloat(), height.toFloat(), 22.0F, 22.0F,22.0F,22.0F)}" fill="#ffffff"  stroke="url(#${adr.status}-gradient)" stroke-width='3'/>
    <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#dropshadow)" />
    <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#buttonBlur)" />
    
     $body
+    </g>
 </svg>
         """.trimIndent()
     }

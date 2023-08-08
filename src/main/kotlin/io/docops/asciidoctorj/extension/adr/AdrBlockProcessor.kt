@@ -26,11 +26,12 @@ import org.asciidoctor.extension.Reader
 import org.asciidoctor.log.LogRecord
 import org.asciidoctor.log.Severity
 import java.io.ByteArrayOutputStream
-import java.math.BigDecimal
 import java.net.URI
+import java.net.URLEncoder
 import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
+import java.nio.charset.StandardCharsets
 import java.time.Duration
 import java.util.*
 import java.util.zip.GZIPOutputStream
@@ -43,108 +44,86 @@ class AdrBlockProcessor : BlockProcessor() {
     private var webserver = "http://localhost:8010/extension"
     private var localDebug = false
     override fun process(parent: StructuralNode, reader: Reader, attributes: MutableMap<String, Any>): Any? {
-        val remoteServer = parent.document.attributes["panel-server"]
-        if (remoteServer != null) {
-            remoteServer as String
-            server = remoteServer
-        }
-        val remoteWebserver = parent.document.attributes["panel-webserver"]
-        remoteWebserver?.let {
-            webserver = it as String
-        }
         val debug = parent.document.attributes["local-debug"]
         if (debug != null) {
             debug as String
             localDebug = debug.toBoolean()
         }
-        val filename = attributes.getOrDefault("2", "${System.currentTimeMillis()}_unk") as String
-        val border = attributes.getOrDefault("border", "false") as String
-        val newWin = attributes.getOrDefault("newWin", defaultValue = "false") as String
-        val content = reader.read()
-        var width = attributes.getOrDefault("width", "") as String
-        val boxWidthIncrease = attributes.getOrDefault("boxWidthIncrease", "50") as String
-        val lineSize = attributes.getOrDefault("lineSize", "90") as String
-        val role = attributes.getOrDefault("role", "center") as String
-        val table = attributes.getOrDefault("table", "false") as String
+        val content = subContent(reader, parent, localDebug)
+        val remoteServer = parent.document.attributes["panel-server"]
+        remoteServer?.let {
+            server = remoteServer as String
+        }
+        val remoteWebserver = parent.document.attributes["panel-webserver"]
+        remoteWebserver?.let {
+            webserver = it as String
+        }
+        val scale = attributes.getOrDefault("scale", "1.0") as String
+        val block: Block = createBlock(parent, "open", null as String?)
+        val title = attributes.getOrDefault("title", "") as String
         val backend = parent.document.getAttribute("backend") as String
-        val isPdf = "pdf" == backend
+        val role = attributes.getOrDefault("role", "center") as String
+        val idea = parent.document.getAttribute("env", "") as String
+        val ideaOn = "idea".equals(idea, true)
+        val lineSize = attributes.getOrDefault("lineSize", "90") as String
+
+        val newWin = attributes.getOrDefault("newWin", defaultValue = "false") as String
         val config = AdrParserConfig(
             newWin = newWin.toBoolean(),
-            isPdf = isPdf,
+            isPdf = "pdf" == backend,
             lineSize = lineSize.toInt(),
-            increaseWidthBy = boxWidthIncrease.toInt()
+            increaseWidthBy =5
         )
-        val idea = parent.document.getAttribute("env", "") as String
-
         if (serverPresent(server, parent, this, localDebug)) {
+            var type = "SVG"
+            if ("pdf" == backend) {
+                type = "PDF"
+            }
             val payload: String = try {
                 compressString(content)
             } catch (e: Exception) {
                 log(LogRecord(Severity.ERROR, parent.sourceLocation, e.message))
                 ""
             }
-            var widthNum = 970
-            if (width.isNotEmpty()) {
-                val pct = BigDecimal(width.substring(0, width.length - 1))
-                val fact = pct.divide(BigDecimal(100))
-                widthNum = fact.multiply(BigDecimal(widthNum)).intValueExact()
+            var opts = "format=svg,opts=inline,align='$role'"
+            if (ideaOn) {
+                opts = ""
             }
-            val url = "$server/api/adr?type=${isPdf}&data=$payload&increaseWidth=$boxWidthIncrease&file=xyz.svg"
-            val svgBlock = createBlock(parent, "open", "", HashMap(), HashMap<Any, Any>())
-            if (table.toBoolean()) {
-                val linesArray = mutableListOf<String>()
-                // language=asciidoc
-                linesArray.add("""[cols="1",role="$role",$width,frame="none"]""")
-                linesArray.add("|===")
-                linesArray.add("")
-                linesArray.add("a|image::$url[format=svg,width=\"$widthNum\",role=\"$role\",opts=\"inline\",align=\"$role\"]")
-                linesArray.add("")
-                linesArray.add("|===")
-                parseContent(svgBlock, linesArray)
-            } else if(isPdf) {
+            val lines = mutableListOf<String>()
+            if (ideaOn) {
+                val url = "$webserver/api/adr?type=SVG&data=$payload&increaseWidth=5&title=${title.encodeUrl()}&scale=$scale&file=xyz.svg"
                 val image = getContentFromServer(url, parent, this, debug = localDebug)
-                val dataUri = "data:image/svg+xml;base64," + Base64.getEncoder().encodeToString(image.toByteArray())
-                val imageBlock = produceBlock(dataUri, filename, parent, widthNum.toString(), role)
-                svgBlock.blocks.add(imageBlock)
+                return createImageBlockFromString(parent, image, role, "970")
             } else {
-                val image = getContentFromServer(url, parent, this, debug = localDebug)
-                val align = mutableMapOf<String, String>(
-                    "right" to "margin-left: auto; margin-right: 0;",
-                    "left" to "",
-                    "center" to "margin: auto;"
-                )
-                val center = align[role.lowercase()]
-                val imageContent: String = """
-                    <div class="openblock">
-                    <div class="content" style="width: $width;padding: 10px;$center">
-                    $image
-                    </div>
-                    </div>
-                   """
-                return createBlock(parent, "pass", imageContent)
+                val url = "image::$webserver/api/adr?type=SVG&data=$payload&title=${title.encodeUrl()}&scale=$scale&increaseWidth=5&file=xyz.svg[$opts]"
+                if (localDebug) {
+                    println(url)
+                }
+                lines.addAll(url.lines())
+                parseContent(block, lines)
             }
-
-            return svgBlock
         }
-        return null
+        return block
     }
 
-    private fun produceBlock(
-        dataSrc: String, filename: String, parent: StructuralNode, width: String, role: Any
-    ): Block {
+    private fun createImageBlockFromString(parent: StructuralNode, svg: String, role: String, width: String): Block {
 
-        val svgMap = mutableMapOf<String, Any>(
-            "role" to "center",
-            "align" to "$role",
-            "width" to width,
-            "target" to dataSrc,
-            "alt" to "IMG not available",
-            "title" to "Figure. $filename",
-            "opts" to "interactive",
-            "format" to "svg"
+        val align = mutableMapOf(
+            "right" to "margin-left: auto; margin-right: 0;",
+            "left" to "",
+            "center" to "margin: auto;"
         )
-        return this.createBlock(parent, "image", "", svgMap, HashMap())
+        val center = align[role.lowercase()]
+        val content: String = """
+            <div class="openblock">
+            <div class="content" style="width: $width;padding: 10px;$center">
+            $svg
+            </div>
+            </div>
+        """.trimIndent()
+        return createBlock(parent, "pass", content)
     }
+
 
     private fun errorReport(msg: String?, config: AdrParserConfig): String {
         msg?.let {
@@ -224,4 +203,33 @@ fun compressString(body: String): String {
     }
     val bytes = baos.toByteArray()
     return Base64.getUrlEncoder().encodeToString(bytes)
+}
+
+fun subContent(reader: Reader, parent: StructuralNode, debug: Boolean = false): String {
+    val content = reader.read()
+    return subs(content, parent, debug)
+}
+
+fun subs(content: String, parent: StructuralNode, debug: Boolean = false): String {
+    val pattern = """#\[.*?]""".toRegex()
+    val res = pattern.findAll(content)
+    var localContent = content
+    res.forEach {
+        val subValue = parent.document.attributes[it.value.replace("#[", "").replace("]", "").lowercase()]
+        val key = it.value
+        if (debug) {
+            println("Text Substitution for $key & value to replace $subValue")
+        }
+        if (subValue != null) {
+            subValue as String
+            localContent = localContent.replace(key, subValue)
+            if (debug) {
+                println("content after substituting $key -> $localContent")
+            }
+        }
+    }
+    return localContent
+}
+fun String.encodeUrl(): String {
+    return URLEncoder.encode(this, StandardCharsets.UTF_8.toString())
 }
