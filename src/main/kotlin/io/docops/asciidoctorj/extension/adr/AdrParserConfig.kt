@@ -20,5 +20,6 @@ data class AdrParserConfig (
     val lineSize: Int = 110,
     val newWin : Boolean = false,
     val isPdf: Boolean = false,
+    val scale: Float = 1.0f,
     val increaseWidthBy: Int = 0
 )

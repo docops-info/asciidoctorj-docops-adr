@@ -2,7 +2,7 @@
 Steve D Roach
 :email: sroachst@gmail.com
 :stylesdir: styles
-:stylesheet: asciidoctor.css
+:stylesheet: lumen-foundation.css
 :toc: left
 :sectnums:
 :title-page:
@@ -11,7 +11,7 @@ Steve D Roach
 :imagesdir: images
 :data-uri:
 :title-page-background-image: images/coverpage.svg
-
+:icons: font
 
 == What is it?
 
@@ -126,7 +126,7 @@ http://127.0.0.1:8000/src/main/docs/123.adr
 
 [WARNING]
 ====
-Only adr files can be processes. Recommend using adr files and include as you can version control this file.
+Only adr files can be processed. Recommend using adr files and include as you can version control this file.
 ====
 
 [source,asciidoc]
