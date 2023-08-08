@@ -13,6 +13,7 @@ Steve D Roach
 :title-page-background-image: images/coverpage.svg
 :icons: font
 
+[[top]]
 == What is it?
 
 An Architectural Decision (AD) is a software design choice that addresses a functional or non-functional requirement that is architecturally significant.
@@ -33,6 +34,7 @@ include::123.adr[] <4>
 <3> border-use shadowed border or not
 <4> file that contains the adr format
 
+link:adr.html#top[Top]
 
 === ADR Format
 
@@ -53,6 +55,8 @@ Participants: Architect,Engineer <6>
 <5> Consequences
 <6> Participants (optional)
 
+link:adr.html#top[Top]
+
 === First Example
 
 - Contents of 123.adr
@@ -61,7 +65,7 @@ Participants: Architect,Engineer <6>
 ....
 include::123.adr[]
 ....
-
+link:adr.html#top[Top]
 
 === Resulting ADR
 
@@ -70,12 +74,16 @@ include::123.adr[]
 include::123.adr[]
 ----
 
+link:adr.html#top[Top]
+
 ==== New Window Test
 
 [adr,test4,border=false, width="70%",newWin=false]
 ----
 include::456.adr[]
 ----
+
+link:adr.html#top[Top]
 
 .Source for Non New Window
 
@@ -94,18 +102,22 @@ include::456.adr[] <1>
 include::012.adr[]
 ----
 
+link:adr.html#top[Top]
 
 .Superseded
 [adr,test7,border=false,width="70%",alternate="true"]
 ----
 include::345.adr[]
 ----
+link:adr.html#top[Top]
 
 .Rejected
 [adr,test8,border=true, newWin=true,width="60%", role=left]
 ----
 include::789.adr[]
 ----
+
+link:adr.html#top[Top]
 
 <1> Included adr file
 
