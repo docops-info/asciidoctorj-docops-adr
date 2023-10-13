@@ -34,15 +34,15 @@ class AdrMakerNext {
     fun status(adr: Adr, adrParserConfig: AdrParserConfig): String {
         //language=svg
         return """
-            <text x="20" y="55"  class="glass"  style="font-size: 12px;" fill="#000000">Status:</text>
-            <text x="77" y="55"  style="font-weight: normal; font-size: 12px;" fill="#fcfcfc">${adr.status}</text>
-            <text x="200" y="55"  class="glass"  style="font-size: 12px;" fill="#000000">Date:</text>
-            <text x="245" y="55"  style="font-size: 12px;" fill="#fcfcfc">${adr.date}</text>
+            <text x="20" y="55" style="font-size: 14px;fill: #000000; font-variant: small-caps; font-weight: bold;">Status:</text>
+            <text x="77" y="55" style="font-weight: normal; font-size: 12px;" fill="#fcfcfc">${adr.status}</text>
+            <text x="200" y="55" style="font-size: 14px;fill: #000000; font-variant: small-caps; font-weight: bold;">Date:</text>
+            <text x="245" y="55" style="font-size: 12px;" fill="#fcfcfc">${adr.date}</text>
         """
     }
 
     fun context(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20"  class="glass" style="font-size: 12px;"  text-decoration="underline">Context</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-size: 14px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Context</tspan>""")
         adr.context.forEach {  s ->
             if(s.isEmpty()) {
                 sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
@@ -53,7 +53,7 @@ class AdrMakerNext {
         return sb
     }
     fun decision(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20" class="glass" style="font-size: 12px;"  text-decoration="underline">Decision</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20"  style="font-size: 14px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Decision</tspan>""")
         adr.decision.forEach {  s ->
             if(s.isEmpty()) {
                 sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
@@ -64,7 +64,7 @@ class AdrMakerNext {
         return sb
     }
     fun consequences(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20" class="glass" style="font-size: 12px;"  text-decoration="underline">Consequences</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-size: 14px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Consequences</tspan>""")
         adr.consequences.forEach {  s ->
             if(s.isEmpty()) {
                 sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
@@ -75,7 +75,7 @@ class AdrMakerNext {
         return sb
     }
     fun participants(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20" class="glass" style="font-size: 12px;"  text-decoration="underline">Participants</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20"  style="font-size: 14px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Participants</tspan>""")
         adr.participants.forEach {  s ->
             sb.append("""<tspan x="14" dy="20">$s</tspan>""")
         }
@@ -92,29 +92,29 @@ class AdrMakerNext {
      >
     <defs>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="0%" y2="100%">
-            <stop offset="100%" stop-color="#2986cc"/>
-            <stop offset="50%" stop-color="#5ea4d8"/>
             <stop offset="0%" stop-color="#94c2e5"/>
+            <stop offset="50%" stop-color="#5ea4d8"/>
+            <stop offset="100%" stop-color="#2986cc"/>
         </linearGradient>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Accepted-gradient" x2="0%" y2="100%">
-            <stop offset="100%" stop-color="#38761d"/>
-            <stop offset="50%" stop-color="#699855"/>
             <stop offset="0%" stop-color="#9bba8e"/>
+            <stop offset="50%" stop-color="#699855"/>
+            <stop offset="100%" stop-color="#38761d"/>
         </linearGradient>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Superseded-gradient" x2="0%" y2="100%">
-            <stop offset="100%" stop-color="#F5C344"/>
-            <stop offset="50%" stop-color="#f7d272"/>
             <stop offset="0%" stop-color="#fae1a1"/>
+            <stop offset="50%" stop-color="#f7d272"/>
+            <stop offset="100%" stop-color="#F5C344"/>
         </linearGradient>        
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Deprecated-gradient" x2="0%" y2="100%">
-            <stop offset="100%" stop-color="#EA9999"/>
-            <stop offset="50%" stop-color="#efb2b2"/>
             <stop offset="0%" stop-color="#f4cccc"/>
+            <stop offset="50%" stop-color="#efb2b2"/>
+            <stop offset="100%" stop-color="#EA9999"/>
         </linearGradient>        
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Rejected-gradient" x2="0%" y2="100%">
-            <stop offset="100%" stop-color="#CB444A"/>
-            <stop offset="50%" stop-color="#d87277"/>
             <stop offset="0%" stop-color="#e5a1a4"/>
+            <stop offset="50%" stop-color="#d87277"/>
+            <stop offset="100%" stop-color="#CB444A"/>
         </linearGradient>
         <filter id="dropshadow" height="130%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
