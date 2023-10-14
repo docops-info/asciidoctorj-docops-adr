@@ -1,8 +1,7 @@
 <?xml version="1.0" standalone="no"?>
-<svg id="adr" xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial"
-     viewBox="0 0 659 600" width="659" height="568"
->
+<svg id="adr" xmlns="http://www.w3.org/2000/svg" width='725.0' height='685.0'
+     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 700.0 640.0"
+     >
     <defs>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#94c2e5"/>
@@ -14,22 +13,20 @@
             <stop offset="50%" stop-color="#699855"/>
             <stop offset="100%" stop-color="#38761d"/>
         </linearGradient>
-        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Superseded-gradient"
-                        x2="0%" y2="100%" >
-            <stop offset="100%" stop-color="#F5C344"/>
-            <stop offset="50%" stop-color="#f7d272"/>
-
+        <linearGradient xmlns="http://www.w3.org/2000/svg" id="Superseded-gradient" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#fae1a1"/>
-        </linearGradient>
+            <stop offset="50%" stop-color="#f7d272"/>
+            <stop offset="100%" stop-color="#F5C344"/>
+        </linearGradient>        
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Deprecated-gradient" x2="0%" y2="100%">
             <stop offset="0%" stop-color="#f4cccc"/>
             <stop offset="50%" stop-color="#efb2b2"/>
             <stop offset="100%" stop-color="#EA9999"/>
-        </linearGradient>
+        </linearGradient>        
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Rejected-gradient" x2="0%" y2="100%">
-            <stop offset="100%" stop-color="#CB444A"/>
-            <stop offset="50%" stop-color="#d87277"/>
             <stop offset="0%" stop-color="#e5a1a4"/>
+            <stop offset="50%" stop-color="#d87277"/>
+            <stop offset="100%" stop-color="#CB444A"/>
         </linearGradient>
         <filter id="dropshadow" height="130%">
             <feGaussianBlur in="SourceAlpha" stdDeviation="3"/> <!-- stdDeviation is how much to blur -->
@@ -42,7 +39,7 @@
                 <feMergeNode in="SourceGraphic"/> <!-- this contains the element that the filter is applied to -->
             </feMerge>
         </filter>
-        <filter xmlns="http://www.w3.org/2000/svg" id="MyFilter">
+<filter xmlns="http://www.w3.org/2000/svg" id="MyFilter">
             <feGaussianBlur in="SourceAlpha" stdDeviation="4" result="blur"/>
             <feOffset in="blur" dx="4" dy="4" result="offsetBlur"/>
             <feSpecularLighting in="blur" surfaceScale="5" specularConstant="1" specularExponent="10"
@@ -91,105 +88,96 @@
         </filter>
     </defs>
     <style>
-        .adrlink {
-            fill: blue; /* Even for text, SVG uses fill over color */
-            text-decoration: underline;
-        }
+    .adrlink { fill: blue; text-decoration: underline; }
+    .adrlink:hover, .adrlink:active { outline: dotted 1px blue; }
+        
+    .glass {
+    overflow: hidden;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    background-image: radial-gradient(circle at center, rgba(0, 167, 225, 0.25), rgba(0, 110, 149, 0.5));
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 2px rgba(0, 0, 0, 0.3), inset 0 -6px 6px -3px rgba(0, 129, 174, 0.2);
+    position: relative;
+}
 
-        .adrlink:hover, .adrlink:active {
-            outline: dotted 1px blue;
-        }
+.glass:after {
+    content: "";
+    background: rgba(0, 167, 225, 0.2);
+    display: block;
+    position: absolute;
+    z-index: 0;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(3px) saturate(400%);
+    -webkit-backdrop-filter: blur(3px) saturate(400%);
+}
+
+.glass:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: calc(100% - 4px);
+    height: 35px;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0));
+    top: 2px;
+    left: 2px;
+    border-radius: 30px 30px 200px 200px;
+    opacity: 0.7;
+}
+
+.glass:hover {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+}
+
+.glass:hover:before {
+    opacity: 1;
+}
+
+.glass:active {
+    text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.75), inset 0 0 0 2px rgba(0, 0, 0, 0.3), inset 0 -6px 6px -3px rgba(0, 129, 174, 0.2);
+}
+
+.glass:active:before {
+    height: 25px;
+}
     </style>
-    <path d="M 0 22.0
+    <g transform='translate(5,5),scale(1.0)'>
+   <path d="M 0 22.0 
  A 22.0 22.0 0 0 1 22.0 0
- L 628.0 0
- A 22.0 22.0 0 0 1 650.0 22.0
- L 650.0 543.0
- A 22.0 22.0 0 0 1 628.0 565.0
- L 22.0 565.0
- A 22.0 22.0 0 0 1 0 543.0
- Z" fill="#ffffff" stroke="url(#Superseded-gradient)"/>
-    <path d="M 0 22.0
+ L 668.0 0
+ A 22.0 22.0 0 0 1 690.0 22.0
+ L 690.0 618.0
+ A 22.0 22.0 0 0 1 668.0 640.0
+ L 22.0 640.0
+ A 22.0 22.0 0 0 1 0 618.0
+ Z" fill="#ffffff"  stroke="url(#Superseded-gradient)" stroke-width='3'/>
+   <path d="M 0 22.0 
  A 22.0 22.0 0 0 1 22.0 0
- L 628.0 0
- A 22.0 22.0 0 0 1 650.0 22.0
- L 650.0 70.0
- A 0.0 0.0 0 0 1 650.0 70.0
+ L 668.0 0
+ A 22.0 22.0 0 0 1 690.0 22.0
+ L 690.0 70.0
+ A 0.0 0.0 0 0 1 690.0 70.0
  L 0.0 70.0
  A 0.0 0.0 0 0 1 0 70.0
- Z" fill="url(#Superseded-gradient)"  filter="url(#buttonBlur)"/>
-
-    <text x="300" y="30" text-anchor="middle" fill="#000" opacity="0.25" style="font-weight: bold; font-size: 16px;">Use
-        Solr for Structured Data Search
-    </text>
-    <text x="299" y="29" text-anchor="middle" style="font-weight: bold; font-size: 16px;">Use Solr for Structured Data
-        Search
-    </text>
-    <text x="20" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Status:</text>
-    <text x="77" y="55" style="font-weight: normal; font-size: 12px;" fill="#000000">Superseded</text>
-    <text x="200" y="55" style="font-weight: bold; font-size: 12px;" fill="#000000">Date:</text>
-    <text x="245" y="55" style="font-size: 12px;" fill="#000000">November 24th, 2010</text>
-    <rect id="buttontop" x="5" y="4" width="640" height="35" ry="18" rx="18" fill="url(#topshineGrad)" filter="url(#topshineBlur)"/>
-    <rect id="buttonbottom" x="5" y="50" width="640" height="10" fill="#ffffff" ry="18" rx="18" fill-opacity="0.3" filter="url(#bottomshine)"/>
-
-    <text x="14" y="85" style="font-weight: normal; font-size: 11px;">
-        <tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;" text-decoration="underline">Context</tspan>
-        <tspan x="14" dy="20">Solr and Elasticsearch are both open source search engines. Both can be used to search
-            large amounts of data
-        </tspan>
-        <tspan x="14" dy="20">quickly and accurately. While Solr uses a SQL-like query language, Elasticsearch has a
-            full-text search
-        </tspan>
-        <tspan x="14" dy="20">engine and is designed for distributed search and analytics. Elasticsearch also allows for
-            faster
-        </tspan>
-        <tspan x="14" dy="20">indexing and more advanced search replicas. Both technologies have strengths and
-            weaknesses and are
-        </tspan>
-        <tspan x="14" dy="20">often used in combination for enterprise-level search. There is a need of having an API
-            exposed which can be
-        </tspan>
-        <tspan x="14" dy="20">used to search structured data. The Data currently resides in RDBMS, it is difficult to
-            expose
-        </tspan>
-        <tspan x="14" dy="20">micro-service directly querying out of RDBMS databases since the application runs out of
-            the same
-        </tspan>
-        <tspan x="14" dy="20">environment. There are options like
-            <tspan>
-                <a href="https://www.elastic.co" xlink:href="https://www.elastic.co" class="adrlink" target="_top">
-                    ElasticSearch
-                </a>
-            </tspan>
-            and Solr where data can be replicated. These solutions provide out
-        </tspan>
-        <tspan x="14" dy="20">of the box capabilities that can be leveraged by developers without needed to build
-            RESTful or GraphQL type
-        </tspan>
-        <tspan x="14" dy="20">APIs.</tspan>
-        <tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;" text-decoration="underline">Decision</tspan>
-        <tspan x="14" dy="20">Use
-            <tspan>
-                <a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" class="adrlink" target="_top">
-                    Solr
-                </a>
-            </tspan>
-            for data indexing. This use is because Solr has high performance throughput with large volume of
-        </tspan>
-        <tspan x="14" dy="20">data. Unstructured data can also be supported. If this decision does not meet the need
-            then additional PoC
-        </tspan>
-        <tspan x="14" dy="20">will be created.</tspan>
-        <tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;" text-decoration="underline">Consequences
-        </tspan>
-        <tspan x="14" dy="20">Data Needs to be replicated across the solr cloud instances. This Solr cloud needs
-            maintenance. Near
-        </tspan>
-        <tspan x="14" dy="20">realtime data replication is required Additional Cost of maintaining the Solr Cloud
-            environment.
-        </tspan>
-        <tspan x="14" dy="20" style="font-weight: bold; font-size: 12px;" text-decoration="underline">Participants
-        </tspan>
-        <tspan x="14" dy="20">Roach,Rose,Duffy</tspan>
-    </text>
+ Z" fill="url(#Superseded-gradient)" filter="url(#dropshadow)" />
+   <path d="M 0 22.0 
+ A 22.0 22.0 0 0 1 22.0 0
+ L 668.0 0
+ A 22.0 22.0 0 0 1 690.0 22.0
+ L 690.0 70.0
+ A 0.0 0.0 0 0 1 690.0 70.0
+ L 0.0 70.0
+ A 0.0 0.0 0 0 1 0 70.0
+ Z" fill="url(#Superseded-gradient)" filter="url(#buttonBlur)" />
+   
+    <text x="310" y="30" text-anchor="middle" fill="#fcfcfc"  class="glass"  style="font-weight: bold; font-size: 16px;">Use Solr for Structured Data Search</text>
+            <text x="20" y="55" style="font-size: 18px;fill: #000000; font-variant: small-caps; font-weight: bold;">Status:</text>
+            <text x="80" y="55" style="font-weight: normal; font-size: 14px;" fill="#fcfcfc">Superseded</text>
+            <text x="200" y="55" style="font-size: 18px;fill: #000000; font-variant: small-caps; font-weight: bold;">Date:</text>
+            <text x="245" y="55" style="font-size: 14px;" fill="#fcfcfc">November 24th, 2010</text>
+        <text x="14" y="85" style="font-weight: normal; font-size: 14px;"><tspan x="14" dy="20" style="font-size: 18px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Context</tspan><tspan x="14" dy="20">Solr and Elasticsearch are both open source search engines. Both can be used to search large </tspan><tspan x="14" dy="20">amounts of data quickly and accurately. While Solr uses a SQL-like query language, </tspan><tspan x="14" dy="20">Elasticsearch has a full-text search engine and is designed for distributed search and </tspan><tspan x="14" dy="20">analytics. Elasticsearch also allows for faster indexing and more advanced search replicas. </tspan><tspan x="14" dy="20">Both technologies have strengths and weaknesses and are often used in combination for </tspan><tspan x="14" dy="20">enterprise-level search. There is a need of having an API exposed which can be used to search </tspan><tspan x="14" dy="20">structured data. The Data currently resides in RDBMS, it is difficult to expose micro-service </tspan><tspan x="14" dy="20">directly querying out of RDBMS databases since the application runs out of the same </tspan><tspan x="14" dy="20">environment. There are options like <tspan><a href="https://www.elastic.co" xlink:href="https://www.elastic.co" class="adrlink" target="_top">ElasticSearch</a></tspan> and Solr where data can be replicated. These solutions </tspan><tspan x="14" dy="20">provide out of the box capabilities that can be leveraged by developers without needed to build </tspan><tspan x="14" dy="20">RESTful or GraphQL type APIs. </tspan><tspan x="14" dy="20">&#160;</tspan><tspan x="14" dy="20"  style="font-size: 18px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Decision</tspan><tspan x="14" dy="20">Use <tspan><a href="https://solr.apache.org/" xlink:href="https://solr.apache.org/" class="adrlink" target="_top">Solr</a></tspan> for data indexing. This use is because Solr has high performance throughput with large </tspan><tspan x="14" dy="20">volume of data. Unstructured data can also be supported. If this decision does not meet the need </tspan><tspan x="14" dy="20">then additional PoC will be created. </tspan><tspan x="14" dy="20">&#160;</tspan><tspan x="14" dy="20" style="font-size: 18px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Consequences</tspan><tspan x="14" dy="20">Data Needs to be replicated across the solr cloud instances. This Solr cloud needs </tspan><tspan x="14" dy="20">maintenance. Near realtime data replication is required Additional Cost of maintaining the </tspan><tspan x="14" dy="20">Solr Cloud environment. </tspan><tspan x="14" dy="20">&#160;</tspan><tspan x="14" dy="20"  style="font-size: 18px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Participants</tspan><tspan x="14" dy="20">Roach,Rose,Duffy </tspan></text>
+    </g>
 </svg>

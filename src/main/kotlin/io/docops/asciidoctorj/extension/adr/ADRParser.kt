@@ -263,6 +263,7 @@ fun generateRectPathData(width: Float, height: Float, topLetRound:Float, topRigh
  Z"""
 }
 fun main() {
+    val config = AdrParserConfig(newWin = false, lineSize = 80, increaseWidthBy = 70)
     val adr = ADRParser().parse(
         // language=text
         """
@@ -283,9 +284,9 @@ This Solr cloud needs maintenance.
 Near realtime data replication is required Additional Cost of maintaining the Solr Cloud environment.
 Participants:Roach,Rose,Duffy
         """.trimIndent(),
-        AdrParserConfig(newWin = false, lineSize = 90, increaseWidthBy = 50)
+        config
     )
-    var svg = (AdrMakerNext().makeAdrSvg(adr, false, AdrParserConfig(newWin = false, lineSize = 90, increaseWidthBy = 50)))
+    var svg = (AdrMakerNext().makeAdrSvg(adr, false, config))
     adr.urlMap.forEach { (t, u) ->
         svg = svg.replace("_${t}_", u)
     }

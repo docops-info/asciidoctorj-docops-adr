@@ -82,7 +82,7 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         try {
             val response = client.send(request, HttpResponse.BodyHandlers.ofString())
             if (200 == response.statusCode()) {
-                val adr = ADRParser().parse(response.body(), AdrParserConfig())
+                val adr = ADRParser().parse(response.body(), AdrParserConfig(lineSize = 70, increaseWidthBy = 80))
                 val div = if("pdf" == backend) {
                    adr.status
                 } else {
@@ -99,7 +99,7 @@ class AdrSummaryBlockProcessor : BlockProcessor() {
         return lines
     }
     private fun buildDiv(adr: Adr): String {
-        var svg = AdrMakerNext().makeAdrSvg(adr, config = AdrParserConfig(newWin = false, lineSize = 75))
+        var svg = AdrMakerNext().makeAdrSvg(adr, config = AdrParserConfig(newWin = false, lineSize = 70, increaseWidthBy = 80))
         adr.urlMap.forEach { (t, u) ->
             svg = svg.replace("_${t}_", u)
         }

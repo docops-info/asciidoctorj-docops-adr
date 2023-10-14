@@ -11,7 +11,7 @@ class AdrMakerNext {
 
         sb.append(title(adr.title, width))
         sb.append(status(adr, config))
-        sb.append("""<text x="14" y="85" style="font-weight: normal; font-size: 11px;">""")
+        sb.append("""<text x="14" y="85" style="font-weight: normal; font-size: 14px;">""")
         sb.append(context(adr,config))
         sb.append(decision(adr,config))
         sb.append(consequences(adr,config))
@@ -34,15 +34,15 @@ class AdrMakerNext {
     fun status(adr: Adr, adrParserConfig: AdrParserConfig): String {
         //language=svg
         return """
-            <text x="20" y="55" style="font-size: 14px;fill: #000000; font-variant: small-caps; font-weight: bold;">Status:</text>
-            <text x="77" y="55" style="font-weight: normal; font-size: 12px;" fill="#fcfcfc">${adr.status}</text>
-            <text x="200" y="55" style="font-size: 14px;fill: #000000; font-variant: small-caps; font-weight: bold;">Date:</text>
-            <text x="245" y="55" style="font-size: 12px;" fill="#fcfcfc">${adr.date}</text>
+            <text x="20" y="55" style="font-size: 18px;fill: #000000; font-variant: small-caps; font-weight: bold;">Status:</text>
+            <text x="85" y="55" style="font-weight: normal; font-size: 14px;" fill="#fcfcfc">${adr.status}</text>
+            <text x="200" y="55" style="font-size: 18px;fill: #000000; font-variant: small-caps; font-weight: bold;">Date:</text>
+            <text x="250" y="55" style="font-size: 14px;" fill="#fcfcfc">${adr.date}</text>
         """
     }
 
     fun context(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-size: 14px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Context</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-size: 18px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Context</tspan>""")
         adr.context.forEach {  s ->
             if(s.isEmpty()) {
                 sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
@@ -53,7 +53,7 @@ class AdrMakerNext {
         return sb
     }
     fun decision(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20"  style="font-size: 14px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Decision</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20"  style="font-size: 18px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Decision</tspan>""")
         adr.decision.forEach {  s ->
             if(s.isEmpty()) {
                 sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
@@ -64,7 +64,7 @@ class AdrMakerNext {
         return sb
     }
     fun consequences(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-size: 14px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Consequences</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20" style="font-size: 18px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Consequences</tspan>""")
         adr.consequences.forEach {  s ->
             if(s.isEmpty()) {
                 sb.append("""<tspan x="14" dy="20">&#160;</tspan>""")
@@ -75,7 +75,7 @@ class AdrMakerNext {
         return sb
     }
     fun participants(adr: Adr, config: AdrParserConfig): StringBuilder {
-        val sb = StringBuilder("""<tspan x="14" dy="20"  style="font-size: 14px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Participants</tspan>""")
+        val sb = StringBuilder("""<tspan x="14" dy="20"  style="font-size: 18px;fill: #512B81; font-variant: small-caps; font-weight: bold;"  text-decoration="underline">Participants</tspan>""")
         adr.participants.forEach {  s ->
             sb.append("""<tspan x="14" dy="20">$s</tspan>""")
         }

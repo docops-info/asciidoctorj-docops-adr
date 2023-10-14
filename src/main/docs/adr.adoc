@@ -69,7 +69,7 @@ link:adr.html#top[Top]
 
 === Resulting ADR
 
-[adr,test3,width="60%", newWin=true]
+[adr,test3, newWin=true, increaseWidth="80",lineSize="80"]
 ----
 include::123.adr[]
 ----
@@ -78,7 +78,7 @@ link:adr.html#top[Top]
 
 ==== New Window Test
 
-[adr,test4,border=false, width="70%",newWin=false]
+[adr,test4,border=false,newWin=false, increaseWidth="80",lineSize="80"]
 ----
 include::456.adr[]
 ----
@@ -89,7 +89,7 @@ link:adr.html#top[Top]
 
 [source,asciidoc]
 -----
-[adr,test4,border=true, width="80%",role="left", newWin=false, boxWidthIncrease="20"]
+[adr,test4,border=true, role="left", newWin=false, increaseWidth="80"]
 ----
 include::456.adr[] <1>
 ----
@@ -97,7 +97,7 @@ include::456.adr[] <1>
 
 
 .Proposed
-[adr,test6,border=true,width="60%",boxWidthIncrease="20",role="right"]
+[adr,test6,border=true,increaseWidth="80",role="right", lineSize="80"]
 ----
 include::012.adr[]
 ----
@@ -105,14 +105,14 @@ include::012.adr[]
 link:adr.html#top[Top]
 
 .Superseded
-[adr,test7,border=false,width="70%",alternate="true"]
+[adr,test7,border=false,alternate="true",increaseWidth="80", lineSize="80"]
 ----
 include::345.adr[]
 ----
 link:adr.html#top[Top]
 
 .Rejected
-[adr,test8,border=true, newWin=true,width="60%", role=left]
+[adr,test8,border=true, newWin=true, role=left, increaseWidth="80",lineSize="80"]
 ----
 include::789.adr[]
 ----

@@ -66,14 +66,9 @@ class AdrBlockProcessor : BlockProcessor() {
         val idea = parent.document.getAttribute("env", "") as String
         val ideaOn = "idea".equals(idea, true)
         val lineSize = attributes.getOrDefault("lineSize", "90") as String
+        val increaseWidth = attributes.getOrDefault("increaseWidth", "80") as String
 
         val newWin = attributes.getOrDefault("newWin", defaultValue = "false") as String
-        val config = AdrParserConfig(
-            newWin = newWin.toBoolean(),
-            isPdf = "pdf" == backend,
-            lineSize = lineSize.toInt(),
-            increaseWidthBy =5
-        )
         if (serverPresent(server, parent, this, localDebug)) {
             var type = "SVG"
             if ("pdf" == backend) {
@@ -91,11 +86,11 @@ class AdrBlockProcessor : BlockProcessor() {
             }
             val lines = mutableListOf<String>()
             if (ideaOn) {
-                val url = "$webserver/api/adr?type=SVG&data=$payload&increaseWidth=5&title=${title.encodeUrl()}&scale=$scale&file=xyz.svg"
+                val url = "$webserver/api/adr?type=SVG&data=$payload&increaseWidth=$increaseWidth&title=${title.encodeUrl()}&scale=$scale&file=xyz.svg"
                 val image = getContentFromServer(url, parent, this, debug = localDebug)
                 return createImageBlockFromString(parent, image, role, "970")
             } else {
-                val url = "image::$webserver/api/adr?type=SVG&data=$payload&title=${title.encodeUrl()}&scale=$scale&increaseWidth=5&file=xyz.svg[$opts]"
+                val url = "image::$webserver/api/adr?type=SVG&data=$payload&title=${title.encodeUrl()}&scale=$scale&increaseWidth=$increaseWidth&file=xyz.svg[$opts]"
                 if (localDebug) {
                     println(url)
                 }
