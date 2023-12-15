@@ -1,6 +1,6 @@
 <?xml version="1.0" standalone="no"?>
 <svg id="adr" xmlns="http://www.w3.org/2000/svg" width='725.0' height='685.0'
-     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 700.0 640.0"
+     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 720.0 685.0"
      >
     <defs>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="0%" y2="100%">
@@ -19,8 +19,7 @@
             <stop offset="100%" stop-color="#F5C344"/>
         </linearGradient>        
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Deprecated-gradient" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#f4cccc"/>
-            <stop offset="50%" stop-color="#efb2b2"/>
+            <stop offset="0%" stop-color="#efb2b2"/>
             <stop offset="100%" stop-color="#EA9999"/>
         </linearGradient>        
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Rejected-gradient" x2="0%" y2="100%">
@@ -86,6 +85,10 @@
             <feComposite in="SourceGraphic" in2="specOut2" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"
                          result="litPaint"/>
         </filter>
+        <filter id="filter">
+            <feMorphology in="SourceAlpha" operator="dilate" radius="2" result="OUTLINE"/>
+            <feComposite operator="out" in="OUTLINE" in2="SourceAlpha"/>
+        </filter>
     </defs>
     <style>
     .adrlink { fill: blue; text-decoration: underline; }
@@ -143,37 +146,26 @@
 .glass:active:before {
     height: 25px;
 }
+    .boxText {
+        font-size: 24px;
+        font-family: 'Inter var', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-variant: small-caps;
+        font-weight: bold;
+    }
+    .filtered {
+        filter: url(#filter);
+        fill: black;
+        font-family: 'Ultra', serif;
+        font-size: 100px;
+    }
     </style>
     <g transform='translate(5,5),scale(1.0)'>
-   <path d="M 0 22.0 
- A 22.0 22.0 0 0 1 22.0 0
- L 668.0 0
- A 22.0 22.0 0 0 1 690.0 22.0
- L 690.0 618.0
- A 22.0 22.0 0 0 1 668.0 640.0
- L 22.0 640.0
- A 22.0 22.0 0 0 1 0 618.0
- Z" fill="#ffffff"  stroke="url(#Superseded-gradient)" stroke-width='3'/>
-   <path d="M 0 22.0 
- A 22.0 22.0 0 0 1 22.0 0
- L 668.0 0
- A 22.0 22.0 0 0 1 690.0 22.0
- L 690.0 70.0
- A 0.0 0.0 0 0 1 690.0 70.0
- L 0.0 70.0
- A 0.0 0.0 0 0 1 0 70.0
- Z" fill="url(#Superseded-gradient)" filter="url(#dropshadow)" />
-   <path d="M 0 22.0 
- A 22.0 22.0 0 0 1 22.0 0
- L 668.0 0
- A 22.0 22.0 0 0 1 690.0 22.0
- L 690.0 70.0
- A 0.0 0.0 0 0 1 690.0 70.0
- L 0.0 70.0
- A 0.0 0.0 0 0 1 0 70.0
- Z" fill="url(#Superseded-gradient)" filter="url(#buttonBlur)" />
+        <rect width="100%" height="100%"  fill="#fcfcfc" stroke-width="7"/>
+
+        <rect fill="url(#Superseded-gradient)" height="70" width="100%"/>
+
    
-    <text x="310" y="30" text-anchor="middle" fill="#fcfcfc"  class="glass"  style="font-weight: bold; font-size: 16px;">Use Solr for Structured Data Search</text>
+    <text x="362" y="30" text-anchor="middle" fill="#fcfcfc"  class="filtered glass boxText"  style="font-size: 24px;font-family: 'Ultra', serif;">Use Solr for Structured Data Search</text>
             <text x="20" y="55" style="font-size: 18px;fill: #000000; font-variant: small-caps; font-weight: bold;">Status:</text>
             <text x="80" y="55" style="font-weight: normal; font-size: 14px;" fill="#fcfcfc">Superseded</text>
             <text x="200" y="55" style="font-size: 18px;fill: #000000; font-variant: small-caps; font-weight: bold;">Date:</text>

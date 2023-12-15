@@ -17,7 +17,7 @@ class AdrSvgOutputTest {
         }.forEach {
             val str = it.readText()
            val adr =ADRParser().parse(str, AdrParserConfig(newWin = false, lineSize = 90, increaseWidthBy = 50))
-           var svg = (AdrMakerNext().makeAdrSvg(adr, false, AdrParserConfig(newWin = false, lineSize = 90, increaseWidthBy = 50, scale = 0.7f)))
+           var svg = (AdrMakerNext().makeAdrSvg(adr, false, AdrParserConfig(newWin = false, lineSize = 90, increaseWidthBy = 50, scale = 1.0f)))
            adr.urlMap.forEach { (t, u) ->
                svg = svg.replace("_${t}_", u)
            }

@@ -6,7 +6,7 @@ class AdrMakerNext {
     private val xIndent = 66
 
     fun makeAdrSvg(adr: Adr, dropShadow: Boolean = true, config: AdrParserConfig) : String {
-        val width = 550 + config.increaseWidthBy
+        val width = 800
         val sb = StringBuilder()
 
         sb.append(title(adr.title, width))
@@ -27,7 +27,7 @@ class AdrMakerNext {
 
     fun title(title: String, width: Int): String {
         return  """
-    <text x="${width/2}" y="30" text-anchor="middle" fill="#fcfcfc"  class="glass"  style="font-weight: bold; font-size: 16px;">$title</text>
+    <text x="${width/2}" y="30" text-anchor="middle" fill="#fcfcfc"  class="filtered glass boxText"  style="font-weight: bold; font-size: 24px;">$title</text>
          """.trimIndent()
     }
 
@@ -35,9 +35,9 @@ class AdrMakerNext {
         //language=svg
         return """
             <text x="20" y="55" style="font-size: 18px;fill: #000000; font-variant: small-caps; font-weight: bold;">Status:</text>
-            <text x="85" y="55" style="font-weight: normal; font-size: 14px;" fill="#fcfcfc">${adr.status}</text>
+            <text x="85" y="54" style="font-weight: normal; font-size: 14px;" fill="#fcfcfc">${adr.status}</text>
             <text x="200" y="55" style="font-size: 18px;fill: #000000; font-variant: small-caps; font-weight: bold;">Date:</text>
-            <text x="250" y="55" style="font-size: 14px;" fill="#fcfcfc">${adr.date}</text>
+            <text x="250" y="54" style="font-size: 14px;" fill="#fcfcfc">${adr.date}</text>
         """
     }
 
@@ -83,37 +83,32 @@ class AdrMakerNext {
     }
     fun svg(body: String, iHeight: Int = 550, iWidth: Int, adr: Adr, config: AdrParserConfig): String {
         val height = maxOf(iHeight, 500)
-        val width = (iWidth + config.increaseWidthBy)
+        val width = 800
         //language=svg
         return """
 <?xml version="1.0" standalone="no"?>
-<svg id="adr" xmlns="http://www.w3.org/2000/svg" width='${(width+35)* config.scale}' height='${(height + 45)*config.scale}'
-     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 ${(width+10)* config.scale} ${height* config.scale}"
+<svg id="adr" xmlns="http://www.w3.org/2000/svg" width='${width}' height='${height}'
+     xmlns:xlink="http://www.w3.org/1999/xlink" font-family="arial" viewBox="0 0 ${(width)} ${height}"
      >
     <defs>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Proposed-gradient" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#94c2e5"/>
-            <stop offset="50%" stop-color="#5ea4d8"/>
+            <stop offset="0%" stop-color="#5ea4d8"/>
             <stop offset="100%" stop-color="#2986cc"/>
         </linearGradient>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Accepted-gradient" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#9bba8e"/>
-            <stop offset="50%" stop-color="#699855"/>
+            <stop offset="0%" stop-color="#699855"/>
             <stop offset="100%" stop-color="#38761d"/>
         </linearGradient>
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Superseded-gradient" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#fae1a1"/>
-            <stop offset="50%" stop-color="#f7d272"/>
+            <stop offset="0%" stop-color="#f7d272"/>
             <stop offset="100%" stop-color="#F5C344"/>
         </linearGradient>        
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Deprecated-gradient" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#f4cccc"/>
-            <stop offset="50%" stop-color="#efb2b2"/>
+            <stop offset="0%" stop-color="#efb2b2"/>
             <stop offset="100%" stop-color="#EA9999"/>
         </linearGradient>        
         <linearGradient xmlns="http://www.w3.org/2000/svg" id="Rejected-gradient" x2="0%" y2="100%">
-            <stop offset="0%" stop-color="#e5a1a4"/>
-            <stop offset="50%" stop-color="#d87277"/>
+            <stop offset="0%" stop-color="#d87277"/>
             <stop offset="100%" stop-color="#CB444A"/>
         </linearGradient>
         <filter id="dropshadow" height="130%">
@@ -174,18 +169,34 @@ class AdrMakerNext {
             <feComposite in="SourceGraphic" in2="specOut2" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"
                          result="litPaint"/>
         </filter>
+        <filter id="filter">
+            <feMorphology in="SourceAlpha" operator="dilate" radius="2" result="OUTLINE"/>
+            <feComposite operator="out" in="OUTLINE" in2="SourceAlpha"/>
+        </filter>
     </defs>
     <style>
     .adrlink { fill: blue; text-decoration: underline; }
     .adrlink:hover, .adrlink:active { outline: dotted 1px blue; }
         
     ${glassStyle()}
+    .boxText {
+        font-size: 24px;
+        font-family: 'Inter var', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        font-variant: small-caps;
+        font-weight: bold;
+    }
+    .filtered {
+        filter: url(#filter);
+        fill: #fcfcfc;
+        font-family: 'Ultra', serif;
+        font-size: 100px;
+    }
     </style>
     <g transform='translate(5,5),scale(${config.scale})'>
-   <path d="${generateRectPathData(width.toFloat(), height.toFloat(), 22.0F, 22.0F,22.0F,22.0F)}" fill="#ffffff"  stroke="url(#${adr.status}-gradient)" stroke-width='3'/>
-   <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#dropshadow)" />
-   <path d="${generateRectPathData(width.toFloat(), 70f, 22.0F, 22.0F,0.0F,0.0F)}" fill="url(#${adr.status}-gradient)" filter="url(#buttonBlur)" />
-   
+    <rect width="100%" height="100%"  fill="#ECECFF" stroke-width="7" fill-opacity='0.4'/>
+
+    <rect fill="url(#${adr.status}-gradient)" height="70" width="100%"/>
+    
     $body
     </g>
 </svg>
