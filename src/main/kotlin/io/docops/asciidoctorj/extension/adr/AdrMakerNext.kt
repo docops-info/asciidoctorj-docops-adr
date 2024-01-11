@@ -1,6 +1,7 @@
 package io.docops.asciidoctorj.extension.adr
 
 import io.docops.asciidoctorj.extension.adr.model.Adr
+import io.docops.asciidoctorj.extension.adr.model.Status
 
 class AdrMakerNext {
     private val xIndent = 66
@@ -80,6 +81,16 @@ class AdrMakerNext {
             sb.append("""<tspan x="14" dy="20">$s</tspan>""")
         }
         return sb
+    }
+    fun bgColorMap(adr: Adr): String {
+        when {
+            Status.Proposed == adr.status -> return "#e0edfc"
+            Status.Accepted == adr.status -> return "#dbf1e1"
+            Status.Superseded == adr.status -> return "#fde29c"
+            Status.Deprecated == adr.status -> return "#ffe4e4"
+            Status.Rejected == adr.status -> return "#fcc7c9"
+        }
+        return "#fcfcfc"
     }
     fun svg(body: String, iHeight: Int = 550, iWidth: Int, adr: Adr, config: AdrParserConfig): String {
         val height = maxOf(iHeight, 500)
@@ -193,7 +204,7 @@ class AdrMakerNext {
     }
     </style>
     <g transform='translate(5,5),scale(${config.scale})'>
-    <rect width="100%" height="100%"  fill="#ECECFF" stroke-width="7" fill-opacity='0.4'/>
+    <rect width="100%" height="100%"  fill="${bgColorMap(adr)}" stroke-width="7" fill-opacity='0.4'/>
 
     <rect fill="url(#${adr.status}-gradient)" height="70" width="100%"/>
     
