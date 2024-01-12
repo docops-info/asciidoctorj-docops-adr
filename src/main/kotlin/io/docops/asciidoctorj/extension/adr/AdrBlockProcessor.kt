@@ -120,9 +120,9 @@ class AdrBlockProcessor : BlockProcessor() {
     }
 
 
-    private fun errorReport(msg: String?, config: AdrParserConfig): String {
+    private fun errorReport(msg: String?): String {
         msg?.let {
-            val lines = msg.addLinebreaks(config.lineSize)
+            val lines = msg.addLinebreaks(110)
             // language=svg
             var svg = """<?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="970" height="550"
@@ -147,7 +147,8 @@ class AdrBlockProcessor : BlockProcessor() {
 <tspan x="20" dy="14" class="content">$it</tspan>
                     """
             }
-            svg += """</text>
+            svg += """
+                </text>
             </svg>
             """
             return svg.trimIndent()
@@ -227,4 +228,46 @@ fun subs(content: String, parent: StructuralNode, debug: Boolean = false): Strin
 }
 fun String.encodeUrl(): String {
     return URLEncoder.encode(this, StandardCharsets.UTF_8.toString())
+}
+
+fun String.addLinebreaks(maxLineLength: Int): MutableList<String> {
+    val list = mutableListOf<String>()
+    val tok = StringTokenizer(this, " ")
+    var output = String()
+    var lineLen = 0
+    while (tok.hasMoreTokens()) {
+        val word = tok.nextToken()
+
+        if(word.contains("nbps;")){
+            println(word)
+        }
+        if (lineLen + word.length > maxLineLength) {
+            list.add(output.escapeXml())
+            output = String()
+            lineLen = 0
+        }
+        output += ("$word ")
+        lineLen += word.length
+    }
+    if (list.size == 0 || lineLen > 0) {
+        list.add(output.escapeXml())
+    }
+    return list
+}
+
+fun String.escapeXml(): String {
+    val sb = StringBuilder()
+    for (element in this) {
+        when (val c: Char = element) {
+            '<' -> sb.append("&lt;")
+            '>' -> sb.append("&gt;")
+            '\"' -> sb.append("&quot;")
+            '&' -> sb.append("&amp;")
+            '\'' -> sb.append("&apos;")
+            else -> if (c.code > 0x7e) {
+                sb.append("&#" + c.code + ";")
+            } else sb.append(c)
+        }
+    }
+    return sb.toString()
 }

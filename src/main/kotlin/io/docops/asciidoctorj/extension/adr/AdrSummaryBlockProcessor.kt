@@ -1,7 +1,5 @@
 package io.docops.asciidoctorj.extension.adr
 
-import io.docops.asciidoctorj.extension.adr.model.Adr
-import io.docops.asciidoctorj.extension.adr.model.Status
 import org.asciidoctor.ast.ContentModel
 import org.asciidoctor.ast.StructuralNode
 import org.asciidoctor.extension.BlockProcessor
@@ -14,7 +12,6 @@ import java.net.http.HttpClient
 import java.net.http.HttpRequest
 import java.net.http.HttpResponse
 import java.time.Duration
-import java.util.*
 
 @Name("adrsummary")
 @Contexts(Contexts.LISTING)
@@ -116,7 +113,7 @@ image::$webserver/api/docops/svg?kind=adr&payload=$comp&scale=1.0&outlineColor=&
         return lines
     }
 
-    private fun getAdrRowFromSource(source: String, parent: StructuralNode, pb: BlockProcessor,): String {
+    private fun getAdrRowFromSource(source: String, parent: StructuralNode, pb: BlockProcessor): String {
         val url = "$server/api/adr/summary/table?payload=$source"
         val content = getContentFromServer(url,  parent, pb, localDebug)
         return content
