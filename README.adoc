@@ -3,8 +3,8 @@
 :data-uri:
 :group: io.docops
 :artifact: asciidoctorj-docops-adr
-:major: 2023
-:minor: .16
+:major: 2024
+:minor: .01
 :patch:
 :build:
 :extension:
@@ -45,6 +45,17 @@ link:https://search.maven.org/remotecontent?filepath=io/docops/{artifact}/{major
 link:build/docs/adr.html[{artifact}.html
 
 == History
+
+2024.01 - 2024-01-15::
+* refactored block macro
+* removed extension
+* refactored status
+* jvm21
+* kotlin 1.9.22
+
+.2023 Version History
+[%collapsible]
+====
 
 2023.16 - 2023-12-22::
 * page view updates
@@ -97,6 +108,8 @@ link:build/docs/adr.html[{artifact}.html
 
 2023.00 - 2023-01-07::
 * Hygiene and currency
+
+====
 
 .2022 Version History
 [%collapsible]
